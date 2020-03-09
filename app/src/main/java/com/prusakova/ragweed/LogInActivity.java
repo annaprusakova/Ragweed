@@ -46,6 +46,7 @@ public class LogInActivity extends AppCompatActivity {
                     //delete this lately
                     if (value.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
                         TextEmail.setError(message);
+                        startActivity(new Intent(LogInActivity.this, ProfileActivity.class));
                         Toast.makeText(LogInActivity.this, "you have entered username" + TextEmail.getText().toString() + "Password " + TextPassword.getText().toString(), Toast.LENGTH_LONG).show();
                     }
                 }else {
