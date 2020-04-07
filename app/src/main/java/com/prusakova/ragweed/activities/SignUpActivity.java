@@ -2,12 +2,14 @@ package com.prusakova.ragweed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +38,14 @@ public class SignUpActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_sign_up);
 
+
         sqliteHelper = new DatabaseHelper(this);
         TextUserName = (EditText) findViewById(R.id.edittext_username);
         TextEmail = (EditText) findViewById(R.id.edittext_email_signup);
         TextPassword = (EditText) findViewById(R.id.edittext_password_signup);
         ButtonSignUp = (FloatingActionButton) findViewById(R.id.button_signup);
         TextViewLogIn = (TextView) findViewById(R.id.textview_signin);
+
 
         ButtonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +142,6 @@ public class SignUpActivity extends AppCompatActivity {
         }
         return valid;
     }
-
 
 
 
