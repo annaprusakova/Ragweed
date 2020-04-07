@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_profile"
-    tools:context=".ProfileActivity">
+    android:background="@drawable/profile3"
+    tools:context=".activities.ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -66,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"
+                android:layout_marginEnd="100dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -89,6 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"
+                android:layout_marginEnd="100dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -112,7 +114,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"
+                android:layout_marginEnd="100dp"
                 android:layout_marginTop="10dp"
+                android:onClick="OpenMedicinesPage"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -125,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
+
                     android:text="Ліки"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -135,6 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"
+                android:layout_marginEnd="100dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -158,6 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"
+                android:layout_marginEnd="100dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -181,6 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"
+                android:layout_marginEnd="100dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 

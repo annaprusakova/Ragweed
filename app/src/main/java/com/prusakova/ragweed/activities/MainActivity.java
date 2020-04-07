@@ -1,4 +1,4 @@
-package com.prusakova.ragweed;
+package com.prusakova.ragweed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -7,9 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.prusakova.ragweed.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView[] mDots;
 
-    private SlideLayoutActivity slideAdapter;
+    private SlideAdapter slideAdapter;
 
     private TextView mNext;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mNext = (TextView) findViewById(R.id.textview_next);
 
 
-        slideAdapter = new SlideLayoutActivity(this);
+        slideAdapter = new SlideAdapter(this);
 
         mSlideViewPage.setAdapter(slideAdapter);
 

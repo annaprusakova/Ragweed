@@ -1,4 +1,4 @@
-package com.prusakova.ragweed;
+package com.prusakova.ragweed.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +14,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SlideLayoutActivity extends PagerAdapter {
+import com.prusakova.ragweed.R;
+
+public class SlideAdapter extends PagerAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
 
 
-    public SlideLayoutActivity(Context context){
+    public SlideAdapter(Context context){
         this.context = context;
     }
 
@@ -49,7 +51,7 @@ public class SlideLayoutActivity extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == (ConstraintLayout) object;
+        return view == (RelativeLayout) object;
     }
 
     @NonNull
@@ -75,6 +77,6 @@ public class SlideLayoutActivity extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 
-        container.removeView((ConstraintLayout) object);
+        container.removeView((RelativeLayout) object);
     }
 }

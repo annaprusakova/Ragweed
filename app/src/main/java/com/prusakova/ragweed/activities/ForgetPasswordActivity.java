@@ -1,4 +1,4 @@
-package com.prusakova.ragweed;
+package com.prusakova.ragweed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.prusakova.ragweed.R;
+
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     TextView TextViewLogIn;
     EditText TextEmail;
-    Button ButtonFPassword;
+    FloatingActionButton ButtonFPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
         TextViewLogIn = (TextView) findViewById(R.id.textview_signin_fpassword);
         TextEmail = (EditText) findViewById(R.id.edittext_email_fp);
-        ButtonFPassword = (Button) findViewById(R.id.button_fpassword);
+        ButtonFPassword = (FloatingActionButton) findViewById(R.id.button_fpassword);
 
         //go to login
         TextViewLogIn.setOnClickListener(new View.OnClickListener() {
