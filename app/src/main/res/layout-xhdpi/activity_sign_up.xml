@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.SignUpActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SignUpActivity">
+    android:fillViewport="false"
+    android:background="@drawable/background_image_one_signup"
+   >
 
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_image_one_signup"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -37,15 +32,15 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="bottom"
         android:orientation="vertical"
+        android:paddingTop="230dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
       >
 
 
@@ -57,12 +52,11 @@
             android:layout_marginEnd="30dp"
             android:background="@null"
             android:backgroundTint="@android:color/transparent"
-            android:hint="Ім'я"
+            android:hint="ім'я"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"/>
-
+            android:textColorHint="@android:color/white" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -81,7 +75,7 @@
             android:layout_marginEnd="30dp"
             android:background="@null"
             android:backgroundTint="@android:color/transparent"
-            android:hint="Пошта"
+            android:hint="пошта"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textColor="@android:color/white"
@@ -103,7 +97,31 @@
             android:layout_marginEnd="30dp"
             android:background="@null"
             android:backgroundTint="@android:color/transparent"
-            android:hint="Пароль"
+            android:hint="пароль"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorTransparentWhite"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="30dp"
+            android:background="#B1B1B1" />
+
+        <EditText
+            android:id="@+id/edittext_password_confirm_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@null"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="підтвердження пароля"
             android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@android:color/white"
@@ -176,5 +194,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+

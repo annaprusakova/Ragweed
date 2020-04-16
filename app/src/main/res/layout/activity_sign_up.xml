@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SignUpActivity">
+    tools:context=".activities.SignUpActivity"
+   >
+
+
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
@@ -39,7 +43,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@android:color/transparent"
-            android:hint="Ім'я"
+            android:hint="ім'я"
             android:background="@null"
             android:inputType="textEmailAddress"
             android:padding="15dp"
@@ -61,7 +65,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@android:color/transparent"
-            android:hint="Пошта"
+            android:hint="пошта"
             android:background="@null"
             android:inputType="textEmailAddress"
             android:padding="15dp"
@@ -83,7 +87,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@android:color/transparent"
-            android:hint="Пароль"
+            android:hint="пароль"
             android:inputType="textPassword"
             android:background="@null"
             android:padding="15dp"
@@ -156,5 +160,4 @@
 
         </RelativeLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

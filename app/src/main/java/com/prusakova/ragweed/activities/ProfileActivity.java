@@ -24,8 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
     LinearLayout layoutTracker;
     LinearLayout layoutArticles;
     LinearLayout layoutSettings;
-    LinearLayout layoutLogOut;
-    AlertDialog.Builder builder;
+
 
 
 
@@ -41,41 +40,9 @@ public class ProfileActivity extends AppCompatActivity {
         layoutTracker = (LinearLayout) findViewById(R.id.tracker_layout);
         layoutArticles = (LinearLayout) findViewById(R.id.articles_layout);
         layoutSettings = (LinearLayout) findViewById(R.id.setting_layout);
-        layoutLogOut = (LinearLayout) findViewById(R.id.logout_layout);
-        builder = new AlertDialog.Builder(this);
 
-        layoutLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Uncomment the below code to Set the message and title from the strings.xml file
-                builder.setMessage(R.string.dialog_message) .setTitle(R.string.dialog_title);
 
-                //Setting message manually and performing action on button click
-                builder.setMessage("Ви дійсно хочете вийти з профілю?")
-                        .setCancelable(false)
-                        .setPositiveButton("Так", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        finish();
-                                    }
-                                }, Snackbar.LENGTH_LONG);
-                            }
-                        })
-                        .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //  Action for 'NO' Button
-                                dialog.cancel();
-                            }
-                        });
-                //Creating dialog box
-                AlertDialog alert = builder.create();
-                //Setting the title manually
-                alert.setTitle("Вихід");
-                alert.show();
-            }
-        });
+
 
     }
 

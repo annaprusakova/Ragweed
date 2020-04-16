@@ -12,12 +12,10 @@
         <activity android:name=".activities.MedicinesActivity" />
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.ForgetPasswordActivity" />
-        <activity android:name=".activities.SignUpActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.LogInActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".activities.MainActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

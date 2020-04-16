@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile3"
+    android:background="@drawable/background_profile"
     tools:context=".activities.ProfileActivity">
 
     <RelativeLayout
@@ -17,22 +17,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <FrameLayout
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_profile"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:layout_marginBottom="10dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/picture_plant" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/round" />
-
-            </FrameLayout>
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorPrimaryDark"
+                android:src="@drawable/picture_plant"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"/>
 
 
             <TextView
@@ -66,14 +59,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/border"
+                android:background="@drawable/border_profile_menu"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/map1" />
+                    android:src="@drawable/icon_map" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -88,7 +81,7 @@
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="200dp"
-                    android:src="@drawable/arrow_go_profile" />
+                    android:src="@drawable/arrow_go_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,13 +91,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/border"
+                android:background="@drawable/border_profile_menu"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/mess1" />
+                    android:src="@drawable/icon_mess" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,7 +112,7 @@
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="125dp"
-                    android:src="@drawable/arrow_go_profile" />
+                    android:src="@drawable/arrow_go_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -129,14 +122,14 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/border"
+                android:background="@drawable/border_profile_menu"
                 android:onClick="OpenMedicinesPage"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/med" />
+                    android:src="@drawable/icon_med" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -151,7 +144,7 @@
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="210dp"
-                    android:src="@drawable/arrow_go_profile" />
+                    android:src="@drawable/arrow_go_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -161,13 +154,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/border"
+                android:background="@drawable/border_profile_menu"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/track" />
+                    android:src="@drawable/icon_track" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -181,7 +174,7 @@
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="185dp"
-                    android:src="@drawable/arrow_go_profile" />
+                    android:src="@drawable/arrow_go_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -191,13 +184,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/border"
+                android:background="@drawable/border_profile_menu"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/article1" />
+                    android:src="@drawable/icon_articles" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,7 +205,7 @@
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="190dp"
-                    android:src="@drawable/arrow_go_profile" />
+                    android:src="@drawable/arrow_go_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -222,13 +215,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/border"
+                android:background="@drawable/border_profile_menu"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/setting" />
+                    android:src="@drawable/icon_setting" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -243,43 +236,10 @@
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="120dp"
-                    android:src="@drawable/arrow_go_profile" />
+                    android:src="@drawable/arrow_go_right" />
             </LinearLayout>
 
-
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="610dp"
-        >
-        <LinearLayout
-            android:id="@+id/logout_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="270dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="30dp"
-            android:text="Вихід"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="3dp"
-            android:src="@drawable/logout"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -66,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
+     //User table SQL
     public long addUser(String username, String email, String password) {
         //get writable database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -83,7 +83,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return res;
     }
-
 
     public boolean Authenticate(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -114,8 +113,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //if cursor has value then in user database there is user associated with this given email so return true
             return true;
         }
-        //if email does not exist return false
+        //if email does icon_notification exist return false
         return false;
     }
+
+    //Medicine table SQL
 
 }
