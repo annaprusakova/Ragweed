@@ -50,4 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(new Intent(ProfileActivity.this, MedicinesActivity.class));
     }
 
+    public void OpenSettingPage(View view){
+        startActivity(new Intent(ProfileActivity.this, SettingActivity.class));
+    }
+
 }

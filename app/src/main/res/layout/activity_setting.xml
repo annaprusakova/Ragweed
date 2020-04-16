@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:textColor="@color/contentTextColor"
             android:textStyle="bold"
-            android:textSize="25sp"
+            android:textSize="30sp"
             android:text="Налаштування" />
 
         <RelativeLayout
@@ -43,7 +43,7 @@
                 android:text="Anna Prusakova"
                 android:textColor="@color/contentTextColor"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:layout_toRightOf="@id/profileCircleImageView"
                 android:layout_marginTop="35dp"/>
 
@@ -55,35 +55,39 @@
             android:layout_width="match_parent"
             android:textColor="#5D5C5C"
             android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:layout_marginTop="50dp"
             android:text="Профіль"/>
 
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
-
+            android:textSize="18sp"
             android:drawableLeft="@drawable/icon_edit_profile"
             android:text="Редагувати профіль" />
 
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
             android:drawableLeft="@drawable/icon_password"
+            android:textSize="18sp"
             android:layout_marginTop="10dp"
             android:text="Пароль" />
 
         <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"
+            android:textSize="18sp"
             android:text="Сповіщення"/>
 
         <Switch
             style="@style/settingsText"
-            android:theme="@style/SwitchTheme"
             android:checked="true"
+            android:textSize="18sp"
             android:drawableLeft="@drawable/icon_notification"
-            android:text="Сповіщення" />
+            android:text="Сповіщення"
+            android:theme="@style/SwitchTheme" />
 
         <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"
+            android:textSize="18sp"
             android:text="Інше"/>
 
 
@@ -91,6 +95,7 @@
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
             android:id="@+id/logout_app"
+            android:textSize="18sp"
             android:drawableLeft="@drawable/icon_exit"
             android:text="Вихід" />
 

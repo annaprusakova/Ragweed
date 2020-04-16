@@ -2,6 +2,7 @@ package com.prusakova.ragweed.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -43,6 +44,12 @@ public class SettingActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         finish();
+                                        Intent launchNextActivity = new Intent(SettingActivity.this, LogInActivity.class);
+                                        launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        startActivity(launchNextActivity);
+
                                     }
                                 }, Snackbar.LENGTH_LONG);
                             }
