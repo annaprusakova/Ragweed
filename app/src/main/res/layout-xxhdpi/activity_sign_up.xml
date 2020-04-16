@@ -79,18 +79,18 @@
         <EditText
             android:id="@+id/edittext_password_signup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="27dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:background="@null"
             android:backgroundTint="@android:color/transparent"
             android:hint="пароль"
             android:inputType="textPassword"
-            android:background="@null"
             android:padding="15dp"
-            app:passwordToggleTint="@color/colorTransparentWhite"
-            app:passwordToggleEnabled="true"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColorHint="@android:color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorTransparentWhite" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -114,12 +114,12 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/button_bg_round"
                 android:src="@drawable/round_arrow_forward_24"
-                android:backgroundTint="#415936"
-                android:tint="@android:color/white"
+                app:backgroundTint="@color/colorPrimaryDark"
                 android:elevation="0dp"
                 app:elevation="0dp"
+                app:fabCustomSize="80dp"
+                app:rippleColor="@color/colorAccent"
                 tools:ignore="RelativeOverlap" />
 
             <TextView

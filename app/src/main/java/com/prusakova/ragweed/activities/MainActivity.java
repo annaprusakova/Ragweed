@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SlideAdapter slideAdapter;
 
-    private TextView mNext;
+    private com.google.android.material.button.MaterialButton mNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         mSlideViewPage = (ViewPager) findViewById(R.id.slideViewPager);
         mDotLayout = (LinearLayout) findViewById(R.id.dotsLayout);
-        mNext = (TextView) findViewById(R.id.textview_next);
+        mNext = (com.google.android.material.button.MaterialButton) findViewById(R.id.textview_next);
 
 
         slideAdapter = new SlideAdapter(this);

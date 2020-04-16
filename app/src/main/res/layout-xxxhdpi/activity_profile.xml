@@ -51,21 +51,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="260dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/map_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/border_profile_menu"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/icon_map" />
 
                 <TextView
@@ -73,30 +75,38 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
+                    android:textColor="@color/contentTextColor"
                     android:text="Карта"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="200dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="230dp"
                     android:src="@drawable/arrow_go_right" />
+
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:background="#CCCCCC"/>
 
             <LinearLayout
                 android:id="@+id/message_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/border_profile_menu"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/icon_mess" />
 
                 <TextView
@@ -104,31 +114,39 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
+                    android:textColor="@color/contentTextColor"
                     android:text="Повідомлення"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="125dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="155dp"
                     android:src="@drawable/arrow_go_right" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:background="#CCCCCC"/>
 
             <LinearLayout
                 android:id="@+id/medicines_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/border_profile_menu"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+
                 android:onClick="OpenMedicinesPage"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/icon_med" />
 
                 <TextView
@@ -137,29 +155,36 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:text="Ліки"
+                    android:textColor="@color/contentTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="210dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="240dp"
                     android:src="@drawable/arrow_go_right" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:background="#CCCCCC"/>
 
             <LinearLayout
                 android:id="@+id/tracker_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/border_profile_menu"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/icon_track" />
 
                 <TextView
@@ -167,29 +192,36 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
+                    android:textColor="@color/contentTextColor"
                     android:text="Трекер"
                     android:textSize="18sp"
                     android:textStyle="bold" />
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="185dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="215dp"
                     android:src="@drawable/arrow_go_right" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:background="#CCCCCC"/>
 
             <LinearLayout
                 android:id="@+id/articles_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/border_profile_menu"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/icon_articles" />
 
                 <TextView
@@ -197,31 +229,38 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
+                    android:textColor="@color/contentTextColor"
                     android:text="Статті"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="190dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="220dp"
                     android:src="@drawable/arrow_go_right" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:background="#CCCCCC"/>
 
             <LinearLayout
                 android:id="@+id/setting_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="8dp"
                 android:onClick="OpenSettingPage"
-                android:background="@drawable/border_profile_menu"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/icon_setting" />
 
                 <TextView
@@ -229,16 +268,24 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
+                    android:textColor="@color/contentTextColor"
                     android:text="Налаштування"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="120dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="150dp"
                     android:src="@drawable/arrow_go_right" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="5dp"
+                android:background="#CCCCCC"/>
 
         </LinearLayout>
     </RelativeLayout>
