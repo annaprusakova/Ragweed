@@ -29,6 +29,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
 
+
         textViewExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,5 +69,10 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    public void BacktoProfile(View view) {
+        startActivity(new Intent(SettingActivity.this, ProfileActivity.class));
     }
 }

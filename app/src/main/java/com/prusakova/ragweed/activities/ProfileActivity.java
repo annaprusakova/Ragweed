@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.prusakova.ragweed.BottomMenu;
 import com.prusakova.ragweed.R;
 
 
@@ -50,8 +51,13 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(new Intent(ProfileActivity.this, MedicinesActivity.class));
     }
 
-    public void OpenSettingPage(View view){
+      public void OpenSettingPage(View view){
         startActivity(new Intent(ProfileActivity.this, SettingActivity.class));
     }
+
+    public void OpenMenuPage(View view){
+        startActivity(new Intent(ProfileActivity.this, BottomMenu.class));
+    }
+
 
 }

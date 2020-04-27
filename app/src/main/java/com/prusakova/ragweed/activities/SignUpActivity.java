@@ -11,22 +11,40 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.model.User;
 import com.prusakova.ragweed.sql.DatabaseHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText TextUserName;
-    EditText TextEmail;
-    EditText TextPassword;
-    FloatingActionButton ButtonSignUp;
-    TextView TextViewLogIn;
+    private EditText TextUserName;
+    private EditText TextEmail;
+    private EditText TextPassword;
+    private EditText TextPasswordConfirm;
+    private  FloatingActionButton ButtonSignUp;
+    private TextView TextViewLogIn;
+    private ProgressBar loading;
+    private static String URL_REGIST ="http:/192.168.1.2/android_register_login/register.php";
+
 
 
     DatabaseHelper sqliteHelper;
@@ -43,36 +61,39 @@ public class SignUpActivity extends AppCompatActivity {
         TextUserName = (EditText) findViewById(R.id.edittext_username);
         TextEmail = (EditText) findViewById(R.id.edittext_email_signup);
         TextPassword = (EditText) findViewById(R.id.edittext_password_signup);
+        TextPasswordConfirm = (EditText) findViewById(R.id.edittext_password_confirm_signup);
         ButtonSignUp = (FloatingActionButton) findViewById(R.id.button_signup);
         TextViewLogIn = (TextView) findViewById(R.id.textview_signin);
+        loading = findViewById(R.id.loading_signup);
 
 
 
         ButtonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Regist();
 
-                if (validateUserName() && validateEmail() && validatePassword()) {
-                    String user = TextUserName.getText().toString();
-                    String email = TextEmail.getText().toString();
-                    String password = TextPassword.getText().toString();
-                    if (!sqliteHelper.isEmailExists(email)) {
-                        sqliteHelper.addUser(user, email, password);
-                        Toast.makeText(SignUpActivity.this, "Ви зареєстровані!", Toast.LENGTH_SHORT).show();
-                        Intent moveToLogin = new Intent(SignUpActivity.this, LogInActivity.class);
-                        startActivity(moveToLogin);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, Snackbar.LENGTH_LONG);
-
-                    } else {
-                        Toast.makeText(SignUpActivity.this, "Електронна адреса вже існує", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
+//                if (validateUserName() && validateEmail() && validatePassword()) {
+//                    String user = TextUserName.getText().toString();
+//                    String email = TextEmail.getText().toString();
+//                    String password = TextPassword.getText().toString();
+//                    if (!sqliteHelper.isEmailExists(email)) {
+//                        sqliteHelper.addUser(user, email, password);
+//                        Toast.makeText(SignUpActivity.this, "Ви зареєстровані!", Toast.LENGTH_SHORT).show();
+//                        Intent moveToLogin = new Intent(SignUpActivity.this, LogInActivity.class);
+//                        startActivity(moveToLogin);
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                finish();
+//                            }
+//                        }, Snackbar.LENGTH_LONG);
+//
+//                    } else {
+//                        Toast.makeText(SignUpActivity.this, "Електронна адреса вже існує", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                }
             }
 
         });
@@ -154,4 +175,56 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
+
+    private void Regist(){
+        loading.setVisibility(View.VISIBLE);
+        ButtonSignUp.setVisibility(View.GONE);
+
+        final String name = TextUserName.getText().toString().trim();
+        final String email = TextEmail.getText().toString().trim();
+        final String password = TextPassword.getText().toString().trim();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGIST,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if(success.equals("1")){
+                                Toast.makeText(SignUpActivity.this, "Register success ",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                            Toast.makeText(SignUpActivity.this, "Register fail " + e.toString(),Toast.LENGTH_SHORT).show();
+                            loading.setVisibility(View.GONE);
+                            ButtonSignUp.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(SignUpActivity.this, "Register fail " + error.toString(),Toast.LENGTH_SHORT).show();
+                        loading.setVisibility(View.GONE);
+                        ButtonSignUp.setVisibility(View.VISIBLE);
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", name);
+                params.put("email", email);
+                params.put("password", password);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
 }

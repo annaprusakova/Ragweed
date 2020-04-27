@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/icon_map"
+        android:title="Карта" />
+
+    <item
+        android:id="@+id/navigation_messages"
+        android:icon="@drawable/icon_mess"
+        android:title="Повідомлення" />
+
+
+    <item
+        android:id="@+id/navigation_tracker"
+        android:icon="@drawable/icon_track"
+        android:title="Трекер" />
+
+    <item
+        android:id="@+id/navigation_articles"
+        android:icon="@drawable/icon_articles"
+        android:title="Статті" />
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/icon_setting"
+        android:title="Налаштування" />
+
+
+</menu>

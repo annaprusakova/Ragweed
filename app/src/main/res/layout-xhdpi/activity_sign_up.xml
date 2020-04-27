@@ -192,8 +192,16 @@
                 android:textStyle="bold" />
 
         </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/loading_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
