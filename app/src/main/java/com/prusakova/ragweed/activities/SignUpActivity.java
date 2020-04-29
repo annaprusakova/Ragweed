@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
     private  FloatingActionButton ButtonSignUp;
     private TextView TextViewLogIn;
     private ProgressBar loading;
-    private static String URL_REGIST ="http:/192.168.1.2/android_register_login/register.php";
+    private static String URL_REGIST ="http://192.168.1.6/api/register.php";
 
 
 

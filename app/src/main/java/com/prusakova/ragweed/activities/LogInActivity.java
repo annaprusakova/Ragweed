@@ -11,9 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.R;
-import com.prusakova.ragweed.model.User;
 import com.prusakova.ragweed.sql.DatabaseHelper;
 
 public class LogInActivity extends AppCompatActivity {

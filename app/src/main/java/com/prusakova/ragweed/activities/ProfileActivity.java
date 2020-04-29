@@ -1,31 +1,18 @@
 package com.prusakova.ragweed.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.view.MenuItem;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.prusakova.ragweed.BottomMenu;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.fragments.SettingFragment;
 
 
-public class ProfileActivity extends AppCompatActivity {
-    ImageView    imageProfile;
-    LinearLayout layoutMap;
-    LinearLayout layoutMessages;
-    LinearLayout layoutMedicines;
-    LinearLayout layoutTracker;
-    LinearLayout layoutArticles;
-    LinearLayout layoutSettings;
-
+public class ProfileActivity extends AppCompatActivity  implements BottomNavigationView.OnNavigationItemSelectedListener{
 
 
 
@@ -34,30 +21,57 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        imageProfile = (ImageView) findViewById(R.id.image_profile);
-        layoutMap = (LinearLayout) findViewById(R.id.map_layout);
-        layoutMessages = (LinearLayout) findViewById(R.id.message_layout);
-        layoutMedicines = (LinearLayout) findViewById(R.id.medicines_layout);
-        layoutTracker = (LinearLayout) findViewById(R.id.tracker_layout);
-        layoutArticles = (LinearLayout) findViewById(R.id.articles_layout);
-        layoutSettings = (LinearLayout) findViewById(R.id.setting_layout);
+        //loading the default fragment
+        loadFragment(new SettingFragment());
 
-
-
+        //getting bottom navigation view and attaching the listener
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(this);
+        navigation.setSelectedItemId(R.id.navigation_setting);
 
     }
 
-    public void OpenMedicinesPage(View view) {
-        startActivity(new Intent(ProfileActivity.this, MedicinesActivity.class));
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+
+        switch (item.getItemId()) {
+            case R.id.navigation_map:
+
+                break;
+
+            case R.id.navigation_messages:
+
+                break;
+
+            case R.id.navigation_tracker:
+
+                break;
+
+            case R.id.navigation_articles:
+
+                break;
+            case R.id.navigation_setting:
+                fragment = new SettingFragment();
+                break;
+        }
+
+        return loadFragment(fragment);
     }
 
-      public void OpenSettingPage(View view){
-        startActivity(new Intent(ProfileActivity.this, SettingActivity.class));
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
-    public void OpenMenuPage(View view){
-        startActivity(new Intent(ProfileActivity.this, BottomMenu.class));
-    }
 
 
 }

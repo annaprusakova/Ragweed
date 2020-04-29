@@ -13,4 +13,5 @@
     <color name="miniTitle">#2A2E43</color>
     <color name="design_default_color_error">#8C473B</color>
     <color name="contentGrey">#8C8C8C</color>
+    <color name="white_40"> #EEFFFA</color>
 </resources>

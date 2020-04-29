@@ -5,16 +5,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.prusakova.ragweed.activities.LogInActivity;
-import com.prusakova.ragweed.activities.ProfileActivity;
-import com.prusakova.ragweed.activities.SettingActivity;
+import com.prusakova.ragweed.fragments.SettingFragment;
 
 public class BottomMenu extends AppCompatActivity {
 
@@ -58,7 +55,7 @@ public class BottomMenu extends AppCompatActivity {
                     toolbar.setTitle("Статті");
                     return true;
                 case R.id.navigation_setting:
-                    Intent a = new Intent(BottomMenu.this, SettingActivity.class);
+                    Intent a = new Intent(BottomMenu.this, SettingFragment.class);
                     startActivity(a);
                     break;
 

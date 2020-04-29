@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_map"
-        android:icon="@drawable/icon_map"
+        android:icon="@color/select_item_location"
         android:title="Карта" />
 
     <item
         android:id="@+id/navigation_messages"
-        android:icon="@drawable/icon_mess"
+        android:icon="@color/select_item_message"
         android:title="Повідомлення" />
 
 
     <item
         android:id="@+id/navigation_tracker"
-        android:icon="@drawable/icon_track"
+        android:icon="@color/select_item_tracker"
         android:title="Трекер" />
 
     <item
         android:id="@+id/navigation_articles"
-        android:icon="@drawable/icon_articles"
+        android:icon="@color/select_item_articles"
         android:title="Статті" />
     <item
         android:id="@+id/navigation_setting"
-        android:icon="@drawable/icon_setting"
+        android:icon="@color/select_item_setting"
         android:title="Налаштування" />
 
 

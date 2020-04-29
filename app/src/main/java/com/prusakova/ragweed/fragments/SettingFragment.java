@@ -1,34 +1,42 @@
-package com.prusakova.ragweed.activities;
+package com.prusakova.ragweed.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.activities.LogInActivity;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingFragment extends Fragment {
 
     TextView textViewExit;
 
     AlertDialog.Builder builder;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-        textViewExit = (TextView) findViewById(R.id.logout_app);
-
-        builder = new AlertDialog.Builder(this);
-
-
-
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //just change the fragment_dashboard
+        //with the fragment you want to inflate
+        //like if the class is HomeFragment it should have R.layout.home_fragment
+        //if it is DashboardFragment it should have R.layout.fragment_dashboard
+       View view =  inflater.inflate(R.layout.setting_fragment, null);
+        textViewExit = (TextView)  view.findViewById(R.id.logout_app);
+        builder = new AlertDialog.Builder(view.getContext());
 
         textViewExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +52,8 @@ public class SettingActivity extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        finish();
-                                        Intent launchNextActivity = new Intent(SettingActivity.this, LogInActivity.class);
+                                        getActivity().finish();
+                                        Intent launchNextActivity = new Intent(getActivity(), LogInActivity.class);
                                         launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -69,10 +77,8 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        return view;
     }
 
 
-    public void BacktoProfile(View view) {
-        startActivity(new Intent(SettingActivity.this, ProfileActivity.class));
-    }
 }
