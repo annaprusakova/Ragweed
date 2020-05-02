@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Gravity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -15,15 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.prusakova.ragweed.Api;
+import com.prusakova.ragweed.ApiClient;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.model.User;
 import com.prusakova.ragweed.sql.DatabaseHelper;
@@ -34,6 +28,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText TextUserName;
@@ -42,10 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText TextPasswordConfirm;
     private  FloatingActionButton ButtonSignUp;
     private TextView TextViewLogIn;
-    private ProgressBar loading;
-    private static String URL_REGIST ="http://192.168.1.6/api/register.php";
-
-
+    final String registerUrl = "http://192.168.1.6/api/register.php";
 
     DatabaseHelper sqliteHelper;
 
@@ -58,42 +53,22 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         sqliteHelper = new DatabaseHelper(this);
+
         TextUserName = (EditText) findViewById(R.id.edittext_username);
         TextEmail = (EditText) findViewById(R.id.edittext_email_signup);
         TextPassword = (EditText) findViewById(R.id.edittext_password_signup);
         TextPasswordConfirm = (EditText) findViewById(R.id.edittext_password_confirm_signup);
         ButtonSignUp = (FloatingActionButton) findViewById(R.id.button_signup);
         TextViewLogIn = (TextView) findViewById(R.id.textview_signin);
-        loading = findViewById(R.id.loading_signup);
+
 
 
 
         ButtonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Regist();
+                validateUserData();
 
-//                if (validateUserName() && validateEmail() && validatePassword()) {
-//                    String user = TextUserName.getText().toString();
-//                    String email = TextEmail.getText().toString();
-//                    String password = TextPassword.getText().toString();
-//                    if (!sqliteHelper.isEmailExists(email)) {
-//                        sqliteHelper.addUser(user, email, password);
-//                        Toast.makeText(SignUpActivity.this, "Ви зареєстровані!", Toast.LENGTH_SHORT).show();
-//                        Intent moveToLogin = new Intent(SignUpActivity.this, LogInActivity.class);
-//                        startActivity(moveToLogin);
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                finish();
-//                            }
-//                        }, Snackbar.LENGTH_LONG);
-//
-//                    } else {
-//                        Toast.makeText(SignUpActivity.this, "Електронна адреса вже існує", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                }
             }
 
         });
@@ -108,123 +83,91 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    //This method is used to validate input given by user
-    public boolean validateUserName() {
-        boolean valid = false;
 
-        String UserName = TextUserName.getText().toString();
 
-        //Handling validation for UserName field
-        if (UserName.isEmpty()) {
-            valid = false;
-            TextUserName.setError("Будь ласка, введіть ім'я користувача!");
-        } else {
-            if (UserName.length() > 5) {
-                valid = true;
-                TextUserName.setError(null);
-            } else {
-                valid = false;
-                TextUserName.setError("ім'я користувача дуже коротке!");
-            }
 
+    private void validateUserData() {
+
+        //find values
+        final String reg_name =  TextUserName.getText().toString();
+        final String reg_email = TextEmail.getText().toString();
+        final String reg_password =  TextPassword.getText().toString();
+        final String reg_cpassword = TextPasswordConfirm.getText().toString();
+
+
+//        checking if username is empty
+        if (TextUtils.isEmpty(reg_name)) {
+            TextUserName.setError("Please enter username");
+            TextUserName.requestFocus();
+            return;
         }
-        return valid;
-    }
-    public boolean validateEmail() {
-        boolean valid = false;
-
-        String Email = TextEmail.getText().toString();
-
-        //Handling validation for Email field
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
-            valid = false;
-            TextEmail.setError("Будь ласка, введіть коректну адресу електронної пошти!");
-        } else {
-            valid = true;
-            TextEmail.setError(null);
+        //checking if email is empty
+        if (TextUtils.isEmpty(reg_email)) {
+            TextEmail.setError("Please enter email");
+            TextEmail.requestFocus();
+            return;
         }
-        return valid;
-    }
-    public boolean validatePassword() {
-        boolean valid = false;
-
-        String Password = TextPassword.getText().toString();
-        //Handling validation for Password field
-        if (Password.isEmpty()) {
-            valid = false;
-            TextPassword.setError("Будь ласка, введіть пароль!");
-        } else {
-            if (Password.length() > 5) {
-                valid = true;
-                TextPassword.setError(null);
-            } else {
-                valid = false;
-                TextPassword.setError("Пароль дуже короткий!");
-            }
+        //checking if password is empty
+        if (TextUtils.isEmpty(reg_password)) {
+           TextPassword.setError("Please enter password");
+            TextPassword.requestFocus();
+            return;
         }
-        return valid;
+        //validating email
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(reg_email).matches()) {
+            TextEmail.setError("Enter a valid email");
+            TextEmail.requestFocus();
+            return;
+        }
+        //checking if password matches
+        if (!reg_password.equals(reg_cpassword)) {
+            TextPassword.setError("Password Does not Match");
+            TextPassword.requestFocus();
+            return;
+        }
+
+        //After Validating we register User
+        registerUser(reg_name,reg_email,reg_password);
+
     }
 
-
-    public void showSoftKeyboard(View view) {
-        if (view.requestFocus()) {
-            InputMethodManager imm = (InputMethodManager)
-                    getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
-    }
+    private void registerUser(String user_name, String user_mail, String user_pass) {
 
 
+        final String reg_username = TextUserName.getText().toString();
+        final String reg_email = TextEmail.getText().toString();
+        final String reg_password = TextPassword.getText().toString();
 
-    private void Regist(){
-        loading.setVisibility(View.VISIBLE);
-        ButtonSignUp.setVisibility(View.GONE);
+        //call retrofit
+        //making api call
+        Api api = ApiClient.getClient().create(Api.class);
+        Call<User> login = api.register(user_name, user_mail, user_pass);
 
-        final String name = TextUserName.getText().toString().trim();
-        final String email = TextEmail.getText().toString().trim();
-        final String password = TextPassword.getText().toString().trim();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGIST,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-
-                            if(success.equals("1")){
-                                Toast.makeText(SignUpActivity.this, "Register success ",Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e){
-                            e.printStackTrace();
-                            Toast.makeText(SignUpActivity.this, "Register fail " + e.toString(),Toast.LENGTH_SHORT).show();
-                            loading.setVisibility(View.GONE);
-                            ButtonSignUp.setVisibility(View.VISIBLE);
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SignUpActivity.this, "Register fail " + error.toString(),Toast.LENGTH_SHORT).show();
-                        loading.setVisibility(View.GONE);
-                        ButtonSignUp.setVisibility(View.VISIBLE);
-                    }
-                })
-        {
+        login.enqueue(new Callback<User>() {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", password);
-                return params;
-            }
-        };
+            public void onResponse(Call<User> call, Response<User> response) {
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+                if (response.body().getIsSuccess() == 1) {
+                    //get username
+                    String user = response.body().getName();
+                    Toast.makeText(SignUpActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
+                } else {
+                    Toast.makeText(SignUpActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(SignUpActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
+
+
+
 }
