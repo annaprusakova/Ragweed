@@ -15,5 +15,5 @@ public interface Api {
 
     @POST("login.php")
     @FormUrlEncoded
-    Call<User> login(@Field("name") String name, @Field("password") String password);
+    Call<User> login(@Field("email") String email, @Field("password") String password);
 }

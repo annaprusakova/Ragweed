@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -11,8 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.prusakova.ragweed.Api;
+import com.prusakova.ragweed.ApiClient;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.SharedPref;
+import com.prusakova.ragweed.model.User;
 import com.prusakova.ragweed.sql.DatabaseHelper;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -22,7 +31,7 @@ public class LogInActivity extends AppCompatActivity {
     TextView TextViewRegister;
     TextView TextViewForgotPassword;
 
-    DatabaseHelper sqliteHelper;
+    final String loginURL = "http://192.168.1.6/api/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +40,6 @@ public class LogInActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_log_in);
 
-        sqliteHelper = new DatabaseHelper(this);
         TextEmail = (EditText) findViewById(R.id.edittext_email);
         TextPassword = (EditText) findViewById(R.id.edittext_password);
         ButtonLogin = (FloatingActionButton) findViewById(R.id.button_login);
@@ -41,58 +49,12 @@ public class LogInActivity extends AppCompatActivity {
        ButtonLogin.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               String email = TextEmail.getText().toString().trim();
-               String password = TextPassword.getText().toString().trim();
-               boolean res = sqliteHelper.Authenticate(email, password);
-               if (validateEmail() && validatePassword()) {
-                   if (res) {
-                       Intent Profile = new Intent(LogInActivity.this, ProfileActivity.class);
-                       startActivity(Profile);
-                       finish();
-                   } else {
-                       Toast.makeText(LogInActivity.this, "Невірна пошта чи пароль", Toast.LENGTH_SHORT).show();
-
-                   }
-               }
+               validateUserData();
            }
        });
     }
 
-    //This method is used to validate input given by user
-    public boolean validateEmail() {
-        boolean valid = false;
 
-        String Email = TextEmail.getText().toString();
-
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
-            valid = false;
-            TextEmail.setError("Будь ласка, введіть коректну адресу електронної пошти!");
-        } else {
-            valid = true;
-            TextEmail.setError(null);
-        }
-        return valid;
-    }
-
-        public boolean validatePassword() {
-            boolean valid = false;
-
-            String Password = TextPassword.getText().toString();
-        if (Password.isEmpty()) {
-            valid = false;
-            TextPassword.setError("Будь ласка, введіть пароль!");
-        } else {
-            if (Password.length() > 5) {
-                valid = true;
-                TextPassword.setError(null);
-            } else {
-                valid = false;
-                TextPassword.setError("Пароль дуже короткий!");
-            }
-        }
-
-        return valid;
-    }
 
     public void OpenSignupPage(View view) {
         startActivity(new Intent(LogInActivity.this, SignUpActivity.class));
@@ -103,5 +65,66 @@ public class LogInActivity extends AppCompatActivity {
     }
 
 
+    private void validateUserData() {
+
+        //first getting the values
+        final String email = TextEmail.getText().toString();
+        final String password = TextPassword.getText().toString();
+
+        //checking if username is empty
+        if (TextUtils.isEmpty(email)) {
+            TextEmail.setError("Please enter your email");
+            TextEmail.requestFocus();
+            return;
+        }
+        //checking if password is empty
+        if (TextUtils.isEmpty(password)) {
+            TextPassword.setError("Please enter your password");
+            TextPassword.requestFocus();
+            return;
+        }
+
+        //Login User if everything is fine
+        loginUser(email,password);
+
+    }
+
+    private void loginUser(String email, String password) {
+
+        //making api call
+        Api api = ApiClient.getClient().create(Api.class);
+        Call<User> login = api.login(email,password);
+
+        login.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                if(response.body().getIsSuccess() == 1){
+                    //get username
+                    String user = response.body().getEmail();
+
+                    //storing the user in shared preferences
+                    SharedPref.getInstance(LogInActivity.this).storeUserName(user);
+//                    Toast.makeText(MainActivity.this,response.body().getUsername(),Toast.LENGTH_LONG).show();
+
+                    startActivity(new Intent(LogInActivity.this,ProfileActivity.class));
+                }else{
+                    Toast.makeText(LogInActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(LogInActivity.this,t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
 
 }
