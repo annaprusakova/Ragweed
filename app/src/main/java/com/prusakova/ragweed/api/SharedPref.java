@@ -1,4 +1,4 @@
-package com.prusakova.ragweed;
+package com.prusakova.ragweed.api;
 
 import android.content.Context;
 import android.content.Intent;

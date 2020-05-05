@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ArticleActivity"></activity>
+        <activity android:name=".ArticleFragment"></activity>
         <activity android:name=".BottomMenu" />
         <activity android:name=".fragments.SettingFragment" />
         <activity android:name=".activities.MedicinesActivity" />

@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.prusakova.ragweed.ArticleFragment;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.fragments.SettingFragment;
 
 
@@ -28,6 +31,14 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         navigation.setSelectedItemId(R.id.navigation_setting);
+
+        //check if user is logged in
+        if (!SharedPref.getInstance(this).isLoggedIn()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+
+
 
     }
 
@@ -50,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
                 break;
 
             case R.id.navigation_articles:
-
+                fragment = new ArticleFragment();
                 break;
             case R.id.navigation_setting:
                 fragment = new SettingFragment();

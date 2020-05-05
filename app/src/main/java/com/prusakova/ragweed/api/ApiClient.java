@@ -1,4 +1,4 @@
-package com.prusakova.ragweed;
+package com.prusakova.ragweed.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,7 +16,6 @@ public class ApiClient {
 
     public static Retrofit getClient() {
         if (retrofit == null) {
-
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

@@ -6,24 +6,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.activities.LogInActivity;
 
 public class SettingFragment extends Fragment {
 
     TextView textViewExit;
+    TextView textViewUserName;
 
     AlertDialog.Builder builder;
 
@@ -34,9 +32,17 @@ public class SettingFragment extends Fragment {
         //with the fragment you want to inflate
         //like if the class is HomeFragment it should have R.layout.home_fragment
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
-       View view =  inflater.inflate(R.layout.setting_fragment, null);
+       View view =  inflater.inflate(R.layout.fragment_setting, null);
         textViewExit = (TextView)  view.findViewById(R.id.logout_app);
+        textViewUserName = (TextView) view.findViewById(R.id.usernameTextView);
         builder = new AlertDialog.Builder(view.getContext());
+
+
+        //getting logged in user name
+        String loggedUsename = SharedPref.getInstance(getActivity()).LoggedInUser();
+        textViewUserName.setText(loggedUsename);
+
+
 
         textViewExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +59,7 @@ public class SettingFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         getActivity().finish();
+                                        SharedPref.getInstance(getActivity().getApplicationContext()).logout();
                                         Intent launchNextActivity = new Intent(getActivity(), LogInActivity.class);
                                         launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

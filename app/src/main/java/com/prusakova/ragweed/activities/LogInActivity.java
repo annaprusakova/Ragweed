@@ -12,12 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.prusakova.ragweed.Api;
-import com.prusakova.ragweed.ApiClient;
+import com.prusakova.ragweed.api.Api;
+import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.R;
-import com.prusakova.ragweed.SharedPref;
+import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.model.User;
-import com.prusakova.ragweed.sql.DatabaseHelper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,13 +72,13 @@ public class LogInActivity extends AppCompatActivity {
 
         //checking if username is empty
         if (TextUtils.isEmpty(email)) {
-            TextEmail.setError("Please enter your email");
+            TextEmail.setError("Будь ласка, введіть пошту");
             TextEmail.requestFocus();
             return;
         }
         //checking if password is empty
         if (TextUtils.isEmpty(password)) {
-            TextPassword.setError("Please enter your password");
+            TextPassword.setError("Будь ласка, введіть пароль");
             TextPassword.requestFocus();
             return;
         }
