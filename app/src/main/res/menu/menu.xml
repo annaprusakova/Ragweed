@@ -3,10 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <item android:id="@+id/search"
+            android:orderInCategory="100"
             android:icon="@drawable/ic_search_black_24dp"
-            android:title="search"
-            app:showAsAction="collapseActionView|ifRoom"
+            android:title="пошук"
+            app:showAsAction="collapseActionView|always"
             app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     </menu>
+
+
 

@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.prusakova.ragweed.ArticleFragment;
+import com.prusakova.ragweed.fragments.ArticleFragment;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.fragments.SettingFragment;
+import com.prusakova.ragweed.fragments.TrackerFragment;
 
 
 public class ProfileActivity extends AppCompatActivity  implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -23,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
 
         //loading the default fragment
         loadFragment(new SettingFragment());
@@ -43,6 +46,8 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
     }
 
 
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
@@ -57,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
                 break;
 
             case R.id.navigation_tracker:
-
+                fragment = new TrackerFragment();
                 break;
 
             case R.id.navigation_articles:

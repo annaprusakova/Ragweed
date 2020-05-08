@@ -9,6 +9,9 @@ public class Article {
     private String article_name;
     @SerializedName("article_link")
     private String article_link;
+    @SerializedName("article_img")
+    private String article_img;
+
 
 
     public int getArticleId() {
@@ -35,4 +38,11 @@ public class Article {
         this.article_link = article_link;
     }
 
+    public String getArticle_img() {
+        return article_img;
+    }
+
+    public void setArticle_img(String article_img) {
+        this.article_img = article_img;
+    }
 }

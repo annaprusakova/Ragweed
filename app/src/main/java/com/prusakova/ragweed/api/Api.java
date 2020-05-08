@@ -22,8 +22,13 @@ public interface Api {
     @FormUrlEncoded
     Call<User> login(@Field("email") String email, @Field("password") String password);
 
-    @GET("getarticles.php")
-    Call<List<Article>> getArticle();
+//    @GET("getarticles.php")
+//    Call<List<Article>> getArticle();
+    @GET("articles.php")
+    Call<List<Article>> getArticle(
+            @Query("item_type") String item_type,
+            @Query("key") String keyword
+    );
 
 
 }
