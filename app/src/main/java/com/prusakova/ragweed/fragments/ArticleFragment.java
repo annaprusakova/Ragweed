@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.prusakova.ragweed.ArticleAdapter;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.activities.ArticleActivity;
 import com.prusakova.ragweed.activities.ProfileActivity;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
@@ -42,6 +44,7 @@ public class ArticleFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    ArticleAdapter.RecyclerViewClickListener listener;
     private List<Article> articles;
     private ArticleAdapter articleAdapter;
     private Api apiInterface;
@@ -92,11 +95,27 @@ public class ArticleFragment extends Fragment {
 //                Toast.makeText(getContext(), "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
 //            }
 //        });
+        listener = new ArticleAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onRowClick(View view, final int position) {
 
+                Intent intent = new Intent(getActivity(), ArticleActivity.class);
+                intent.putExtra("article_id", articles.get(position).getArticleId());
+                intent.putExtra("article_name", articles.get(position).getArticleName());
+                intent.putExtra("article_img", articles.get(position).getArticle_img());
+                intent.putExtra("article_link", articles.get(position).getArticleLink());
+                intent.putExtra("article_text", articles.get(position).getArticle_text());
+                startActivity(intent);
+
+            }
+
+        };
          fetchArticle("article","");
 
         return view;
     }
+
+
 
     public void fetchArticle(String type, String key){
 
@@ -108,7 +127,7 @@ public class ArticleFragment extends Fragment {
             public void onResponse(Call<List<Article>> call, Response<List<Article>> response) {
                 progressBar.setVisibility(View.GONE);
                 articles = response.body();
-                articleAdapter = new ArticleAdapter(articles,getContext());
+                articleAdapter = new ArticleAdapter(articles,getContext(), listener);
                 recyclerView.setAdapter(articleAdapter);
                 articleAdapter.notifyDataSetChanged();
             }

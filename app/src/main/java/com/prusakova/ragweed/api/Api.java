@@ -30,5 +30,8 @@ public interface Api {
             @Query("key") String keyword
     );
 
+//    @POST("getarticles.php")
+//    Call<Article> article(@Field("article_id"));
+
 
 }

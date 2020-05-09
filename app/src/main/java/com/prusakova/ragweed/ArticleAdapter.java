@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,16 +20,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     private List<Article> articles;
     private Context context;
+    private RecyclerViewClickListener mListener;
 
-    public ArticleAdapter(List<Article> articles, Context context) {
+    public ArticleAdapter(List<Article> articles, Context context,RecyclerViewClickListener listener) {
         this.articles = articles;
         this.context = context;
+        this.mListener = listener;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iteam_article, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
@@ -45,15 +48,38 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return articles.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView articleName;
-//        private TextView articleLink;
+        private TextView articleLink;
         private ImageView articleImage;
-        public ViewHolder(View itemView) {
+        private TextView articleText;
+        private RelativeLayout mRowContainer;
+        private RecyclerViewClickListener mListener;
+        public ViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);
             articleName = itemView.findViewById(R.id.txt_name);
 //            articleLink = itemView.findViewById(R.id.txt_link);
             articleImage = itemView.findViewById(R.id.image_article);
+            mRowContainer = itemView.findViewById(R.id.article_container);
+            mListener = listener;
+            mRowContainer.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.article_container:
+                    mListener.onRowClick(mRowContainer, getAdapterPosition());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+    public interface RecyclerViewClickListener {
+        void onRowClick(View view, int position);
+
     }
 }
