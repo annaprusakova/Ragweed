@@ -1,56 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     android:id="@+id/article_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
-    android:layout_height="80dp">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 
-        <ImageView
-            android:scaleType="fitXY"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/contentGrey"
+        app:cardCornerRadius="3dp"
+        app:cardPreventCornerOverlap="false">
+
+    <ProgressBar
+        android:id="@+id/movie_progress"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center"/>
+
+    <ImageView
             android:id="@+id/image_article"
-            android:layout_width="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="16dp"
-            android:src="@drawable/picture_plant"
-            android:layout_height="60dp" />
+            android:layout_width="72dp"
+            android:layout_height="96dp" />
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/layoutName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/image_article"
-        android:layout_marginLeft="90dp"
-        android:layout_marginStart="90dp"
-        android:weightSum="2"
-        android:gravity="top"
-        android:orientation="horizontal">
+        android:layout_gravity="bottom"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingEnd="16dp"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp"
+        android:paddingStart="72dp"
+        android:paddingTop="8dp">
 
     <TextView
         android:textColor="@android:color/black"
         android:textSize="19sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:text="ragweed"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:maxLines="1"
+        android:layout_marginTop="4dp"
+        android:text="Ragweed"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:fontFamily="sans-serif-light"
         android:id="@+id/txt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+        <TextView
+            android:textColor="@android:color/black"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/layoutName"
+            android:background="#d4d4d4" />
+
+
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/layoutName"
-        android:background="#d4d4d4" />
 
 
-</RelativeLayout>
+</FrameLayout>

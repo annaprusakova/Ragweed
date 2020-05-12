@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_action_add"
+        android:title="Add"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_med"
+        android:icon="@drawable/ic_action_pill"
+        android:title="medicines"
+        app:showAsAction="always" />
+
+
+
+</menu>

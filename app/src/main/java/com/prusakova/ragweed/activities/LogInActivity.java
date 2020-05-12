@@ -76,6 +76,12 @@ public class LogInActivity extends AppCompatActivity {
             TextEmail.requestFocus();
             return;
         }
+        //validating email
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            TextEmail.setError("Будь ласка, введіть коректну пошту");
+            TextEmail.requestFocus();
+            return;
+        }
         //checking if password is empty
         if (TextUtils.isEmpty(password)) {
             TextPassword.setError("Будь ласка, введіть пароль");

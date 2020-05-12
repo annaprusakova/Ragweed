@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,7 +54,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         private TextView articleLink;
         private ImageView articleImage;
         private TextView articleText;
-        private RelativeLayout mRowContainer;
+        private FrameLayout mRowContainer;
         private RecyclerViewClickListener mListener;
         public ViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);

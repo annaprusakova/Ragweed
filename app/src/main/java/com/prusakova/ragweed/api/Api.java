@@ -30,8 +30,9 @@ public interface Api {
             @Query("key") String keyword
     );
 
-//    @POST("getarticles.php")
-//    Call<Article> article(@Field("article_id"));
+    @POST("forgotpassword.php")
+    @FormUrlEncoded
+    Call<User> forgotpassword(@Field("email") String email);
 
 
 }
