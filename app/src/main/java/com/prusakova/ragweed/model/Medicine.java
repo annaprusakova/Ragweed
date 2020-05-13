@@ -1,19 +1,19 @@
 package com.prusakova.ragweed.model;
 
-public class Medicine {
-    private int id_med;
-    private String med_name;
-    private double cost;
-    private String active_substance;
-    private byte[] photo_med;
+import com.google.gson.annotations.SerializedName;
 
-    public Medicine(int id_med, String med_name, double cost, String  active_substance, byte[] photo_med){
-        this.id_med = id_med;
-        this.med_name = med_name;
-        this.cost = cost;
-        this.active_substance = active_substance;
-        this.photo_med = photo_med;
-    }
+public class Medicine {
+    @SerializedName("id_med")
+    private int id_med;
+    @SerializedName("med_name")
+    private String med_name;
+    @SerializedName("cost")
+    private String cost;
+    @SerializedName("active_substance")
+    private String active_substance;
+    @SerializedName("photo_med")
+    private String photo_med;
+
 
     public int getId_med(){
         return id_med;
@@ -25,12 +25,12 @@ public class Medicine {
     public String getMed_name(){return med_name;}
     public void setMed_name(String med_name){ this.med_name = med_name;}
 
-    public double getCost(){ return cost;}
-    public void setCost(double cost){this.cost = cost;}
+    public String getCost(){ return cost;}
+    public void setCost(String cost){this.cost = cost;}
 
     public String getActive_substance(){return active_substance;}
     public void setActive_substance(String active_substance){ this.active_substance = active_substance;}
 
-    public byte[] getPhoto_med(){ return photo_med;}
-    public void setPhoto_med(byte[] photo_med){ this.photo_med = photo_med;}
+    public String getPhoto_med(){ return photo_med;}
+    public void setPhoto_med(String photo_med){ this.photo_med = photo_med;}
 }
