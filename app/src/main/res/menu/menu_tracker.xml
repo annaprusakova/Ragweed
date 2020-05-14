@@ -4,15 +4,13 @@
 
     <item
         android:id="@+id/action_add"
-        android:icon="@drawable/ic_action_add"
-        android:title="Add"
-        app:showAsAction="ifRoom" />
+        android:title="Додати стан здоров'я"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_med"
-        android:icon="@drawable/ic_action_pill"
-        android:title="medicines"
-        app:showAsAction="always" />
+        android:title="Ліки"
+        app:showAsAction="never" />
 
 
 

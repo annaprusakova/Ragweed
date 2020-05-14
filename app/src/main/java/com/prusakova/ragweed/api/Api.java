@@ -24,8 +24,6 @@ public interface Api {
     @FormUrlEncoded
     Call<User> login(@Field("email") String email, @Field("password") String password);
 
-//    @GET("getarticles.php")
-//    Call<List<Article>> getArticle();
     @GET("articles.php")
     Call<List<Article>> getArticle(
             @Query("item_type") String item_type,
@@ -52,4 +50,13 @@ public interface Api {
             @Field("water_eyes") int water_eyes,
             @Field("runny_nose") int runny_nose
             );
+
+
+    @GET("get_tracker.php")
+    Call<List<Tracker>> getTracker(
+            @Query("item_type") String item_type,
+            @Query("key") String keyword
+    );
+
+
 }
