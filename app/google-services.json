@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "454756152116",
+    "firebase_url": "https://ragweed.firebaseio.com",
+    "project_id": "ragweed",
+    "storage_bucket": "ragweed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454756152116:android:dad2a2bf830f55efdbab61",
+        "android_client_info": {
+          "package_name": "com.prusakova.ragweed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454756152116-8ure0bdaa3q817j41vut9b1qc4lvjb33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSDTvoos89oV441uvlz2MN41Pn46ZWZkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454756152116-8ure0bdaa3q817j41vut9b1qc4lvjb33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

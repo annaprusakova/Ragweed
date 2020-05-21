@@ -1,15 +1,21 @@
 package com.prusakova.ragweed.model;
 
 
+import com.google.gson.annotations.SerializedName;
 
 public class User {
     private int id;
+    @SerializedName("name")
     private String name;
     private String email;
     private String password;
 
     private int isSuccess;
     private String message;
+
+    public User(){
+
+    }
 
     public User(int id, String name, String email, String password) {
         this.id = id;

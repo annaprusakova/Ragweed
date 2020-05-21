@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.prusakova.ragweed.ArticleAdapter;
+import com.prusakova.ragweed.MapsActivity;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.R;
@@ -51,6 +54,10 @@ public class LogInActivity extends AppCompatActivity {
                validateUserData();
            }
        });
+
+
+
+
     }
 
 
@@ -106,7 +113,7 @@ public class LogInActivity extends AppCompatActivity {
 
                 if(response.body().getIsSuccess() == 1){
                     //get username
-                    String user = response.body().getEmail();
+                    String user = response.body().getName();
 
                     //storing the user in shared preferences
                     SharedPref.getInstance(LogInActivity.this).storeUserName(user);
@@ -116,9 +123,6 @@ public class LogInActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(LogInActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
                 }
-
-
-
 
             }
 

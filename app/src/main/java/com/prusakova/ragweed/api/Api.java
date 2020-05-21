@@ -1,6 +1,7 @@
 package com.prusakova.ragweed.api;
 
 import com.prusakova.ragweed.model.Article;
+import com.prusakova.ragweed.model.Chat;
 import com.prusakova.ragweed.model.Medicine;
 import com.prusakova.ragweed.model.Tracker;
 import com.prusakova.ragweed.model.User;
@@ -24,11 +25,22 @@ public interface Api {
     @FormUrlEncoded
     Call<User> login(@Field("email") String email, @Field("password") String password);
 
+
+
     @GET("articles.php")
     Call<List<Article>> getArticle(
             @Query("item_type") String item_type,
             @Query("key") String keyword
     );
+
+
+
+    @GET("get_chat_room.php")
+    Call<List<Chat>> getChat(
+            @Query("item_type") String item_type,
+            @Query("key") String keyword
+    );
+
 
     @POST("forgotpassword.php")
     @FormUrlEncoded
