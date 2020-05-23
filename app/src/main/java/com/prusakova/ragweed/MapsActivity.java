@@ -9,18 +9,26 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 
+import com.directions.route.AbstractRouting;
+import com.directions.route.Route;
+import com.directions.route.RouteException;
+import com.directions.route.Routing;
+import com.directions.route.RoutingListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -29,6 +37,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,18 +47,25 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.snackbar.Snackbar;
+import com.prusakova.ragweed.activities.AddPointActivity;
+import com.prusakova.ragweed.activities.AddTrackerActivity;
+import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.model.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, RoutingListener {
 
 
     private SupportMapFragment supportMapFragment;
@@ -60,12 +76,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
-    private CameraPosition mCameraPosition;
-    // The entry point to the Places API.
-    private PlacesClient mPlacesClient;
-    // The entry point to the Fused Location Provider.
+    private List<Polyline> polylines=null;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Location mLastKnownLocation;
+    private LatLng start = null;
+    private LatLng end = null;
+    private Location destinationLocation = null;
 
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
@@ -86,6 +102,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         supportMapFragment.getMapAsync(this);
 
         toolbar = findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.map_menu);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Map");
         }
@@ -98,6 +115,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.map_menu, menu);
+        return true;
+    }
 
     /**
      * Manipulates the map when it's available.
@@ -143,7 +168,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 mLoc = mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()))
-                                        .title(user.getName()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                                        .title(SharedPref.getInstance(MapsActivity.this).LoggedInUser()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                                 mLoc.setTag(0);
                             }
                         } else {
@@ -159,7 +184,110 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
+
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                end=latLng;
+
+                mMap.clear();
+
+                start=new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude());
+                //start route finding
+                Findroutes(start,end);
+            }
+        });
     }
+
+    public void Findroutes(LatLng Start, LatLng End)
+    {
+        if(Start==null || End==null) {
+            Toast.makeText(MapsActivity.this,"Unable to get location",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+
+            Routing routing = new Routing.Builder()
+                    .travelMode(AbstractRouting.TravelMode.DRIVING)
+                    .withListener(this)
+                    .alternativeRoutes(true)
+                    .waypoints(Start, End)
+                    .key("AIzaSyBN6p0XMi4qcnFGfN85NCkZtGlXkQIHjno")  //also define your api key here.
+                    .build();
+            routing.execute();
+        }
+    }
+
+
+    @Override
+    public void onRoutingFailure(RouteException e) {
+        View parentLayout = findViewById(android.R.id.content);
+        Snackbar snackbar= Snackbar.make(parentLayout, e.toString(), Snackbar.LENGTH_LONG);
+        snackbar.show();
+//    Findroutes(start,end);
+    }
+
+    @Override
+    public void onRoutingStart() {
+        Toast.makeText(MapsActivity.this,"Пошук маршруту...",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
+
+        CameraUpdate center = CameraUpdateFactory.newLatLng(start);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
+        if(polylines!=null) {
+            polylines.clear();
+        }
+        PolylineOptions polyOptions = new PolylineOptions();
+        LatLng polylineStartLatLng=null;
+        LatLng polylineEndLatLng=null;
+
+
+        polylines = new ArrayList<>();
+        //add route(s) to the map using polyline
+        for (int i = 0; i <route.size(); i++) {
+
+            if(i==shortestRouteIndex)
+            {
+                polyOptions.color(getResources().getColor(R.color.colorPrimary));
+                polyOptions.width(7);
+                polyOptions.addAll(route.get(shortestRouteIndex).getPoints());
+                Polyline polyline = mMap.addPolyline(polyOptions);
+                polylineStartLatLng=polyline.getPoints().get(0);
+                int k=polyline.getPoints().size();
+                polylineEndLatLng=polyline.getPoints().get(k-1);
+                polylines.add(polyline);
+
+            }
+            else {
+
+            }
+
+        }
+
+        //Add Marker on route starting position
+        MarkerOptions startMarker = new MarkerOptions();
+        startMarker.position(polylineStartLatLng)
+                .title(SharedPref.getInstance(MapsActivity.this).LoggedInUser()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+    mMap.addMarker(startMarker);
+
+        //Add Marker on route ending position
+        MarkerOptions endMarker = new MarkerOptions();
+        endMarker.position(polylineEndLatLng);
+        endMarker.title("Destination");
+        mMap.addMarker(endMarker);
+    }
+
+    @Override
+    public void onRoutingCancelled() {
+        Findroutes(start,end);
+    }
+
+
 
 
     /**

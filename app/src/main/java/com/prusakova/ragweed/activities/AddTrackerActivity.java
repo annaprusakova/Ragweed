@@ -28,6 +28,7 @@ import com.prusakova.ragweed.MedicineAdapter;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
+import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.fragments.TrackerFragment;
 import com.prusakova.ragweed.model.Medicine;
 import com.prusakova.ragweed.model.Tracker;
@@ -70,7 +71,7 @@ public class AddTrackerActivity extends AppCompatActivity {
         mapSpinner = findViewById(R.id.map_tracker);
         itchyNose = findViewById(R.id.itchy_nose);
         runnyNose = findViewById(R.id.runny_nose);
-        waterEyes = findViewById(R.id.runny_nose);
+        waterEyes = findViewById(R.id.water_eyes);
         dateTracker = findViewById(R.id.date);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -127,13 +128,13 @@ public class AddTrackerActivity extends AppCompatActivity {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setBirth();
+            setDate();
         }
 
     };
 
 
-    private void setBirth() {
+    private void setDate() {
         String myFormat = "dd MMMM yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dateTracker.setText(sdf.format(myCalendar.getTime()));
@@ -210,7 +211,7 @@ public class AddTrackerActivity extends AppCompatActivity {
     private void addData(final String key){
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Saving...");
+        progressDialog.setMessage("Збереження...");
         progressDialog.show();
 
         String date = dateTracker.getText().toString().trim();
@@ -228,10 +229,11 @@ public class AddTrackerActivity extends AppCompatActivity {
             water_eyes = 1;
         }
 
+        int userId = SharedPref.getInstance(AddTrackerActivity.this).LoggedInUserId();
 
         apiInterface = ApiClient.getClient().create(Api.class);
 
-        Call<Tracker> call = apiInterface.insertTracker(key,date, med, itchy_nose, water_eyes,runny_nose);
+        Call<Tracker> call = apiInterface.insertTracker(key,date, med, itchy_nose, water_eyes,runny_nose,userId);
 
         call.enqueue(new Callback<Tracker>() {
             @Override

@@ -160,6 +160,8 @@ public class TrackerFragment  extends Fragment {
                 }
                 else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1){
                     count = 1;
+                }  else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0){
+                    count = 0;
                 }
                 BarEntry value = new BarEntry(count,i);
                 allergy.add(value);

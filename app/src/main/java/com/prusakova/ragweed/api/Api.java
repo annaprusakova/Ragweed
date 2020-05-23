@@ -1,7 +1,10 @@
 package com.prusakova.ragweed.api;
 
+
+
 import com.prusakova.ragweed.model.Article;
 import com.prusakova.ragweed.model.Chat;
+import com.prusakova.ragweed.model.Location;
 import com.prusakova.ragweed.model.Medicine;
 import com.prusakova.ragweed.model.Tracker;
 import com.prusakova.ragweed.model.User;
@@ -60,7 +63,8 @@ public interface Api {
             @Field("med_id") int med_id,
             @Field("itchy_nose") int itchy_nose,
             @Field("water_eyes") int water_eyes,
-            @Field("runny_nose") int runny_nose
+            @Field("runny_nose") int runny_nose,
+            @Field("user_id") int user_id
             );
 
 
@@ -70,5 +74,18 @@ public interface Api {
             @Query("key") String keyword
     );
 
+
+    @FormUrlEncoded
+    @POST("add_location.php")
+    Call<Location> insertLocation(
+            @Field("key") String key,
+            @Field("loc_name") String loc_name,
+            @Field("loc_date") String loc_date,
+            @Field("loc_point") String loc_point,
+            @Field("loc_description") String loc_description,
+            @Field("user_id_loc") int user_id_loc,
+            @Field("loc_photo") String  loc_photo
+
+    );
 
 }

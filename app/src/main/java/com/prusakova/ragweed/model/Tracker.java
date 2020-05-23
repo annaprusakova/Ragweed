@@ -17,10 +17,20 @@ public class Tracker {
     private int water_eyes;
     @SerializedName("runny_nose")
     private int runny_nose;
+    @SerializedName("user_id")
+    private int user_id;
     @SerializedName("value")
     private String value;
     @SerializedName("message")
     private String massage;
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public int getTracker_id() {
         return tracker_id;

@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/background_medicines"
+    >
 
-    <Button
-        android:id="@+id/permission"
-        android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/watch_map"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="get permission"/>
+        android:layout_marginTop="10dp"
+        android:text="Перглянути місця "
+        app:icon="@drawable/icon_map"
+        app:iconSize="30dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_point"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Додати локацію"
+        app:icon="@drawable/ic_action_add" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/watch_point"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Переглянути вже додаді локації"
+        app:icon="@drawable/ic_toolbar_edit" />
+
 
 </LinearLayout>

@@ -14,6 +14,7 @@ import com.prusakova.ragweed.fragments.ArticleFragment;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.fragments.ChatRoomFragment;
+import com.prusakova.ragweed.fragments.MapOptionFragment;
 import com.prusakova.ragweed.fragments.SettingFragment;
 import com.prusakova.ragweed.fragments.TrackerFragment;
 
@@ -55,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
 
         switch (item.getItemId()) {
             case R.id.navigation_map:
-                startActivity(new Intent(this, MapsActivity.class));
+               fragment = new MapOptionFragment();
                 break;
 
             case R.id.navigation_messages:

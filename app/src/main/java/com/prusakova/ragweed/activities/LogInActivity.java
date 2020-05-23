@@ -114,9 +114,11 @@ public class LogInActivity extends AppCompatActivity {
                 if(response.body().getIsSuccess() == 1){
                     //get username
                     String user = response.body().getName();
+                  int id = response.body().getId();
 
                     //storing the user in shared preferences
                     SharedPref.getInstance(LogInActivity.this).storeUserName(user);
+                    SharedPref.getInstance(LogInActivity.this).storeUserId(id);
 //                    Toast.makeText(MainActivity.this,response.body().getUsername(),Toast.LENGTH_LONG).show();
 
                     startActivity(new Intent(LogInActivity.this,ProfileActivity.class));

@@ -15,6 +15,8 @@ public class SharedPref {
     //Username
     public static final String USER_NAME = "name";
 
+    public static final String USER_ID = "id";
+
     public static SharedPref mInstance;
 
     public static Context mCtx;
@@ -41,6 +43,15 @@ public class SharedPref {
         editor.commit();
     }
 
+
+    //method to store user data
+    public void storeUserId(int id) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(USER_ID, id);
+        editor.commit();
+    }
+
     //check if user is logged in
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -52,6 +63,12 @@ public class SharedPref {
     public String LoggedInUser() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(USER_NAME, null);
+
+    }
+
+    public int LoggedInUserId() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(USER_ID,0);
 
     }
 

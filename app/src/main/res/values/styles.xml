@@ -64,4 +64,13 @@
         <item name="colorControlHighlight">@color/colorAccent</item>
         <item name="boxStrokeColor">@color/white_40</item>
     </style>
+
+
+    <style name="MyRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:colorControlNormal">#64dd17</item>
+        <item name="android:colorControlActivated">#460745</item>
+        <item name="android:colorControlHighlight">#c51162</item>
+        <item name="android:textColorPrimaryDisableOnly">#00838f</item>
+    </style>
+
 </resources>
