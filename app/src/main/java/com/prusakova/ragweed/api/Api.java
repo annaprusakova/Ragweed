@@ -88,4 +88,10 @@ public interface Api {
 
     );
 
+    @GET("get_location_by_user.php")
+    Call<List<Location>> getLocationByUser(
+            @Query("key") int keyword
+    );
+
+
 }

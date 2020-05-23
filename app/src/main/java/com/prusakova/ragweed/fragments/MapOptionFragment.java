@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.prusakova.ragweed.MapsActivity;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.AddPointActivity;
+import com.prusakova.ragweed.activities.LocationViewActivity;
 
 public class MapOptionFragment extends Fragment {
 
@@ -41,6 +42,14 @@ private Button seePoint;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddPointActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        seePoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LocationViewActivity.class);
                 startActivity(intent);
             }
         });
