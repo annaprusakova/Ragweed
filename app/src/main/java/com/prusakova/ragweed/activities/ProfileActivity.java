@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
                 break;
 
             case R.id.navigation_messages:
-                 fragment = new ChatRoomFragment();
+                 fragment = new MedicinesFragment();
                 break;
 
             case R.id.navigation_tracker:

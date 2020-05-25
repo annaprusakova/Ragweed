@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +23,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.AddTrackerActivity;
-import com.prusakova.ragweed.activities.MedicinesActivity;
+import com.prusakova.ragweed.activities.MedicinesFragment;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.model.Tracker;
@@ -35,8 +34,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class TrackerFragment  extends Fragment {
 
@@ -88,10 +85,7 @@ public class TrackerFragment  extends Fragment {
                 Intent add = new Intent(getActivity(), AddTrackerActivity.class);
                 startActivity(add);
                 return true;
-            case R.id.action_med:
-                Intent med = new Intent(getActivity(), MedicinesActivity.class);
-                startActivity(med);
-                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

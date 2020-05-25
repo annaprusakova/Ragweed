@@ -1,19 +1,23 @@
 package com.prusakova.ragweed.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import com.prusakova.ragweed.MedicineAdapter;
 import com.prusakova.ragweed.R;
@@ -28,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MedicinesActivity extends AppCompatActivity {
+public class MedicinesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -42,40 +46,39 @@ public class MedicinesActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medicines);
+        setHasOptionsMenu(true);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_medicines,container,false);
 
         apiInterface = ApiClient.getClient().create(Api.class);
 
-        progressBar = findViewById(R.id.progress_med);
-        recyclerView = findViewById(R.id.recyclerView_med);
+        progressBar = view.findViewById(R.id.progress_med);
+        recyclerView = view.findViewById(R.id.recyclerView_med);
 
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("");
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Медикаменти");
         }
 
-        toolbar.setNavigationIcon(R.drawable.ic_chevron_left);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
 
         listener = new MedicineAdapter.RecyclerViewClickListener() {
             @Override
             public void onRowClick(View view, final int position) {
 
-                Intent intent = new Intent(MedicinesActivity.this, IteamMedActivity.class);
+                Intent intent = new Intent(getActivity(), IteamMedActivity.class);
                 intent.putExtra("id_med", medList.get(position).getId_med());
                 intent.putExtra("med_name", medList.get(position).getMed_name());
                 intent.putExtra("photo_med", medList.get(position).getPhoto_med());
@@ -90,13 +93,9 @@ public class MedicinesActivity extends AppCompatActivity {
 
 
         getMed("medicines", "");
+        return view;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
 
 
     public void getMed(String type, String key){
@@ -108,7 +107,7 @@ public class MedicinesActivity extends AppCompatActivity {
             public void onResponse(Call<List<Medicine>> call, Response<List<Medicine>> response) {
                 progressBar.setVisibility(View.GONE);
                 medList = response.body();
-                adapter = new MedicineAdapter(medList,MedicinesActivity.this, listener);
+                adapter = new MedicineAdapter(medList,getContext(), listener);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
@@ -116,11 +115,35 @@ public class MedicinesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Medicine>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(MedicinesActivity.this, "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu, menu);
 
+        MenuItem item = menu.findItem(R.id.search);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getMed("medicines", query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                getMed("medicines", newText);
+                return false;
+            }
+
+        });
+    }
 
 }
 

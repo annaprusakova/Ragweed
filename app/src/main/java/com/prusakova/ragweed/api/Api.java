@@ -84,6 +84,7 @@ public interface Api {
             @Field("loc_point") String loc_point,
             @Field("loc_description") String loc_description,
             @Field("user_id_loc") int user_id_loc,
+            @Field("loc_latlng") String loc_latlng,
             @Field("loc_photo") String  loc_photo
 
     );
@@ -91,6 +92,10 @@ public interface Api {
     @GET("get_location_by_user.php")
     Call<List<Location>> getLocationByUser(
             @Query("key") int keyword
+    );
+
+    @GET("get_location.php")
+    Call<List<Location>> getLocation(
     );
 
 

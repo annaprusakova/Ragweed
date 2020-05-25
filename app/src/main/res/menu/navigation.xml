@@ -9,8 +9,8 @@
 
     <item
         android:id="@+id/navigation_messages"
-        android:icon="@color/select_item_message"
-        android:title="Повідомлення" />
+        android:icon="@color/select_item_medicines"
+        android:title="Медикаменти" />
 
 
     <item

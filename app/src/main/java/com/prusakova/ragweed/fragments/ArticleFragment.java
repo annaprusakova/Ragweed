@@ -77,24 +77,7 @@ public class ArticleFragment extends Fragment {
         }
 
 
-//        Call<List<Article>> call=apiInterface.getArticle();
-//        call.enqueue(new Callback<List<Article>>() {
-//            @Override
-//            public void onResponse(Call<List<Article>> call, Response<List<Article>> response) {
-//                progressBar.setVisibility(View.GONE);
-//                articles=response.body();
-//                articleAdapter =new ArticleAdapter(articles,getContext());
-//                recyclerView.setAdapter(articleAdapter);
-//                articleAdapter.notifyDataSetChanged();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Article>> call, Throwable t) {
-//                progressBar.setVisibility(View.GONE);
-//                Toast.makeText(getContext(), "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
-//            }
-//        });
+
         listener = new ArticleAdapter.RecyclerViewClickListener() {
             @Override
             public void onRowClick(View view, final int position) {

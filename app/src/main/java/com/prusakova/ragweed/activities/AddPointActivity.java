@@ -25,9 +25,18 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.prusakova.ragweed.R;
@@ -43,7 +52,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -61,9 +72,11 @@ public class AddPointActivity extends AppCompatActivity {
     private ImageView img;
     private Bitmap bitmap;
      EditText descPoint;
-     EditText locName;
+     String LatLng;
+    private EditText locName;
     private  static final int IMAGE = 100;
     private static int RESULT_LOAD_IMAGE = 1;
+    int AUTOCOMPLETE_REQUEST_CODE = 100;
     Calendar myCalendar = Calendar.getInstance();
 
     @Override
@@ -76,9 +89,20 @@ public class AddPointActivity extends AppCompatActivity {
         point = findViewById(R.id.point_color);
         descPoint = findViewById(R.id.description);
         locName = findViewById(R.id.loc_name);
+        Places.initialize(getApplicationContext(), getString(R.string.google_api_key));
         img = findViewById(R.id.img_loc);
 
-
+        locName.setFocusable(false);
+        locName.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.OVERLAY, fields)
+                        .build(AddPointActivity.this);
+                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+            }
+        });
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -142,19 +166,39 @@ public class AddPointActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
-            try {
 
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+        switch (requestCode){
+            case 1:
+                if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+                    Uri filePath = data.getData();
+                    try {
 
-                img.setImageBitmap(bitmap);
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                        img.setImageBitmap(bitmap);
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
+            case 100:
+                if (requestCode == AUTOCOMPLETE_REQUEST_CODE && resultCode == RESULT_OK) {
+                    Place place = Autocomplete.getPlaceFromIntent(data);
+                    locName.setText(place.getAddress());
+                    LatLng = String.valueOf(place.getLatLng());
+                    Log.i("add", "Place: " + place.getName() + ", " + place.getId() + ", " + place.getLatLng());
+                } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                    Status status = Autocomplete.getStatusFromIntent(data);
+                    Log.i("add", status.getStatusMessage());
+                } else if (resultCode == RESULT_CANCELED) {
+                    // The user canceled the operation.
+                }
+                break;
         }
+
+
     }
 
 
@@ -220,6 +264,7 @@ public class AddPointActivity extends AppCompatActivity {
 
 
         String name = locName.getText().toString();
+        String lang = LatLng;
         String date = pickDate.getText().toString().trim();
         String description = descPoint.getText().toString();
         String color = "red";
@@ -248,7 +293,7 @@ public class AddPointActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(Api.class);
 
-        Call<Location> call = apiInterface.insertLocation(key,name, date, color,description,userId,picture);
+        Call<Location> call = apiInterface.insertLocation(key,name, date, color,description,userId,lang,picture);
 
         call.enqueue(new Callback<Location>() {
             @Override

@@ -16,8 +16,10 @@ public class Location {
     private String loc_point;
     @SerializedName("loc_description")
     private String loc_description;
-    @SerializedName("user_id_loc")
+   @SerializedName("user_id_loc")
     private int user_id_loc;
+    @SerializedName("loc_latlng")
+    private String loc_latlng;
     @SerializedName("value")
     private String value;
     @SerializedName("message")
@@ -94,5 +96,13 @@ public class Location {
 
     public void setMassage(String massage) {
         this.massage = massage;
+    }
+
+    public String getLoc_lat_lng() {
+        return loc_latlng;
+    }
+
+    public void setLoc_lat_lng(String loc_lat_lng) {
+        this.loc_latlng = loc_lat_lng;
     }
 }
