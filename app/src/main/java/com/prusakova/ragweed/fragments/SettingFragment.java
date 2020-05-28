@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,25 +16,28 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.activities.ArticleActivity;
+import com.prusakova.ragweed.activities.EditProfileActivity;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.activities.LogInActivity;
+import com.squareup.picasso.Picasso;
 
 public class SettingFragment extends Fragment {
 
     TextView textViewExit;
     TextView textViewUserName;
-
+    private ImageView profilePhoto;
+    private TextView toEditProfile;
     AlertDialog.Builder builder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //just change the fragment_dashboard
-        //with the fragment you want to inflate
-        //like if the class is HomeFragment it should have R.layout.home_fragment
-        //if it is DashboardFragment it should have R.layout.fragment_dashboard
+
        View view =  inflater.inflate(R.layout.fragment_setting, null);
         textViewExit = (TextView)  view.findViewById(R.id.logout_app);
+        toEditProfile = view.findViewById(R.id.edit_profile);
+        profilePhoto = view.findViewById(R.id.profileCircleImageView);
         textViewUserName = (TextView) view.findViewById(R.id.usernameTextView);
         builder = new AlertDialog.Builder(view.getContext());
 
@@ -41,6 +45,10 @@ public class SettingFragment extends Fragment {
         //getting logged in user name
         String loggedUsename = SharedPref.getInstance(getActivity()).LoggedInUser();
         textViewUserName.setText(loggedUsename);
+        String userPhoto = SharedPref.getInstance(getActivity()).LoggedInUserPhoto();
+        Picasso.with(getActivity())
+                .load(userPhoto)
+                .into(profilePhoto);
 
 
 
@@ -81,6 +89,13 @@ public class SettingFragment extends Fragment {
                 //Setting the title manually
                 alert.setTitle("Вихід");
                 alert.show();
+            }
+        });
+        toEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                startActivity(intent);
             }
         });
 

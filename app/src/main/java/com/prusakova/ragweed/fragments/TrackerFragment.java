@@ -23,7 +23,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.AddTrackerActivity;
-import com.prusakova.ragweed.activities.MedicinesFragment;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.model.Tracker;

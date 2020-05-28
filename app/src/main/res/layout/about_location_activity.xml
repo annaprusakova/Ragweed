@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AboutLocationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:scrollbars="none"
+                android:scrollingCache="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="2dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/photoLoc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_marginTop="2dp"
+                                    android:src="@drawable/picture_plant" />
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:background="@drawable/bg_gradient"
+                                    android:orientation="vertical"
+                                    android:paddingBottom="20dp"
+                                    android:paddingLeft="15dp"
+                                    android:paddingRight="15dp"
+                                    android:paddingTop="25dp">
+
+
+
+                                    <LinearLayout
+                                        android:id="@+id/layout_dots"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_gravity="end"
+                                        android:gravity="center"
+                                        android:orientation="horizontal" />
+
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
+
+            <TextView
+                android:id="@+id/titleAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clean &amp; Minimalis styles that inspire us"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#b7000000"
+                android:layout_marginLeft="15dp"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type:"
+                        android:textSize="14sp"
+                        android:textColor="#79000000"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Free Shipping"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#79000000"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Дата:"
+                        android:textSize="14sp"
+                        android:textColor="#79000000"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/dateLoc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2020 May 12"
+                        android:inputType="date"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#79000000"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/descriptionLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                android:textSize="14sp"
+                android:lineSpacingExtra="5dp"
+                android:textColor="#79000000"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="50dp"
+                        android:id="@+id/image_user"
+                        android:layout_height="50dp"
+                        android:src="@drawable/picture_brain" />
+
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Відміченно:"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/name_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mark Fender"
+                        android:textColor="#c6c6c6"
+                        android:textSize="14sp"
+                        android:layout_marginTop="2dp"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

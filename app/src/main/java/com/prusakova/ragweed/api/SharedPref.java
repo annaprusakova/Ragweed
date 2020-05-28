@@ -6,16 +6,19 @@ import android.content.SharedPreferences;
 
 import com.prusakova.ragweed.activities.MainActivity;
 
+import java.util.HashMap;
+
 public class SharedPref {
 
 
     //Storage File
     public static final String SHARED_PREF_NAME = "api";
-
-    //Username
     public static final String USER_NAME = "name";
-
+    public static final String USER_EMAIL = "email";
+    public static final String USER_PASSWORD = "password";
     public static final String USER_ID = "id";
+    public static final String USER_PHOTO = "user_photo";
+    public static final String LOGGED_IN_PREF = "logged_in_status";
 
     public static SharedPref mInstance;
 
@@ -52,11 +55,31 @@ public class SharedPref {
         editor.commit();
     }
 
+    public void storeUserPhoto(String photo) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_PHOTO, photo);
+        editor.commit();
+    }
+    public void storeUserEmail(String email) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_EMAIL, email);
+        editor.commit();
+    }
+    public void storeUserPassword(String password) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_PASSWORD, password);
+        editor.commit();
+    }
+
     //check if user is logged in
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(USER_NAME, null) != null;
     }
+
 
 
     //find logged in user
@@ -72,6 +95,23 @@ public class SharedPref {
 
     }
 
+    public String  LoggedInUserPhoto() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(USER_PHOTO,null);
+
+    }
+
+    public String  LoggedInUserEmail() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(USER_EMAIL,null);
+
+    }
+
+    public String  LoggedInUserPasword() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(USER_PASSWORD,null);
+
+    }
 
     //Logout user
     public void logout() {

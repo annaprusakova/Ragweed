@@ -36,13 +36,20 @@ public interface Api {
             @Query("key") String keyword
     );
 
-
-
-    @GET("get_chat_room.php")
-    Call<List<Chat>> getChat(
-            @Query("item_type") String item_type,
-            @Query("key") String keyword
+    @GET("get_user_info.php")
+    Call<List<User>> getUser(
+            @Query("id")  int id
     );
+
+    @FormUrlEncoded
+    @POST("update_user.php")
+    Call<User> updateUser(
+            @Field("key") String key,
+            @Field("id") int id,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("user_gender") int user_gender,
+            @Field("user_photo") String user_photo);
 
 
     @POST("forgotpassword.php")
@@ -96,6 +103,12 @@ public interface Api {
 
     @GET("get_location.php")
     Call<List<Location>> getLocation(
+    );
+
+
+    @GET("get_inf_loc_user.php")
+    Call<List<User>> getUserLoc(
+            @Query("key") int keyword
     );
 
 

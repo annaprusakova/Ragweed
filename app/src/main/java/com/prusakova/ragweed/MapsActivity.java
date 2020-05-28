@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -38,6 +39,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,6 +83,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.maps.android.clustering.ClusterManager;
+import com.prusakova.ragweed.activities.AboutLocationActivity;
 import com.prusakova.ragweed.activities.AddPointActivity;
 import com.prusakova.ragweed.activities.AddTrackerActivity;
 import com.prusakova.ragweed.activities.LocationViewActivity;
@@ -89,6 +92,8 @@ import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.model.MarkerClusterItem;
 import com.prusakova.ragweed.model.User;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,7 +106,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements  OnMapReadyCallback {
 
 
     private SupportMapFragment supportMapFragment;
@@ -113,6 +118,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private List<com.prusakova.ragweed.model.Location> locationList;
+    LocationAdapter.RecyclerViewClickListener listener;
     private LocationAdapter locationAdapter;
     private Api apiInterface;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -120,11 +126,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private List<AutocompletePrediction> predictionList;
      List<Double> Lat = new ArrayList<Double>();
      List<Double> Lng = new ArrayList<Double>();
+     List<Integer> LocId = new ArrayList<>();
+     List<String> LocAddress = new ArrayList<>();
+     List<String> LocPoint = new ArrayList<>();
+     List<String> LocImage = new ArrayList<>();
+     List<String> LocDescription = new ArrayList<>();
+     List<String> LocDate = new ArrayList<>();
+
     private Location mLastKnownLocation;
     private ImageView mGps;
     private Toolbar toolbar;
     private AutocompleteSupportFragment autocompleteFragment;
     private ClusterManager<MarkerClusterItem> clusterManager;
+    private MarkerClusterItem  clusterItem;
 
 
     private Marker mLoc;
@@ -172,9 +186,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     Lat.add(lat);
                     Lng.add(lng);
+                    String names = locationList.get(i).getLoc_name();
+                    String[] name = names.split(",");
+                    LocAddress.add(name[0]);
+                    LocPoint.add(locationList.get(i).getLoc_point());
+                    LocImage.add(locationList.get(i).getLoc_photo());
+                    LocId.add(locationList.get(i).getLocation_id());
+                    LocDate.add(locationList.get(i).getLoc_date());
+                    LocDescription.add(locationList.get(i).getLoc_description());
 
                 }
-                setUpClusterer(Lat,Lng);
+                setUpClusterer(Lat,Lng,LocAddress,LocPoint,LocId,LocDescription,LocDate,LocImage);
 
 
             }
@@ -240,15 +262,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //    }
 
 
-private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vector){
-    Drawable vectorDrawble = ContextCompat.getDrawable(context, vector);
-    vectorDrawble.setBounds(0,0,vectorDrawble.getIntrinsicWidth(),vectorDrawble.getIntrinsicHeight());
-    Bitmap bitmap = Bitmap.createBitmap(vectorDrawble.getIntrinsicWidth(),
-            vectorDrawble.getIntrinsicHeight(),Bitmap.Config.ARGB_8888);
-    Canvas canvas = new Canvas(bitmap);
-    vectorDrawble.draw(canvas);
-    return BitmapDescriptorFactory.fromBitmap(bitmap);
-}
+
 
     private void init(){
         Log.d(TAG, "init: initializing");
@@ -290,49 +304,87 @@ private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vector)
         init();
 
 
+
     }
 
-    private void setUpClusterer(List<Double> listOne, List<Double> listTwo) {
+    private void setUpClusterer(List<Double> listOne, List<Double> listTwo,List<String> info, List<String> snip,
+                                 List<Integer> id, List<String> locDescription, List<String> date, List<String> locImage) {
 
         clusterManager = new ClusterManager<MarkerClusterItem>(this, mMap);
 
         mMap.setOnCameraIdleListener(clusterManager);
         mMap.setOnMarkerClickListener(clusterManager);
-
-       addItems(listOne,listTwo);
         final MarkerClusterRenderer renderer = new MarkerClusterRenderer(this, mMap, clusterManager);
         clusterManager.setRenderer(renderer);
-        if(!listOne.isEmpty()) {
-            Log.i("fetch:", listOne.get(0).toString());
-        } else{
-            Log.i("L","error");
+        clusterManager.getMarkerCollection()
+                .setInfoWindowAdapter(new CustomInfoWindowAdapter(LayoutInflater.from(this)));
+        mMap.setInfoWindowAdapter(clusterManager.getMarkerManager());
+        addItems(listOne,listTwo,info,snip,id,locDescription, date, locImage);
+        clusterManager.setOnClusterItemInfoWindowClickListener(
+                new ClusterManager.OnClusterItemInfoWindowClickListener<MarkerClusterItem>() {
+                    @Override public void onClusterItemInfoWindowClick(MarkerClusterItem stringClusterItem) {
+                        String title = stringClusterItem.getTitle();
+                        String point = stringClusterItem.getSnippet();
+                        int id = stringClusterItem.getmId();
+                        String desc = stringClusterItem.getmDescription();
+                        String date = stringClusterItem.getmDate();
+                        String image = stringClusterItem.getmPhoto();
+                        Intent i = new Intent(MapsActivity.this, AboutLocationActivity.class);
+                        i.putExtra("loc_name", title);
+                        i.putExtra("loc_point", point);
+                        i.putExtra("location_id",id);
+                        i.putExtra("loc_description", desc);
+                        i.putExtra("loc_date", date);
+                        i.putExtra("loc_photo",image);
+                        startActivity(i);
+                    }
+                });
 
-        }
+        mMap.setOnInfoWindowClickListener(clusterManager);
+
+
+
     }
 
-    private void addItems(List<Double> listLan, List<Double> listLng) {
+    private void addItems(List<Double> listLan, List<Double> listLng, List<String> info, List<String> listSnip,
+                           List<Integer> locId, List<String> locDescription, List<String> locDate, List<String> locImage) {
         if (!listLan.isEmpty() && !listLng.isEmpty()) {
             double lat = listLan.get(0);
             double lng = listLng.get(0);
+            String name = info.get(0);
+            String snippet = listSnip.get(0);
+            String img = locImage.get(0);
+            int id = locId.get(0);
+            String desc = locDescription.get(0);
+            String date = locDate.get(0);
             for (int i = 0; i < listLan.size(); i++) {
                 lat = listLan.get(i);
                 lng = listLng.get(i);
-                Log.i("Locaton:", listLan.get(i).toString());
-                MarkerClusterItem offsetItem = new MarkerClusterItem(lat, lng);
-                clusterManager.addItem(offsetItem);
+                name = info.get(i);
+                snippet = listSnip.get(i);
+                img = locImage.get(i);
+                id = locId.get(i);
+                desc = locDescription.get(i);
+                date = locDate.get(i);
+//                Picasso.with(this).load(img).into(image);
+
+                Log.i("Location:", listLan.get(i).toString());
+                MarkerClusterItem infoWindowItem = new MarkerClusterItem(lat, lng,name,snippet,id, desc,date,img);
+                clusterManager.addItem(infoWindowItem);
+
             }
         }
 
     }
 
+
+
+
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
     private void getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
+
         try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
@@ -342,6 +394,7 @@ private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vector)
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
+                            String userPhoto = SharedPref.getInstance(MapsActivity.this).LoggedInUserPhoto();
 
 
                             if (mLastKnownLocation != null) {
@@ -351,8 +404,9 @@ private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vector)
                                 mLoc = mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()))
-                                        .title(SharedPref.getInstance(MapsActivity.this).LoggedInUser()) .icon(bitmapDescriptorFromVector(getApplicationContext(),R.drawable.icon_ragweed)));
+                                        .title(SharedPref.getInstance(MapsActivity.this).LoggedInUser()));
                                 mLoc.setTag(0);
+
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");

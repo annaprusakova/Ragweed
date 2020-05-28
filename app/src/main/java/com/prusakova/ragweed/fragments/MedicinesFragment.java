@@ -1,4 +1,4 @@
-package com.prusakova.ragweed.activities;
+package com.prusakova.ragweed.fragments;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.prusakova.ragweed.MedicineAdapter;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.activities.IteamMedActivity;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.model.Medicine;

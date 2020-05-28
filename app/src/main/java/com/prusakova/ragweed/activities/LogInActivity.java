@@ -114,12 +114,17 @@ public class LogInActivity extends AppCompatActivity {
                 if(response.body().getIsSuccess() == 1){
                     //get username
                     String user = response.body().getName();
-                  int id = response.body().getId();
+                    int id = response.body().getId();
+                    String photo = response.body().getUser_photo();
+                    String email = response.body().getEmail();
+                    String password = response.body().getPassword();
 
                     //storing the user in shared preferences
                     SharedPref.getInstance(LogInActivity.this).storeUserName(user);
                     SharedPref.getInstance(LogInActivity.this).storeUserId(id);
-//                    Toast.makeText(MainActivity.this,response.body().getUsername(),Toast.LENGTH_LONG).show();
+                    SharedPref.getInstance(LogInActivity.this).storeUserPhoto(photo);
+                    SharedPref.getInstance(LogInActivity.this).storeUserEmail(email);
+                    SharedPref.getInstance(LogInActivity.this).storeUserPassword(password);
 
                     startActivity(new Intent(LogInActivity.this,ProfileActivity.class));
                 }else{

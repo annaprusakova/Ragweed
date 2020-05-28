@@ -9,12 +9,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.prusakova.ragweed.MapsActivity;
 import com.prusakova.ragweed.fragments.ArticleFragment;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.SharedPref;
-import com.prusakova.ragweed.fragments.ChatRoomFragment;
 import com.prusakova.ragweed.fragments.MapOptionFragment;
+import com.prusakova.ragweed.fragments.MedicinesFragment;
 import com.prusakova.ragweed.fragments.SettingFragment;
 import com.prusakova.ragweed.fragments.TrackerFragment;
 

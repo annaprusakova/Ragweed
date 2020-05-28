@@ -1,6 +1,7 @@
 package com.prusakova.ragweed;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -24,9 +25,14 @@ public class MarkerClusterRenderer  extends DefaultClusterRenderer<MarkerCluster
 
     @Override protected void onBeforeClusterItemRendered(MarkerClusterItem item,
                                                          MarkerOptions markerOptions) {
-        final BitmapDescriptor markerDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+        final BitmapDescriptor markerDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
 
-        markerOptions.icon(markerDescriptor).snippet(item.getTitle());
     }
+
+    @Override
+    protected int getColor(int clusterSize) {
+        return Color.RED; // Return any color you want here. You can base it on clusterSize.
+    }
+
 
 }
