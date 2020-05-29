@@ -1,82 +1,55 @@
 package com.prusakova.ragweed;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
-import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
-import android.location.Address;
-import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 
-import com.directions.route.AbstractRouting;
-import com.directions.route.Route;
-import com.directions.route.RouteException;
-import com.directions.route.Routing;
-import com.directions.route.RoutingListener;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.PendingResult;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
@@ -84,7 +57,6 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.android.clustering.ClusterManager;
@@ -92,25 +64,19 @@ import com.google.maps.internal.PolylineEncoding;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.prusakova.ragweed.activities.AboutLocationActivity;
-import com.prusakova.ragweed.activities.AddPointActivity;
-import com.prusakova.ragweed.activities.AddTrackerActivity;
-import com.prusakova.ragweed.activities.LocationViewActivity;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.model.MarkerClusterItem;
 import com.prusakova.ragweed.model.PolylineData;
-import com.prusakova.ragweed.model.User;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -119,8 +85,8 @@ public class MapsActivity extends AppCompatActivity implements
         GoogleMap.OnInfoWindowClickListener,OnMapReadyCallback, GoogleMap.OnPolylineClickListener {
 
 
-    private SupportMapFragment supportMapFragment;
-
+     SupportMapFragment supportMapFragment;
+    Api apiInterface;
     private boolean mLocationPermissionGranted;
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
     private static final int DEFAULT_ZOOM = 15;
@@ -128,10 +94,7 @@ public class MapsActivity extends AppCompatActivity implements
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private List<com.prusakova.ragweed.model.Location> locationList;
-    private Api apiInterface;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private PlacesClient placesClient;
-    private List<AutocompletePrediction> predictionList;
      List<Double> Lat = new ArrayList<Double>();
      List<Double> Lng = new ArrayList<Double>();
      List<Integer> LocId = new ArrayList<>();
@@ -144,14 +107,15 @@ public class MapsActivity extends AppCompatActivity implements
 
     private Location mLastKnownLocation;
     private ImageView mGps;
-    private Toolbar toolbar;
     private AutocompleteSupportFragment autocompleteFragment;
     private ClusterManager<MarkerClusterItem> clusterManager;
-    private MarkerClusterItem  clusterItem;
     private GeoApiContext mGeoApiContext = null;
     String user = null;
-
+    Marker selectedMarker = null;
+    private ArrayList<Marker> mTripMarker = new ArrayList<>();
+    Marker marker = null;
     private Marker mLoc;
+    String userPhoto;
     int AUTOCOMPLETE_REQUEST_CODE = 1;
 
 
@@ -179,6 +143,7 @@ public class MapsActivity extends AppCompatActivity implements
 
           AutoComplete();
           user = SharedPref.getInstance(MapsActivity.this).LoggedInUser();
+          userPhoto = SharedPref.getInstance(MapsActivity.this).LoggedInUserPhoto();
 
     }
 
@@ -266,8 +231,10 @@ public class MapsActivity extends AppCompatActivity implements
                 MarkerOptions options = new MarkerOptions()
                         .position(place.getLatLng())
                         .title(place.getAddress()).icon((BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                    mMap.addMarker(options);
-                mMap.setOnInfoWindowClickListener(this);
+               marker = mMap.addMarker(options);
+                   mMap.setOnInfoWindowClickListener(this);
+
+                mMap.setOnPolylineClickListener(this);
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getLatLng());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
@@ -303,18 +270,12 @@ public class MapsActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap map) {
         mMap = map;
         fetchLocation();
-
-        // Prompt the user for permission.
         getLocationPermission();
-
-        // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
-
-        // Get the current location of the device and set the position of the map.
         getDeviceLocation();
-
         init();
-    mMap.setOnPolylineClickListener(this);
+
+
 
 
     }
@@ -322,6 +283,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onInfoWindowClick(final Marker marker) {
+
         if(marker.getTitle().equals(user)){
             marker.hideInfoWindow();
         }
@@ -330,13 +292,15 @@ public class MapsActivity extends AppCompatActivity implements
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Створити маршрут до " + marker.getTitle())
                     .setCancelable(true)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Так", new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                            resetMarker();
+                            selectedMarker = marker;
                             calculateDirections(marker);
                             dialog.dismiss();
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             dialog.cancel();
                         }
@@ -344,8 +308,30 @@ public class MapsActivity extends AppCompatActivity implements
             final AlertDialog alert = builder.create();
             alert.show();
         }
+
     }
 
+
+    public  Bitmap createCustomMarker(Context context, @DrawableRes int resource, String _name) {
+
+        View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
+
+        CircleImageView markerImage = (CircleImageView) marker.findViewById(R.id.user_dp);
+        Picasso.with(this).load(userPhoto).into(markerImage);
+
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        marker.setLayoutParams(new ViewGroup.LayoutParams(52, ViewGroup.LayoutParams.WRAP_CONTENT));
+        marker.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        marker.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        marker.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(marker.getMeasuredWidth(), marker.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        marker.draw(canvas);
+
+        return bitmap;
+    }
 
     private void setUpClusterer(List<Double> listOne, List<Double> listTwo,List<String> info, List<String> snip,
                                  List<Integer> id, List<String> locDescription, List<String> date, List<String> locImage) {
@@ -418,11 +404,6 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
 
-
-
-    /**
-     * Gets the current location of the device, and positions the map's camera.
-     */
     private void getDeviceLocation() {
 
         try {
@@ -434,8 +415,6 @@ public class MapsActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            String userPhoto = SharedPref.getInstance(MapsActivity.this).LoggedInUserPhoto();
-
 
                             if (mLastKnownLocation != null) {
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
@@ -444,6 +423,8 @@ public class MapsActivity extends AppCompatActivity implements
                                 mLoc = mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()))
+                                        .icon(BitmapDescriptorFactory.fromBitmap(
+                                                createCustomMarker(MapsActivity.this,R.drawable.picture_brain,user)))
                                         .title(user));
                                 mLoc.setTag(0);
 
@@ -464,11 +445,6 @@ public class MapsActivity extends AppCompatActivity implements
 
     }
 
-
-
-    /**
-     * Prompts the user for permission to use the device location.
-     */
     private void getLocationPermission() {
 
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
@@ -482,9 +458,6 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
-    /**
-     * Handles the result of the request for location permissions.
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -492,7 +465,6 @@ public class MapsActivity extends AppCompatActivity implements
         mLocationPermissionGranted = false;
         switch (requestCode) {
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
@@ -509,8 +481,7 @@ public class MapsActivity extends AppCompatActivity implements
         }
         try {
             if (mLocationPermissionGranted) {
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
             } else {
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -519,6 +490,21 @@ public class MapsActivity extends AppCompatActivity implements
             }
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+
+    private void removeMarker(){
+        for(Marker marker : mTripMarker){
+            marker.remove();
+        }
+    }
+
+    private void resetMarker(){
+        if(selectedMarker != null){
+            selectedMarker.setVisible(true);
+            selectedMarker = null;
+            removeMarker();
         }
     }
 
@@ -544,7 +530,6 @@ public class MapsActivity extends AppCompatActivity implements
             @Override
             public void onResult(DirectionsResult result) {
                 Log.d(TAG, "onResult: routes: " + result.routes[0].toString());
-                Log.d(TAG, "onResult: geocodedWayPoints: " + result.geocodedWaypoints[0].toString());
                 addPolylinesToMap(result);
             }
 
@@ -570,6 +555,7 @@ public class MapsActivity extends AppCompatActivity implements
                     mPolylineData.clear();
                     mPolylineData = new ArrayList<>();
                 }
+                double duration = 99999999;
                 for(DirectionsRoute route: result.routes){
                     Log.d(TAG, "run: leg: " + route.legs[0].toString());
                     List<com.google.maps.model.LatLng> decodedPath = PolylineEncoding.decode(route.overviewPolyline.getEncodedPath());
@@ -591,6 +577,15 @@ public class MapsActivity extends AppCompatActivity implements
                     polyline.setClickable(true);
                     mPolylineData.add(new PolylineData(polyline,route.legs[0]));
 
+
+                    double tempduratio = route.legs[0].duration.inSeconds;
+                    if(tempduratio < duration){
+                        duration = tempduratio;
+                        onPolylineClick(polyline);
+                        zoomRoute(polyline.getPoints());
+                    }
+                    selectedMarker.setVisible(false);
+
                 }
             }
         });
@@ -599,14 +594,46 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onPolylineClick(Polyline polyline) {
 
+        int index = 0;
         for(PolylineData polylineData: mPolylineData){
+            index++;
             if(polyline.getId().equals(polylineData.getPolyline().getId())){
                 polylineData.getPolyline().setColor(ContextCompat.getColor(this,R.color.colorAccent));
                 polylineData.getPolyline().setZIndex(1);
+
+                LatLng endLocation = new LatLng(
+                        polylineData.getLeg().endLocation.lat,
+                        polylineData.getLeg().endLocation.lng
+                );
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(endLocation)
+                .title("Кількість маршрутів: "+ index)
+                .snippet("Тривалість: " + polylineData.getLeg().duration).icon((BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))));
+                marker.showInfoWindow();
+                mTripMarker.add(marker);
             } else{
                 polylineData.getPolyline().setColor(ContextCompat.getColor(this,R.color.quantum_grey));
                 polylineData.getPolyline().setZIndex(0);
             }
+        }
+    }
+
+
+    public void zoomRoute(List<LatLng> latLngList){
+        if (mMap == null || latLngList == null || latLngList.isEmpty())  return;
+
+        LatLngBounds.Builder boudsBuilder = new LatLngBounds.Builder();
+        for(LatLng latLngPoint : latLngList){
+            boudsBuilder.include(latLngPoint);
+
+            int routePaddin = 120;
+            LatLngBounds latLngBounds = boudsBuilder.build();
+            mMap.animateCamera(
+                    CameraUpdateFactory.newLatLngBounds(latLngBounds,routePaddin),
+                    600,
+                    null
+            );
+
         }
     }
 }
