@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBN6p0XMi4qcnFGfN85NCkZtGlXkQIHjno" />
+            android:value="@string/google_maps_key" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"/>
@@ -33,10 +33,11 @@
         <activity android:name=".fragments.MedicinesFragment" />
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.ForgetPasswordActivity" />
-        <activity android:name=".activities.SignUpActivity" />
+        <activity android:name=".activities.SignUpActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.LogInActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

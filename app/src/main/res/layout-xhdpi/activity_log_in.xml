@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,11 +7,12 @@
     tools:context=".activities.LogInActivity"
     android:background="@drawable/background_image_one_signin">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-       >
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,57 +33,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:paddingTop="130dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
 
-        <EditText
-            android:id="@+id/edittext_email"
+        android:layout_marginTop="130dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:hint="пошта"
-            android:inputType="textEmailAddress"
-            android:background="@null"
-            android:padding="10dp"
-            android:textColor="#292929"
+            app:boxBackgroundColor="#0000"
+            app:hintEnabled="false"
+            app:boxStrokeColor="@color/colorAccent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:inputType="textEmailAddress"
+                android:textColor="#292929"
+                android:hint="пошта"
+                android:textColorHint="#797979"
+                app:errorEnabled="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            app:boxBackgroundColor="#0000"
             app:errorEnabled="true"
-            android:textColorHint="#797979" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#999999" />
-
-        <EditText
-            android:id="@+id/edittext_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:background="@null"
-            android:hint="пароль"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:textColor="#292929"
-            android:textColorHint="#797979"
-            app:errorEnabled="true"
+            app:hintEnabled="false"
+            app:boxStrokeColor="@color/colorAccent"
+            app:passwordToggleTint="#5DA69E"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="#5DA69E"/>
+            android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#999999" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:inputType="textPassword"
+                android:hint="пароль"
+                android:textColor="#292929"
+                android:textColorHint="#797979"
+                 />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -98,10 +96,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="29dp"
                 android:layout_marginBottom="10dp"
-                android:elevation="0dp"
                 app:backgroundTint="@color/colorPrimary"
                 android:src="@drawable/round_arrow_forward_24"
-                app:elevation="0dp"
                 app:fabCustomSize="80dp"
                 app:rippleColor="@color/colorPrimaryDark"
                 tools:ignore="RelativeOverlap" />
@@ -151,7 +147,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </RelativeLayout>
+            </LinearLayout>
     </LinearLayout>
 
-    </LinearLayout>
-</ScrollView>
+    </androidx.core.widget.NestedScrollView>
+

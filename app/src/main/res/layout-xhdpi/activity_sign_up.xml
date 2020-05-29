@@ -10,11 +10,11 @@
     tools:context=".activities.SignUpActivity"
     >
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
 
     <TextView
         android:id="@+id/textView"
@@ -45,8 +45,15 @@
         app:layout_constraintTop_toTopOf="parent"
       >
 
+        <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filledTextField"
+        android:layout_width="match_parent"
+        app:boxBackgroundColor="#0000"
+        app:hintEnabled="false"
+        app:boxStrokeColor="@color/colorPrimary"
+        android:layout_height="wrap_content">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,20 +63,19 @@
             android:backgroundTint="@android:color/transparent"
             android:hint="ім'я"
             android:inputType="textEmailAddress"
-            android:padding="10dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#B1B1B1" />
+            app:boxBackgroundColor="#0000"
+            app:hintEnabled="false"
+            app:boxStrokeColor="@color/colorPrimary"
+            android:layout_height="wrap_content">
 
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_email_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,19 +85,20 @@
             android:backgroundTint="@android:color/transparent"
             android:hint="пошта"
             android:inputType="textEmailAddress"
-            android:padding="10dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#B1B1B1" />
+            app:boxBackgroundColor="#0000"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorTransparentWhite"
+            app:boxStrokeColor="@color/colorPrimary"
+            android:layout_height="wrap_content">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_password_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,21 +108,22 @@
             android:backgroundTint="@android:color/transparent"
             android:hint="пароль"
             android:inputType="textPassword"
-            android:padding="10dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorTransparentWhite"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#B1B1B1" />
+            app:boxBackgroundColor="#0000"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorTransparentWhite"
+            app:boxStrokeColor="@color/colorPrimary"
+            android:layout_height="wrap_content">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_password_confirm_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,19 +133,11 @@
             android:backgroundTint="@android:color/transparent"
             android:hint="підтвердження пароля"
             android:inputType="textPassword"
-            android:padding="10dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorTransparentWhite"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#B1B1B1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"
                 app:backgroundTint="@color/colorPrimaryDark"
-                app:rippleColor="@color/colorAccent"
+
                 android:elevation="0dp"
                 android:src="@drawable/round_arrow_forward_24"
                 app:elevation="0dp"
