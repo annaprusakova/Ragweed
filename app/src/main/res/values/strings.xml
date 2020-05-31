@@ -17,10 +17,9 @@
     <string name="title_activity_maps">Карта</string>
 
 
-        <string name="gender_unknown">Невизначенно</string>
-        <string name="gender_male">Чоловік</string>
-        <string name="gender_female">Жінка</string>
-
+    <string name="gender_unknown">Невизначенно</string>
+    <string name="gender_male">Чоловік</string>
+    <string name="gender_female">Жінка</string>
 
 
 </resources>

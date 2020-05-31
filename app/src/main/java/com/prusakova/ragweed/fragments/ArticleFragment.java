@@ -8,27 +8,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.SearchManager;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.prusakova.ragweed.ArticleAdapter;
+import com.prusakova.ragweed.OnBackPressed;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.ArticleActivity;
-import com.prusakova.ragweed.activities.ProfileActivity;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.model.Article;
@@ -39,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ArticleFragment extends Fragment {
+public class ArticleFragment extends Fragment  {
 
 
     private RecyclerView recyclerView;
@@ -97,6 +93,7 @@ public class ArticleFragment extends Fragment {
 
         return view;
     }
+
 
 
 

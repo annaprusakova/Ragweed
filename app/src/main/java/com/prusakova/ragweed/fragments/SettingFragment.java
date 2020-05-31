@@ -15,14 +15,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.prusakova.ragweed.OnBackPressed;
 import com.prusakova.ragweed.R;
-import com.prusakova.ragweed.activities.ArticleActivity;
 import com.prusakova.ragweed.activities.EditProfileActivity;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.activities.LogInActivity;
 import com.squareup.picasso.Picasso;
 
-public class SettingFragment extends Fragment {
+public class SettingFragment extends Fragment implements OnBackPressed {
 
     TextView textViewExit;
     TextView textViewUserName;
@@ -52,13 +52,11 @@ public class SettingFragment extends Fragment {
 
 
 
+
         textViewExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Uncomment the below code to Set the message and title from the strings.xml file
-                builder.setMessage(R.string.dialog_message) .setTitle(R.string.dialog_title);
 
-                //Setting message manually and performing action on button click
                 builder.setMessage("Ви дійсно хочете вийти з профілю?")
                         .setCancelable(false)
                         .setPositiveButton("Так", new DialogInterface.OnClickListener() {
@@ -80,13 +78,10 @@ public class SettingFragment extends Fragment {
                         })
                         .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //  Action for 'NO' Button
                                 dialog.cancel();
                             }
                         });
-                //Creating dialog box
                 AlertDialog alert = builder.create();
-                //Setting the title manually
                 alert.setTitle("Вихід");
                 alert.show();
             }
@@ -100,6 +95,11 @@ public class SettingFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+    public void onBackPressed() {
+        getActivity().finishAffinity();
     }
 
 

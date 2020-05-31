@@ -29,7 +29,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText TextPasswordConfirm;
     private  FloatingActionButton ButtonSignUp;
     private TextView TextViewLogIn;
-    final String registerUrl = "http://192.168.1.6/api/register.php";
 
 
 

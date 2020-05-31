@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.fragments.ArticleFragment;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.SharedPref;
@@ -16,9 +20,13 @@ import com.prusakova.ragweed.fragments.MapOptionFragment;
 import com.prusakova.ragweed.fragments.MedicinesFragment;
 import com.prusakova.ragweed.fragments.SettingFragment;
 import com.prusakova.ragweed.fragments.TrackerFragment;
+import com.prusakova.ragweed.model.Article;
+
+import java.util.List;
 
 
 public class ProfileActivity extends AppCompatActivity  implements BottomNavigationView.OnNavigationItemSelectedListener{
+
 
 
 
@@ -27,11 +35,8 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
-        //loading the default fragment
         loadFragment(new SettingFragment());
 
-        //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         navigation.setSelectedItemId(R.id.navigation_setting);
@@ -40,12 +45,29 @@ public class ProfileActivity extends AppCompatActivity  implements BottomNavigat
         if (!SharedPref.getInstance(this).isLoggedIn()) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
-        }
 
+        }
 
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        tellFragments();
+
+    }
+
+    private void tellFragments(){
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for(Fragment f : fragments){
+            if(f instanceof SettingFragment) {
+                ((SettingFragment) f).onBackPressed();
+            } else {
+                f.getFragmentManager().popBackStack();
+            }
+        }
+    }
 
 
 

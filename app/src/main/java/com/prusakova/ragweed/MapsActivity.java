@@ -32,7 +32,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -82,11 +83,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MapsActivity extends AppCompatActivity implements
-        GoogleMap.OnInfoWindowClickListener,OnMapReadyCallback, GoogleMap.OnPolylineClickListener {
+        OnMapReadyCallback, GoogleMap.OnPolylineClickListener {
 
 
-     SupportMapFragment supportMapFragment;
+    SupportMapFragment supportMapFragment;
     Api apiInterface;
+    private Toolbar toolbar;
     private boolean mLocationPermissionGranted;
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
     private static final int DEFAULT_ZOOM = 15;
@@ -136,12 +138,24 @@ public class MapsActivity extends AppCompatActivity implements
                     .build();
         }
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+        }
 
-        autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_left);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
 
-          AutoComplete();
+
           user = SharedPref.getInstance(MapsActivity.this).LoggedInUser();
           userPhoto = SharedPref.getInstance(MapsActivity.this).LoggedInUserPhoto();
 
@@ -188,13 +202,24 @@ public class MapsActivity extends AppCompatActivity implements
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        getMenuInflater().inflate(R.menu.menu_maps, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                AutoComplete();
+                return true;
 
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
     public void AutoComplete(){
@@ -204,25 +229,27 @@ public class MapsActivity extends AppCompatActivity implements
                 .build(this);
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
 
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG,Place.Field.NAME));
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(@NonNull Place place) {
 
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getAddress() + ", " + place.getLatLng());
-            }
-
-            @Override
-            public void onError(@NonNull Status status) {
-                Log.i(TAG, "An error occurred: " + status);
-            }
-        });
+//        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG,Place.Field.NAME));
+//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(@NonNull Place place) {
+//
+//                Log.i(TAG, "Place: " + place.getName() + ", " + place.getAddress() + ", " + place.getLatLng());
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Status status) {
+//                Log.i(TAG, "An error occurred: " + status);
+//            }
+//        });
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
+
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
@@ -230,11 +257,22 @@ public class MapsActivity extends AppCompatActivity implements
                         .newLatLngZoom(place.getLatLng(), DEFAULT_ZOOM));
                 MarkerOptions options = new MarkerOptions()
                         .position(place.getLatLng())
-                        .title(place.getAddress()).icon((BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-               marker = mMap.addMarker(options);
-                   mMap.setOnInfoWindowClickListener(this);
+                        .title(place.getAddress()).icon((BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                if(marker != null){
+                    marker.remove();
+                    marker = mMap.addMarker(options);
+                    resetMarker();
+                    selectedMarker = marker;
+                    calculateDirections(marker);
+                    mMap.setOnPolylineClickListener(this);
+                } else {
+                    marker = mMap.addMarker(options);
+                    resetMarker();
+                    selectedMarker = marker;
+                    calculateDirections(marker);
 
-                mMap.setOnPolylineClickListener(this);
+                    mMap.setOnPolylineClickListener(this);
+                }
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getLatLng());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
@@ -249,8 +287,6 @@ public class MapsActivity extends AppCompatActivity implements
 
 
     private void init(){
-        Log.d(TAG, "init: initializing");
-
         mGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -258,8 +294,6 @@ public class MapsActivity extends AppCompatActivity implements
                 getDeviceLocation();
             }
         });
-
-
 
     }
 
@@ -281,35 +315,6 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public void onInfoWindowClick(final Marker marker) {
-
-        if(marker.getTitle().equals(user)){
-            marker.hideInfoWindow();
-        }
-        else{
-
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Створити маршрут до " + marker.getTitle())
-                    .setCancelable(true)
-                    .setPositiveButton("Так", new DialogInterface.OnClickListener() {
-                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            resetMarker();
-                            selectedMarker = marker;
-                            calculateDirections(marker);
-                            dialog.dismiss();
-                        }
-                    })
-                    .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                            dialog.cancel();
-                        }
-                    });
-            final AlertDialog alert = builder.create();
-            alert.show();
-        }
-
-    }
 
 
     public  Bitmap createCustomMarker(Context context, @DrawableRes int resource, String _name) {
@@ -392,7 +397,6 @@ public class MapsActivity extends AppCompatActivity implements
                 id = locId.get(i);
                 desc = locDescription.get(i);
                 date = locDate.get(i);
-//                Picasso.with(this).load(img).into(image);
 
                 Log.i("Location:", listLan.get(i).toString());
                 MarkerClusterItem infoWindowItem = new MarkerClusterItem(lat, lng,name,snippet,id, desc,date,img);
@@ -562,10 +566,7 @@ public class MapsActivity extends AppCompatActivity implements
 
                     List<LatLng> newDecodedPath = new ArrayList<>();
 
-                    // This loops through all the LatLng coordinates of ONE polyline.
                     for(com.google.maps.model.LatLng latLng: decodedPath){
-
-//                        Log.d(TAG, "run: latlng: " + latLng.toString());
 
                         newDecodedPath.add(new LatLng(
                                 latLng.lat,
@@ -607,7 +608,7 @@ public class MapsActivity extends AppCompatActivity implements
                 );
                 Marker marker = mMap.addMarker(new MarkerOptions()
                 .position(endLocation)
-                .title("Кількість маршрутів: "+ index)
+                .title("Маршрут № "+ index)
                 .snippet("Тривалість: " + polylineData.getLeg().duration).icon((BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))));
                 marker.showInfoWindow();
                 mTripMarker.add(marker);
@@ -636,6 +637,9 @@ public class MapsActivity extends AppCompatActivity implements
 
         }
     }
+
+
+
 }
 
 

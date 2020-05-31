@@ -20,28 +20,16 @@
     tools:context=".MapsActivity"/>
 
 
-
-
-
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:id="@+id/relLayout1"
-        android:background="@android:color/white">
-
-        <fragment android:id="@+id/autocomplete_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            />
-
-    </LinearLayout>
+        android:background="@color/colorPrimary"/>
 
     <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_below="@id/relLayout1"
+        android:layout_below="@id/toolbar"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.api.SharedPref;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         mSlideViewPage = (ViewPager) findViewById(R.id.slideViewPager);
         mDotLayout = (LinearLayout) findViewById(R.id.dotsLayout);
         mNext = (com.google.android.material.button.MaterialButton) findViewById(R.id.textview_next);
+
 
 
         slideAdapter = new SlideAdapter(this);
