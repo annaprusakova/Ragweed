@@ -19,6 +19,7 @@ import android.graphics.Canvas;
 import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.maps.PendingResult;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,6 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -34,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -108,7 +111,7 @@ public class MapsActivity extends AppCompatActivity implements
      private List<PolylineData> mPolylineData = new ArrayList<>();
 
     private Location mLastKnownLocation;
-    private ImageView mGps;
+    private FloatingActionButton mGps;
     private AutocompleteSupportFragment autocompleteFragment;
     private ClusterManager<MarkerClusterItem> clusterManager;
     private GeoApiContext mGeoApiContext = null;
@@ -154,6 +157,7 @@ public class MapsActivity extends AppCompatActivity implements
         });
 
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
+
 
 
           user = SharedPref.getInstance(MapsActivity.this).LoggedInUser();
@@ -225,7 +229,7 @@ public class MapsActivity extends AppCompatActivity implements
     public void AutoComplete(){
         List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG, Place.Field.NAME);
         Intent intent = new Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.OVERLAY, fields)
+                AutocompleteActivityMode.FULLSCREEN, fields).setCountry("UA")
                 .build(this);
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
 
