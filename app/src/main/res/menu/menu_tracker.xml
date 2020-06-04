@@ -7,10 +7,6 @@
         android:title="Додати стан здоров'я"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_med"
-        android:title="Ліки"
-        app:showAsAction="never" />
 
 
 

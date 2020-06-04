@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -29,6 +31,7 @@ public class SettingFragment extends Fragment implements OnBackPressed {
     private ImageView profilePhoto;
     private TextView toEditProfile;
     AlertDialog.Builder builder;
+    private Toolbar toolbar;
 
     @Nullable
     @Override
@@ -40,6 +43,8 @@ public class SettingFragment extends Fragment implements OnBackPressed {
         profilePhoto = view.findViewById(R.id.profileCircleImageView);
         textViewUserName = (TextView) view.findViewById(R.id.usernameTextView);
         builder = new AlertDialog.Builder(view.getContext());
+        toolbar = view.findViewById(R.id.settingToolBar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
 
         //getting logged in user name

@@ -297,6 +297,9 @@ public class AddPointActivity extends AppCompatActivity {
 
                 if (value.equals("1")){
                     finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
                 } else {
                     Toast.makeText(AddPointActivity.this, message, Toast.LENGTH_SHORT).show();
                 }

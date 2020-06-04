@@ -67,11 +67,11 @@ public class MedicinesFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        toolbar = view.findViewById(R.id.toolbar);
+        toolbar = view.findViewById(R.id.toolbar_medicine);
         toolbar.inflateMenu(R.menu.menu);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Медикаменти");
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
         }
 
 

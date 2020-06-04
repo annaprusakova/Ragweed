@@ -18,11 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prusakova.ragweed.ArticleAdapter;
-import com.prusakova.ragweed.OnBackPressed;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.ArticleActivity;
 import com.prusakova.ragweed.api.Api;
@@ -46,8 +44,7 @@ public class ArticleFragment extends Fragment  {
     private Api apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
-    TextView search;
-    String[] item;
+
 
 
     @Override
@@ -60,16 +57,17 @@ public class ArticleFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_article,container,false);
+
         apiInterface=ApiClient.getClient().create(Api.class);
         progressBar = view.findViewById(R.id.prograss);
         recyclerView = view.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        toolbar = view.findViewById(R.id.toolbar);
+        toolbar = view.findViewById(R.id.toolbar_article);
         toolbar.inflateMenu(R.menu.menu);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Статті");
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
         }
 
 
@@ -144,6 +142,7 @@ public class ArticleFragment extends Fragment  {
             }
 
         });
+        item.getIcon().setVisible(false, false);
     }
 
 }

@@ -1,22 +1,16 @@
 package com.prusakova.ragweed.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.prusakova.ragweed.R;
-import com.prusakova.ragweed.fragments.ArticleFragment;
-import com.prusakova.ragweed.model.Article;
 import com.squareup.picasso.Picasso;
 
 public class ArticleActivity extends AppCompatActivity {
@@ -25,6 +19,8 @@ public class ArticleActivity extends AppCompatActivity {
     private TextView ArticleName;
     private TextView ArticleLink;
     private TextView ArticleText;
+    private LinearLayout ArticleToComments;
+    public static final String NAME = "ArticleActivity";
 
 
     private int article_id;
@@ -41,7 +37,18 @@ public class ArticleActivity extends AppCompatActivity {
         ArticleName = (TextView) findViewById(R.id.name_article_view);
         ArticleText = findViewById(R.id.article_text);
         ArticleLink = (TextView) findViewById(R.id.article_link);
+        ArticleToComments = findViewById(R.id.to_comments);
 
+        ArticleToComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ArticleActivity.this, CommentsActivity.class);
+                i.putExtra("article_id",article_id);
+                i.putExtra("Activity", "ArticleActivity.NAME");
+
+                startActivity(i);
+            }
+        });
 
         Intent intent = getIntent();
         article_id = intent.getIntExtra("article_id", 0);
@@ -51,13 +58,13 @@ public class ArticleActivity extends AppCompatActivity {
         article_text = intent.getStringExtra("article_text");
 
         setDataFromIntentExtra();
+
     }
 
     private void setDataFromIntentExtra() {
 
         if (article_id != 0) {
 
-//            getSupportActionBar().setTitle( article_name.toString());
 
             ArticleName.setText(article_name);
             Picasso.with(this).load(article_img).into(ArticleImg);

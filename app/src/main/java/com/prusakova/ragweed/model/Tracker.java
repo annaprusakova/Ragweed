@@ -7,10 +7,6 @@ public class Tracker {
     private int tracker_id;
     @SerializedName("tracker_date")
     private String tracker_date;
-    @SerializedName("med_id")
-    private int med_id;
-    @SerializedName("map_id")
-    private int map_id;
     @SerializedName("itchy_nose")
     private int itchy_nose;
     @SerializedName("water_eyes")
@@ -19,6 +15,8 @@ public class Tracker {
     private int runny_nose;
     @SerializedName("user_id")
     private int user_id;
+    @SerializedName("eye_redness")
+    private int eye_redness;
     @SerializedName("value")
     private String value;
     @SerializedName("message")
@@ -48,21 +46,6 @@ public class Tracker {
         this.tracker_date = tracker_date;
     }
 
-    public int getMed_id() {
-        return med_id;
-    }
-
-    public void setMed_id(int med_id) {
-        this.med_id = med_id;
-    }
-
-    public int getMap_id() {
-        return map_id;
-    }
-
-    public void setMap_id(int map_id) {
-        this.map_id = map_id;
-    }
 
     public int getItchy_nose() {
         return itchy_nose;
@@ -103,5 +86,13 @@ public class Tracker {
 
     public void setMassage(String massage) {
         this.massage = massage;
+    }
+
+    public int getEye_redness() {
+        return eye_redness;
+    }
+
+    public void setEye_redness(int eye_redness) {
+        this.eye_redness = eye_redness;
     }
 }

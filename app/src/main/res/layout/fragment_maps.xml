@@ -4,10 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     android:background="@drawable/background_medicines"
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/snippet_map"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/watch_map"
@@ -16,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Перглянути місця "
+        android:text="Перглянути карту"
         app:icon="@drawable/icon_map"
         app:iconSize="30dp" />
 
@@ -27,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Додати локацію"
+        android:text="Додати мітку"
         app:icon="@drawable/ic_action_add" />
 
     <com.google.android.material.button.MaterialButton
@@ -37,8 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Переглянути вже додаді локації"
+        android:text="Переглянути вже додаді мітки"
         app:icon="@drawable/ic_toolbar_edit" />
 
-
+</LinearLayout>
 </LinearLayout>

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.prusakova.ragweed.MapsActivity;
@@ -20,6 +22,7 @@ public class MapOptionFragment extends Fragment {
 private Button goToMap;
 private Button addPoint;
 private Button seePoint;
+    private Toolbar toolbar;
 
     @Nullable
     @Override
@@ -29,6 +32,9 @@ private Button seePoint;
         goToMap = view.findViewById(R.id.watch_map);
         addPoint = view.findViewById(R.id.add_point);
         seePoint = view.findViewById(R.id.watch_point);
+        toolbar = view.findViewById(R.id.mapToolBar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
 
         goToMap.setOnClickListener(new View.OnClickListener() {
             @Override

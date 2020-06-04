@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +19,9 @@ public class IteamMedActivity extends AppCompatActivity {
     private TextView MedName;
     private TextView MedCost;
     private TextView MedActive;
+    private LinearLayout toComments;
 
-
+    public static final String NAME = "IteamMedActivity";
     private int id_med;
     private String med_name, photo_med, active_substance, cost;
 
@@ -34,6 +36,7 @@ public class IteamMedActivity extends AppCompatActivity {
         MedName = findViewById(R.id.name_med_view);
         MedCost = findViewById(R.id.med_cost);
         MedActive = findViewById(R.id.med_active);
+        toComments = findViewById(R.id.to_comments_med);
 
         Intent intent = getIntent();
         id_med = intent.getIntExtra("id_med", 0);
@@ -42,6 +45,17 @@ public class IteamMedActivity extends AppCompatActivity {
         cost = intent.getStringExtra("cost");
         active_substance = intent.getStringExtra("active_substance");
 
+
+
+        toComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(IteamMedActivity.this, CommentsActivity.class);
+                i.putExtra("id_med",id_med);
+                i.putExtra("Activity", "IteamMedActivity.NAME");
+                startActivity(i);
+            }
+        });
 
         setDataFromIntentExtra();
     }

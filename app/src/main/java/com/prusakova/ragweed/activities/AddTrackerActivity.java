@@ -12,31 +12,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.chip.Chip;
-import com.prusakova.ragweed.MedicineAdapter;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
-import com.prusakova.ragweed.fragments.TrackerFragment;
-import com.prusakova.ragweed.model.Medicine;
 import com.prusakova.ragweed.model.Tracker;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -45,33 +36,29 @@ import retrofit2.Response;
 
 public class AddTrackerActivity extends AppCompatActivity {
 
-    private Spinner  medSpinner;
-    private Spinner mapSpinner;
     private DatePickerDialog picker;
     private Chip itchyNose;
     private Chip runnyNose;
     private Chip waterEyes;
+    private Chip eyeRedness;
     private Toolbar toolbar;
     private EditText dateTracker;
     Calendar myCalendar = Calendar.getInstance();
 
     private Api apiInterface;
-    private int mMed = 0;
-    private List<Medicine> medList;
-    private int tracker_id, med_id,map_id;
+    private int tracker_id;
     private String tracker_date;
-    private Boolean itchy_nose, runny_mose, water_eyes;
+    private Boolean itchy_nose, runny_mose, water_eyes, eye_redness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_tracker);
 
-        medSpinner = findViewById(R.id.med_tracker);
-        mapSpinner = findViewById(R.id.map_tracker);
         itchyNose = findViewById(R.id.itchy_nose);
         runnyNose = findViewById(R.id.runny_nose);
         waterEyes = findViewById(R.id.water_eyes);
+        eyeRedness = findViewById(R.id.eye_redness);
         dateTracker = findViewById(R.id.date);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,21 +89,7 @@ public class AddTrackerActivity extends AppCompatActivity {
 
 
 
-      getMed("medicines","");
 
-        medSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-               mMed = medList.get(position).getId_med();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
     }
 
@@ -135,7 +108,7 @@ public class AddTrackerActivity extends AppCompatActivity {
 
 
     private void setDate() {
-        String myFormat = "dd MMMM yyyy"; //In which you need put here
+        String myFormat = "dd MMMM yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dateTracker.setText(sdf.format(myCalendar.getTime()));
     }
@@ -171,35 +144,7 @@ public class AddTrackerActivity extends AppCompatActivity {
         }
     }
 
-    public void getMed(String type, String key){
-        //making api call
-        apiInterface = ApiClient.getClient().create(Api.class);
 
-        Call<List<Medicine>> call = apiInterface.getMed(type,key);
-
-        call.enqueue(new Callback<List<Medicine>>() {
-            @Override
-            public void onResponse(Call<List<Medicine>> call, Response<List<Medicine>> response) {
-                medList = response.body();
-                String[] s = new String[medList.size()];
-                for(int i = 0; i < medList.size();i++){
-                    s[i]=medList.get(i).getMed_name();
-                    final ArrayAdapter a = new ArrayAdapter(AddTrackerActivity.this, android.R.layout.simple_spinner_item, s);
-                    a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    medSpinner.setAdapter(a);
-                }
-
-
-
-
-            }
-            @Override
-            public void onFailure(Call<List<Medicine>> call, Throwable t) {
-                Toast.makeText(AddTrackerActivity.this, "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
-            }
-
-            });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -215,7 +160,6 @@ public class AddTrackerActivity extends AppCompatActivity {
         progressDialog.show();
 
         String date = dateTracker.getText().toString().trim();
-        int med = mMed;
         int itchy_nose = 0;
         if(itchyNose.isChecked()){
             itchy_nose = 1;
@@ -228,12 +172,16 @@ public class AddTrackerActivity extends AppCompatActivity {
         if(waterEyes.isChecked()){
             water_eyes = 1;
         }
+        int eye_redness = 0;
+        if(eyeRedness.isChecked()){
+            eye_redness = 1;
+        }
 
         int userId = SharedPref.getInstance(AddTrackerActivity.this).LoggedInUserId();
 
         apiInterface = ApiClient.getClient().create(Api.class);
 
-        Call<Tracker> call = apiInterface.insertTracker(key,date, med, itchy_nose, water_eyes,runny_nose,userId);
+        Call<Tracker> call = apiInterface.insertTracker(key,date, itchy_nose, water_eyes,runny_nose,userId,eye_redness);
 
         call.enqueue(new Callback<Tracker>() {
             @Override
@@ -248,6 +196,10 @@ public class AddTrackerActivity extends AppCompatActivity {
 
                 if (value.equals("1")){
                     finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                    Toast.makeText(AddTrackerActivity.this, "Дані збережено", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AddTrackerActivity.this, message, Toast.LENGTH_SHORT).show();
                 }

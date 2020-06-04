@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"/>
+            android:background="@drawable/green_grey_border_bottom" />
 
 
         <androidx.cardview.widget.CardView
@@ -108,57 +108,7 @@
                 android:orientation="vertical"
                 android:layout_margin="16dp">
 
-                <TextView
-                    android:text="Оберіть ліки, якими користуєтесь"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginBottom="10dp"
-                    android:textSize="15sp"
-                    android:fontFamily="sans-serif-light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-                <TextView
-                    android:text="Ліки"
-                    android:layout_marginLeft="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:id="@+id/med_tracker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="-3dp"
-                    android:hint="ліки"
-                    android:fontFamily="sans-serif-light"
-                    android:inputType="textPersonName" />
-
-                <TextView
-                    android:text="Оберіть місцевість"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginBottom="10dp"
-                    android:textSize="15sp"
-                    android:fontFamily="sans-serif-light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="Локація"
-                    android:layout_marginLeft="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:id="@+id/map_tracker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="-3dp"
-                    android:hint="локація"
-                    android:fontFamily="sans-serif-light"
-                    android:inputType="textPersonName" />
 
                 <TextView
                     android:text="Відмітьте симптоми, які у вас присутні"
@@ -175,7 +125,7 @@
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="itchy_nose"/>
+                    android:text="Свербіж в носі"/>
 
 
                 <com.google.android.material.chip.Chip
@@ -184,7 +134,7 @@
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="Runny nose"/>
+                    android:text="Нежить"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/water_eyes"
@@ -192,7 +142,15 @@
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="water_eyes"/>
+                    android:text="Сльозотеча"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eye_redness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/colorAccent"
+                    android:checkable="true"
+                    android:text="Почервоніння очей"/>
 
 
             </LinearLayout>

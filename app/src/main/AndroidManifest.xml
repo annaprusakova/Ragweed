@@ -22,6 +22,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity android:name=".activities.CommentsActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".activities.AboutLocationActivity" />
         <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.LocationViewActivity" />

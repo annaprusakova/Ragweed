@@ -4,6 +4,7 @@ package com.prusakova.ragweed.api;
 
 import com.prusakova.ragweed.model.Article;
 import com.prusakova.ragweed.model.Chat;
+import com.prusakova.ragweed.model.Comment;
 import com.prusakova.ragweed.model.Location;
 import com.prusakova.ragweed.model.Medicine;
 import com.prusakova.ragweed.model.Tracker;
@@ -67,18 +68,17 @@ public interface Api {
     Call<Tracker> insertTracker(
             @Field("key") String key,
             @Field("tracker_date") String tracker_date,
-            @Field("med_id") int med_id,
             @Field("itchy_nose") int itchy_nose,
             @Field("water_eyes") int water_eyes,
             @Field("runny_nose") int runny_nose,
-            @Field("user_id") int user_id
+            @Field("user_id") int user_id,
+            @Field("eye_redness") int eye_redness
             );
 
 
     @GET("get_tracker.php")
     Call<List<Tracker>> getTracker(
-            @Query("item_type") String item_type,
-            @Query("key") String keyword
+            @Query("key") int key
     );
 
 
@@ -110,6 +110,22 @@ public interface Api {
     Call<List<User>> getUserLoc(
             @Query("key") int keyword
     );
+
+    @GET("get_all_comments.php")
+    Call<List<Comment>> getComments(
+            @Query("table") String table,
+            @Query("key") int keyword
+    );
+
+
+    @FormUrlEncoded
+    @POST("add_comment.php")
+    Call<Comment> addComment(
+            @Field("key") String key,
+            @Field("comment_date") String comment_date,
+            @Field("comment_text") String comment_text,
+            @Field("comment_user_id") int user_comment_id,
+            @Field("comment_topic_id") int comment_topic_id);
 
 
 }

@@ -173,6 +173,35 @@
 
 
                         </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/to_comments_med"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="8dp">
+
+                            <ImageView
+                                android:id="@+id/com_img"
+                                android:layout_width="wrap_content"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_insert_comment"
+                                />
+
+                            <TextView
+                                android:id="@+id/com_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:text="Переглянути коментарі"
+                                android:textColor="@color/colorAccent"
+                                android:textColorHint="@color/quantum_grey"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
                     </LinearLayout>
 
 
