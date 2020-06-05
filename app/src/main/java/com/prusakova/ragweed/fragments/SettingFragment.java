@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.OnBackPressed;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.activities.EditPasswordActivity;
 import com.prusakova.ragweed.activities.EditProfileActivity;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.activities.LogInActivity;
@@ -30,6 +31,7 @@ public class SettingFragment extends Fragment implements OnBackPressed {
     TextView textViewUserName;
     private ImageView profilePhoto;
     private TextView toEditProfile;
+    private TextView toEditPassword;
     AlertDialog.Builder builder;
     private Toolbar toolbar;
 
@@ -40,6 +42,7 @@ public class SettingFragment extends Fragment implements OnBackPressed {
        View view =  inflater.inflate(R.layout.fragment_setting, null);
         textViewExit = (TextView)  view.findViewById(R.id.logout_app);
         toEditProfile = view.findViewById(R.id.edit_profile);
+        toEditPassword  = view.findViewById(R.id.edit_password);
         profilePhoto = view.findViewById(R.id.profileCircleImageView);
         textViewUserName = (TextView) view.findViewById(R.id.usernameTextView);
         builder = new AlertDialog.Builder(view.getContext());
@@ -98,6 +101,17 @@ public class SettingFragment extends Fragment implements OnBackPressed {
                 startActivity(intent);
             }
         });
+
+        toEditPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditPasswordActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+
 
         return view;
     }

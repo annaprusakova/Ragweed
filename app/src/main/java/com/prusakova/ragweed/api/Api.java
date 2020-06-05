@@ -3,7 +3,6 @@ package com.prusakova.ragweed.api;
 
 
 import com.prusakova.ragweed.model.Article;
-import com.prusakova.ragweed.model.Chat;
 import com.prusakova.ragweed.model.Comment;
 import com.prusakova.ragweed.model.Location;
 import com.prusakova.ragweed.model.Medicine;
@@ -51,6 +50,14 @@ public interface Api {
             @Field("email") String email,
             @Field("user_gender") int user_gender,
             @Field("user_photo") String user_photo);
+
+    @FormUrlEncoded
+    @POST("update_password.php")
+    Call<User> updatePassword(
+            @Field("id") int id,
+            @Field("password") String oldPassword,
+            @Field("new_password") String newPassword);
+
 
 
     @POST("forgotpassword.php")

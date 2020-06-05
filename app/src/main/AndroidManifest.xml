@@ -22,6 +22,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity android:name=".activities.EditPasswordActivity"/>
         <activity android:name=".activities.CommentsActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".activities.AboutLocationActivity" />
@@ -35,7 +36,6 @@
         <activity android:name=".BottomMenu" />
         <activity android:name=".fragments.SettingFragment" />
         <activity android:name=".fragments.MedicinesFragment" />
-        <activity android:name=".activities.ForgetPasswordActivity" />
         <activity
             android:name=".activities.SignUpActivity"
             android:windowSoftInputMode="stateHidden" />

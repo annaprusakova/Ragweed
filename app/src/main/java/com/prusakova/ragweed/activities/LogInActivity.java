@@ -31,9 +31,7 @@ public class LogInActivity extends AppCompatActivity {
     EditText TextPassword;
     FloatingActionButton ButtonLogin;
     TextView TextViewRegister;
-    TextView TextViewForgotPassword;
 
-    final String loginURL = "http://192.168.1.6/api/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,7 @@ public class LogInActivity extends AppCompatActivity {
         TextPassword = (EditText) findViewById(R.id.edittext_password);
         ButtonLogin = (FloatingActionButton) findViewById(R.id.button_login);
         TextViewRegister = (TextView) findViewById(R.id.textview_singup);
-        TextViewForgotPassword = (TextView) findViewById(R.id.textview_forgot_password);
+
 
        ButtonLogin.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -66,9 +64,6 @@ public class LogInActivity extends AppCompatActivity {
         startActivity(new Intent(LogInActivity.this, SignUpActivity.class));
     }
 
-    public void OpenForgotPasswordPage(View view) {
-        startActivity(new Intent(LogInActivity.this, ForgetPasswordActivity.class));
-    }
 
 
     private void validateUserData() {
