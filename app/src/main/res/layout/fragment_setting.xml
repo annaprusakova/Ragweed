@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -68,7 +68,7 @@
             android:textColor="#5D5C5C"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:text="Профіль"/>
 
         <TextView
@@ -86,18 +86,7 @@
             android:layout_marginTop="10dp"
             android:text="Пароль" />
 
-        <TextView
-            style="@style/viewParent.headerText.settingsMiniTitle"
-            android:textSize="18sp"
-            android:text="Сповіщення"/>
 
-        <Switch
-            style="@style/settingsText"
-            android:checked="true"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/icon_notification"
-            android:text="Сповіщення"
-            android:theme="@style/SwitchTheme" />
 
         <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"

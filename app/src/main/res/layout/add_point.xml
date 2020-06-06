@@ -159,7 +159,7 @@
                     android:id="@+id/img_loc"/>
 
                 <TextView
-                    android:text="Оберіть ступінь зараження"
+                    android:text="Оберіть щільність кустів"
                     android:layout_marginLeft="3dp"
                     android:layout_marginBottom="10dp"
                     android:textSize="15sp"
@@ -179,26 +179,32 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <RadioButton
-                        android:id="@+id/red"
+                        android:id="@+id/blue"
                         style="@style/MyRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Red" />
+                        android:text="1-2ШТ/М2" />
 
                     <RadioButton
                         android:id="@+id/yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Yellow" />
+                        android:text="3-10/М2" />
 
                     <RadioButton
-                        android:id="@+id/blue"
+                        android:id="@+id/pink"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Blue" />
+                        android:text="11-50/М2" />
+                    <RadioButton
+                        android:id="@+id/red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=">50/М2" />
                 </RadioGroup>
 
 

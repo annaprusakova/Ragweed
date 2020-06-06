@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.MedicinesFragment">
 
         <androidx.appcompat.widget.Toolbar
@@ -31,7 +32,13 @@
                 </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeToRefresh"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
         <ProgressBar
             android:id="@+id/progress_med"
@@ -41,12 +48,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_med"
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 
 
 
-</RelativeLayout>
+</LinearLayout>

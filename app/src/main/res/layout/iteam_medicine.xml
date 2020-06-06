@@ -10,10 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/contentGrey"
-        app:cardCornerRadius="3dp"
-        app:cardPreventCornerOverlap="false">
+        android:layout_margin="8dp">
 
         <ProgressBar
             android:id="@+id/med_progress"
@@ -47,7 +44,6 @@
             android:textColor="@android:color/black"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:maxLines="1"
             android:layout_marginTop="4dp"
             android:text="Ragweed"
             android:layout_marginLeft="24dp"

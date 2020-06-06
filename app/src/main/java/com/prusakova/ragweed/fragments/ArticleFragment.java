@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.content.Intent;
@@ -44,6 +45,7 @@ public class ArticleFragment extends Fragment  {
     private Api apiInterface;
     ProgressBar progressBar;
     private Toolbar toolbar;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
 
 
@@ -63,12 +65,22 @@ public class ArticleFragment extends Fragment  {
         recyclerView = view.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         toolbar = view.findViewById(R.id.toolbar_article);
         toolbar.inflateMenu(R.menu.menu);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
         }
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                shuffle();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 
 
@@ -90,6 +102,10 @@ public class ArticleFragment extends Fragment  {
          fetchArticle("article","");
 
         return view;
+    }
+
+    public void shuffle(){
+        fetchArticle("article","");
     }
 
 

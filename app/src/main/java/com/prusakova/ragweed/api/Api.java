@@ -88,6 +88,11 @@ public interface Api {
             @Query("key") int key
     );
 
+    @GET("sort_med_by_cost.php")
+    Call<List<Medicine>> getCost(
+            @Query("item_type") String item_type
+    );
+
 
     @FormUrlEncoded
     @POST("add_location.php")

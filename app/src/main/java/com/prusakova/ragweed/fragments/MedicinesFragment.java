@@ -7,7 +7,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -42,7 +45,7 @@ public class MedicinesFragment extends Fragment {
     private List<Medicine> medList;
     Api apiInterface;
     MedicineAdapter.RecyclerViewClickListener listener;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
     ProgressBar progressBar;
 
     private Toolbar toolbar;
@@ -62,13 +65,15 @@ public class MedicinesFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progress_med);
         recyclerView = view.findViewById(R.id.recyclerView_med);
-
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
 
+
         toolbar = view.findViewById(R.id.toolbar_medicine);
-        toolbar.inflateMenu(R.menu.menu);
+        toolbar.inflateMenu(R.menu.menu_med);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
@@ -92,12 +97,18 @@ public class MedicinesFragment extends Fragment {
             }
 
         };
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMed("medicines", "");
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 
         getMed("medicines", "");
         return view;
     }
-
 
 
 
@@ -122,12 +133,36 @@ public class MedicinesFragment extends Fragment {
             }
         });
     }
+
+    public void getCost(String type){
+        apiInterface = ApiClient.getClient().create(Api.class);
+
+        Call<List<Medicine>> call = apiInterface.getCost(type);
+        call.enqueue(new Callback<List<Medicine>>() {
+            @Override
+            public void onResponse(Call<List<Medicine>> call, Response<List<Medicine>> response) {
+                progressBar.setVisibility(View.GONE);
+                medList = response.body();
+                adapter = new MedicineAdapter(medList,getContext(), listener);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Medicine>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Error\n"+t.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu_med, menu);
 
-        MenuItem item = menu.findItem(R.id.search);
+        MenuItem item = menu.findItem(R.id.search_med);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         SearchView searchView = (SearchView) item.getActionView();
@@ -146,6 +181,42 @@ public class MedicinesFragment extends Fragment {
             }
 
         });
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Сортування");
+        int checkedItem = 0;
+        String[] items = {"Від дешевих до дорожчих","Від дорожчих до дешевих"};
+       builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        getCost("min");
+                        break;
+                    case 1:
+                        getCost("max");
+                        break;
+                }
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.sort_by_cost:
+            showAlertDialog();
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 }

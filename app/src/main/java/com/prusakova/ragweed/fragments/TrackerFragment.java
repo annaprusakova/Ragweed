@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -47,6 +48,7 @@ public class TrackerFragment  extends Fragment {
     private Button years;
 
 
+    int userId = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +63,6 @@ public class TrackerFragment  extends Fragment {
         chart =  view.findViewById(R.id.chart);
         months = view.findViewById(R.id.btnMonth);
         years  = view.findViewById(R.id.btnYear);
-
         apiInterface = ApiClient.getClient().create(Api.class);
 
 
@@ -71,7 +72,10 @@ public class TrackerFragment  extends Fragment {
         if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Трекер");
         }
-        int userId = SharedPref.getInstance(getActivity()).LoggedInUserId();
+        userId = SharedPref.getInstance(getActivity()).LoggedInUserId();
+        chart.setNoDataText("Ще не має даних");
+
+
         getData(userId);
         return view;
     }
@@ -130,8 +134,7 @@ public class TrackerFragment  extends Fragment {
     }
 
 
-
-        private void setData(List<Tracker> list) {
+    private void setData(List<Tracker> list) {
 
            ArrayList<BarDataSet> dataSets = new ArrayList<>();
 
@@ -242,19 +245,24 @@ public class TrackerFragment  extends Fragment {
      ArrayList<BarEntry> allergy = new ArrayList<>();
      int count = 0;
      for (int i = 0; i < list.size(); i++) {
-         if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1){
+         if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
+                 && list.get(i).getEye_redness() == 1){
+             count = 4;
+         }
+         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
+                 && list.get(i).getEye_redness() == 0){
              count = 3;
          }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0){
-             count = 2;
-         }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0){
+         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
+                 && list.get(i).getEye_redness() == 0){
              count = 1;
          }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1){
+         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
+                 && list.get(i).getEye_redness() == 0){
              count = 2;
          }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1){
+         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
+                 && list.get(i).getEye_redness() == 0){
              count = 2;
          }
          else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0){
@@ -262,6 +270,37 @@ public class TrackerFragment  extends Fragment {
          }
          else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1){
              count = 1;
+         }  else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
+                 && list.get(i).getEye_redness() == 0){
+             count = 0;
+         }
+         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
+                 && list.get(i).getEye_redness() == 1){
+             count = 1;
+         }
+         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
+                 && list.get(i).getEye_redness() == 1){
+             count = 2;
+         }
+         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0
+                 && list.get(i).getEye_redness() == 1){
+             count = 2;
+         }
+         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
+                 && list.get(i).getEye_redness() == 1){
+             count = 2;
+         }
+         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0
+                 && list.get(i).getEye_redness() == 1){
+             count = 3;
+         }
+         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
+                 && list.get(i).getEye_redness() == 1){
+             count = 3;
+         }
+         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
+                 && list.get(i).getEye_redness() == 1){
+             count = 3;
          }
          BarEntry value = new BarEntry(count,i);
          allergy.add(value);

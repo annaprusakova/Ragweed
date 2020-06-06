@@ -87,7 +87,7 @@ public class AddPointActivity extends AppCompatActivity {
             public void onClick(View v){
                 List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG);
                 Intent intent = new Autocomplete.IntentBuilder(
-                        AutocompleteActivityMode.OVERLAY, fields)
+                        AutocompleteActivityMode.FULLSCREEN, fields)
                         .build(AddPointActivity.this);
                 startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
             }
@@ -256,16 +256,19 @@ public class AddPointActivity extends AppCompatActivity {
         String lang = LatLng;
         String date = pickDate.getText().toString().trim();
         String description = descPoint.getText().toString();
-        String color = "red";
+        String color = "1-2ШТ/М2";
         switch (point.getCheckedRadioButtonId()) {
             case R.id.red:
-                color = "red";
+                color = ">50/М2";
+                break;
+            case R.id.pink:
+                color = "11-50/М2";
                 break;
             case R.id.yellow:
-                color = "yellow";
+                color = "3-10/М2";
                 break;
             case R.id.blue:
-                color = "blue";
+                color = "1-2ШТ/М2";
                 break;
         }
         Log.println(Log.INFO,"s",color);

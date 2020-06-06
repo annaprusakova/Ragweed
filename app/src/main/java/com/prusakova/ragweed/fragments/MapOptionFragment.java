@@ -32,8 +32,11 @@ private Button seePoint;
         goToMap = view.findViewById(R.id.watch_map);
         addPoint = view.findViewById(R.id.add_point);
         seePoint = view.findViewById(R.id.watch_point);
-        toolbar = view.findViewById(R.id.mapToolBar);
+        toolbar = view.findViewById(R.id.toolbar_map);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
+        }
 
 
         goToMap.setOnClickListener(new View.OnClickListener() {
