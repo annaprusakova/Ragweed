@@ -11,6 +11,13 @@
         app:showAsAction="collapseActionView|always"
         android:theme="@android:style/Theme.Holo.Light"/>
 
+    <item
+        android:visible="false"
+        android:id="@+id/add_article"
+        app:showAsAction="never"
+        android:title="Додати статтю"
+       />
+
     </menu>
 
 

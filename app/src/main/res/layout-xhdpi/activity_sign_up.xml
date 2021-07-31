@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image_one_signup"
     tools:context=".activities.SignUpActivity"
     >
 
-
-    <RelativeLayout
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:src="@drawable/background_image_one_signup"
+        android:scaleType="centerCrop"/>
+
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:text="Ragweed"
         android:textColor="@android:color/white"
-        android:textSize="45sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"  />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingTop="230dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="bottom"
+        android:layout_marginBottom="40dp"
       >
 
         <com.google.android.material.textfield.TextInputLayout
@@ -50,7 +44,7 @@
         android:layout_width="match_parent"
         app:boxBackgroundColor="#0000"
         app:hintEnabled="false"
-        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimaryDark"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +66,7 @@
             android:layout_width="match_parent"
             app:boxBackgroundColor="#0000"
             app:hintEnabled="false"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -95,7 +89,7 @@
             app:hintEnabled="false"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorTransparentWhite"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -120,7 +114,7 @@
             app:hintEnabled="false"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorTransparentWhite"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorPrimaryDark"
             android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -142,7 +136,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/button_signup"
@@ -154,7 +148,6 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"
                 app:backgroundTint="@color/colorPrimaryDark"
-
                 android:elevation="0dp"
                 android:src="@drawable/round_arrow_forward_24"
                 app:elevation="0dp"
@@ -204,7 +197,5 @@
     </LinearLayout>
 
 
-    </RelativeLayout>
-
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

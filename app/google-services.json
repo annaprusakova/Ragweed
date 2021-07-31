@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "454756152116",
-    "firebase_url": "https://ragweed.firebaseio.com",
-    "project_id": "ragweed",
-    "storage_bucket": "ragweed.appspot.com"
+    "project_number": "33063279921",
+    "project_id": "ragweed-a95a9",
+    "storage_bucket": "ragweed-a95a9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:454756152116:android:dad2a2bf830f55efdbab61",
+        "mobilesdk_app_id": "1:33063279921:android:258a9468f397caf8dde410",
         "android_client_info": {
-          "package_name": "com.prusakova.ragweed"
+          "package_name": "com.ragweed"
         }
       },
       "oauth_client": [
         {
-          "client_id": "454756152116-8ure0bdaa3q817j41vut9b1qc4lvjb33.apps.googleusercontent.com",
+          "client_id": "33063279921-ja1grek60118m55h2l6p84tg3l8ton1o.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBSDTvoos89oV441uvlz2MN41Pn46ZWZkU"
+          "current_key": "AIzaSyASWHhqcBvsALvFfcVvzn9c0x4fYfGCXBQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "454756152116-8ure0bdaa3q817j41vut9b1qc4lvjb33.apps.googleusercontent.com",
+              "client_id": "33063279921-ja1grek60118m55h2l6p84tg3l8ton1o.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

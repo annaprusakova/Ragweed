@@ -91,6 +91,7 @@ public class MedicinesFragment extends Fragment {
                 intent.putExtra("photo_med", medList.get(position).getPhoto_med());
                 intent.putExtra("cost", medList.get(position).getCost());
                 intent.putExtra("active_substance", medList.get(position).getActive_substance());
+                intent.putExtra("instruction",medList.get(position).getInstruction());
 
                 startActivity(intent);
 

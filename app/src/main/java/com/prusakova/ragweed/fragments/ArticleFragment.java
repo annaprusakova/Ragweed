@@ -23,9 +23,11 @@ import android.widget.Toast;
 
 import com.prusakova.ragweed.ArticleAdapter;
 import com.prusakova.ragweed.R;
+import com.prusakova.ragweed.activities.AddArticleActivity;
 import com.prusakova.ragweed.activities.ArticleActivity;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
+import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.model.Article;
 
 import java.util.List;
@@ -84,6 +86,7 @@ public class ArticleFragment extends Fragment  {
 
 
 
+
         listener = new ArticleAdapter.RecyclerViewClickListener() {
             @Override
             public void onRowClick(View view, final int position) {
@@ -139,6 +142,12 @@ public class ArticleFragment extends Fragment  {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu, menu);
 
+        String loggedUsename = SharedPref.getInstance(getActivity()).LoggedInUser();
+        if(loggedUsename.equals("Anna Prusakova")){
+            MenuItem item = menu.findItem(R.id.add_article);
+            item.setVisible(true);
+        }
+
         MenuItem item = menu.findItem(R.id.search);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
@@ -159,6 +168,22 @@ public class ArticleFragment extends Fragment  {
 
         });
         item.getIcon().setVisible(false, false);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+            switch (item.getItemId()) {
+
+                case R.id.add_article:
+                    Intent add = new Intent(getActivity(), AddArticleActivity.class);
+                    startActivity(add);
+                    return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+
+            }
+
     }
 
 }

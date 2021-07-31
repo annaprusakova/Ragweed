@@ -2,6 +2,7 @@ package com.prusakova.ragweed.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,8 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -28,11 +29,13 @@ import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.model.Tracker;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Locale;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +49,7 @@ public class TrackerFragment  extends Fragment {
     private List<Tracker> trackList;
     private Button months;
     private Button years;
+    final String Your_Fragment_TAG = "TrackerFragment";
 
 
     int userId = 0;
@@ -77,6 +81,8 @@ public class TrackerFragment  extends Fragment {
 
 
         getData(userId);
+
+
         return view;
     }
 
@@ -124,7 +130,12 @@ public class TrackerFragment  extends Fragment {
                 });
 
                 setData(trackList);
+
+
+
             }
+
+
 
             @Override
             public void onFailure(Call<List<Tracker>> call, Throwable t) {
@@ -141,64 +152,9 @@ public class TrackerFragment  extends Fragment {
 
             ArrayList<BarEntry> allergy = new ArrayList<>();
             int count = 0;
+
             for (int i = 0; i < list.size(); i++) {
-                if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                && list.get(i).getEye_redness() == 1){
-                    count = 4;
-                }
-                else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                        && list.get(i).getEye_redness() == 0){
-                    count = 3;
-                }
-                else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                        && list.get(i).getEye_redness() == 0){
-                    count = 1;
-                }
-                else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                        && list.get(i).getEye_redness() == 0){
-                    count = 2;
-                }
-                else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
-                        && list.get(i).getEye_redness() == 0){
-                    count = 2;
-                }
-                else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0){
-                    count = 1;
-                }
-                else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1){
-                    count = 1;
-                }  else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                        && list.get(i).getEye_redness() == 0){
-                    count = 0;
-                }
-                else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                        && list.get(i).getEye_redness() == 1){
-                    count = 1;
-                }
-                else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                        && list.get(i).getEye_redness() == 1){
-                    count = 2;
-                }
-                else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0
-                        && list.get(i).getEye_redness() == 1){
-                    count = 2;
-                }
-                else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
-                        && list.get(i).getEye_redness() == 1){
-                    count = 2;
-                }
-                else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0
-                        && list.get(i).getEye_redness() == 1){
-                    count = 3;
-                }
-                else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
-                        && list.get(i).getEye_redness() == 1){
-                    count = 3;
-                }
-                else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                        && list.get(i).getEye_redness() == 1){
-                    count = 3;
-                }
+                count = list.get(i).getDegree();
                 BarEntry value = new BarEntry(count,i);
                 allergy.add(value);
             }
@@ -215,7 +171,47 @@ public class TrackerFragment  extends Fragment {
 
             for(int i = 0; i < list.size();i++) {
                 String d = list.get(i).getTracker_date();
-                dateForYears.add(d.substring(3));
+                String month = "Січень";
+                switch (d.substring(3,5)){
+                    case "01":
+                        month = "Січень";
+                        break;
+                    case "02":
+                        month = "Лютий";
+                        break;
+                    case "03":
+                        month = "Березень";
+                        break;
+                    case "04":
+                        month = "Квітень";
+                        break;
+                    case "05":
+                        month = "Травень";
+                        break;
+                    case "06":
+                        month = "Червень";
+                        break;
+                    case "07":
+                        month = "Липень";
+                        break;
+                    case "08":
+                        month = "Серпень";
+                        break;
+                    case "09":
+                        month = "Вересень";
+                        break;
+                    case "10":
+                        month = "Жовтень";
+                        break;
+                    case "11":
+                        month = "Листопад";
+                        break;
+                    case "12":
+                        month = "Грудень";
+                        break;
+                }
+
+                dateForYears.add(month + " " + d.substring(6));
             }
 
 
@@ -245,63 +241,7 @@ public class TrackerFragment  extends Fragment {
      ArrayList<BarEntry> allergy = new ArrayList<>();
      int count = 0;
      for (int i = 0; i < list.size(); i++) {
-         if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                 && list.get(i).getEye_redness() == 1){
-             count = 4;
-         }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                 && list.get(i).getEye_redness() == 0){
-             count = 3;
-         }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                 && list.get(i).getEye_redness() == 0){
-             count = 1;
-         }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                 && list.get(i).getEye_redness() == 0){
-             count = 2;
-         }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
-                 && list.get(i).getEye_redness() == 0){
-             count = 2;
-         }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0){
-             count = 1;
-         }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1){
-             count = 1;
-         }  else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                 && list.get(i).getEye_redness() == 0){
-             count = 0;
-         }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                 && list.get(i).getEye_redness() == 1){
-             count = 1;
-         }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 0
-                 && list.get(i).getEye_redness() == 1){
-             count = 2;
-         }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0
-                 && list.get(i).getEye_redness() == 1){
-             count = 2;
-         }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
-                 && list.get(i).getEye_redness() == 1){
-             count = 2;
-         }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 0
-                 && list.get(i).getEye_redness() == 1){
-             count = 3;
-         }
-         else if(list.get(i).getItchy_nose() == 1 && list.get(i).getRunny_nose() == 0 && list.get(i).getWater_eyes() == 1
-                 && list.get(i).getEye_redness() == 1){
-             count = 3;
-         }
-         else if(list.get(i).getItchy_nose() == 0 && list.get(i).getRunny_nose() == 1 && list.get(i).getWater_eyes() == 1
-                 && list.get(i).getEye_redness() == 1){
-             count = 3;
-         }
+             count = list.get(i).getDegree();
          BarEntry value = new BarEntry(count,i);
          allergy.add(value);
      }
@@ -319,7 +259,47 @@ public class TrackerFragment  extends Fragment {
      for(int i = 0; i < list.size();i++) {
 
          String d = list.get(i).getTracker_date();
-         dateForYears.add(d);
+         String month = "Січень";
+         switch (d.substring(3,5)){
+             case "01":
+                 month = "Січеня";
+                 break;
+             case "02":
+                 month = "Лютого";
+                 break;
+             case "03":
+                 month = "Березня";
+                 break;
+             case "04":
+                 month = "Квітня";
+                 break;
+             case "05":
+                 month = "Травня";
+                 break;
+             case "06":
+                 month = "Червня";
+                 break;
+             case "07":
+                 month = "Липня";
+                 break;
+             case "08":
+                 month = "Серпня";
+                 break;
+             case "09":
+                 month = "Вересня";
+                 break;
+             case "10":
+                 month = "Жовтня";
+                 break;
+             case "11":
+                 month = "Листопада";
+                 break;
+             case "12":
+                 month = "Грудня";
+                 break;
+         }
+
+         dateForYears.add(d.substring(0,2) + " " + month);
      }
 
 

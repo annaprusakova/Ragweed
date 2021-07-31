@@ -17,14 +17,15 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyCOE_hHqjTqgDXKB7DLiJVx8U7_w6r0MZAAIzaSyCOE_hHqjTqgDXKB7DLiJVx8U7_w6r0MZA" />
 
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity android:name=".activities.AddArticleActivity"/>
         <activity android:name=".activities.EditPasswordActivity" />
         <activity android:name=".activities.CommentsActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
         <activity android:name=".activities.AboutLocationActivity" />
         <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.LocationViewActivity" />
@@ -41,7 +42,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.LogInActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+             />
         <activity android:name=".activities.MainActivity"/>
         <activity android:name=".activities.ProfileActivity">
             <intent-filter>

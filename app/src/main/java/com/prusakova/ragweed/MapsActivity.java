@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -52,7 +49,6 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
@@ -225,20 +221,6 @@ public class MapsActivity extends AppCompatActivity implements
                 .build(this);
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
 
-
-//        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG,Place.Field.NAME));
-//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-//            @Override
-//            public void onPlaceSelected(@NonNull Place place) {
-//
-//                Log.i(TAG, "Place: " + place.getName() + ", " + place.getAddress() + ", " + place.getLatLng());
-//            }
-//
-//            @Override
-//            public void onError(@NonNull Status status) {
-//                Log.i(TAG, "An error occurred: " + status);
-//            }
-//        });
     }
 
 
@@ -274,7 +256,7 @@ public class MapsActivity extends AppCompatActivity implements
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i(TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
+
             }
         }
     }
@@ -286,7 +268,6 @@ public class MapsActivity extends AppCompatActivity implements
         mGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked gps icon");
                 getDeviceLocation();
             }
         });
@@ -317,7 +298,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
 
-        CircleImageView markerImage = (CircleImageView) marker.findViewById(R.id.user_dp);
+        CircleImageView markerImage =  marker.findViewById(R.id.user_dp);
         Picasso.with(this).load(userPhoto).into(markerImage);
 
 
@@ -413,7 +394,6 @@ public class MapsActivity extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
 
                             if (mLastKnownLocation != null) {
@@ -424,7 +404,7 @@ public class MapsActivity extends AppCompatActivity implements
                                         .position(new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()))
                                         .icon(BitmapDescriptorFactory.fromBitmap(
-                                                createCustomMarker(MapsActivity.this,R.drawable.picture_brain,user)))
+                                                createCustomMarker(MapsActivity.this,R.drawable.picture_plant,user)))
                                         .title(user));
                                 mLoc.setTag(0);
 

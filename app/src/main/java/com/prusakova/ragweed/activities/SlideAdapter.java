@@ -33,14 +33,14 @@ public class SlideAdapter extends PagerAdapter {
     };
 
     public String[] slide_headlinds ={
-            "eat",
-            "sleep",
-            "code"
+            "Вітаємо!",
+            "",
+            ""
     };
     public String[] slide_descs = {
-            "Hello",
-            "Ragweed",
-            "this"
+            "Додаток допоможе вам у боротьбі з амброзією",
+            "Зможете контролювати стан здоровя та дізнаватися актуальну інформацію",
+            "Відмічати місця ураження та створювати безпечний маршрут "
     };
 
 

@@ -17,6 +17,8 @@ public class Tracker {
     private int user_id;
     @SerializedName("eye_redness")
     private int eye_redness;
+    @SerializedName("degree")
+    private int degree;
     @SerializedName("value")
     private String value;
     @SerializedName("message")
@@ -94,5 +96,13 @@ public class Tracker {
 
     public void setEye_redness(int eye_redness) {
         this.eye_redness = eye_redness;
+    }
+
+    public int getDegree() {
+        return degree;
+    }
+
+    public void setDegree(int degree) {
+        this.degree = degree;
     }
 }

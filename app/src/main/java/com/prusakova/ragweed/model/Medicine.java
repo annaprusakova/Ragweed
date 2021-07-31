@@ -13,6 +13,8 @@ public class Medicine {
     private String active_substance;
     @SerializedName("photo_med")
     private String photo_med;
+    @SerializedName("instruction")
+    private String instruction;
 
 
     public int getId_med(){
@@ -33,4 +35,12 @@ public class Medicine {
 
     public String getPhoto_med(){ return photo_med;}
     public void setPhoto_med(String photo_med){ this.photo_med = photo_med;}
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
 }

@@ -11,13 +11,6 @@
         app:showAsAction="collapseActionView|always"
         android:theme="@android:style/Theme.Holo.Light"/>
 
-    <item
-        android:id="@+id/refresh_med"
-        android:orderInCategory="100"
-        android:title="Refresh"
-        android:icon="@drawable/ic_refresh"
-        app:showAsAction="collapseActionView|always" />
-
 
 
     <item

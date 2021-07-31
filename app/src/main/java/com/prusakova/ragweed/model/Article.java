@@ -13,8 +13,12 @@ public class Article {
     private String article_img;
     @SerializedName("article_text")
     private String article_text;
-
-
+    @SerializedName("user_id_article")
+    private int user_id_article;
+    @SerializedName("value")
+    private String value;
+    @SerializedName("message")
+    private String massage;
 
     public int getArticleId() {
         return article_id;
@@ -54,5 +58,29 @@ public class Article {
 
     public void setArticle_text(String article_text) {
         this.article_text = article_text;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getMassage() {
+        return massage;
+    }
+
+    public void setMassage(String massage) {
+        this.massage = massage;
+    }
+
+    public int getUser_id_article() {
+        return user_id_article;
+    }
+
+    public void setUser_id_article(int user_id_article) {
+        this.user_id_article = user_id_article;
     }
 }

@@ -1,8 +1,11 @@
 package com.prusakova.ragweed.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.CommentAdapter;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.Api;
@@ -48,6 +52,8 @@ public class CommentsActivity extends AppCompatActivity {
     private ImageView mSentComment;
     int article_id, id_med;
     private  String topicA;
+    AlertDialog.Builder builder;
+
 
 
     @Override
@@ -92,14 +98,10 @@ public class CommentsActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-        if(layoutManager.getItemCount() == 0){
-            mTextEmpty.setVisibility(View.VISIBLE);
-            mTextEmpty.setText("Ще немає коментарів. Додайте перший!");
-        }
+//        if(layoutManager.getItemCount() == 0){
+//            mTextEmpty.setVisibility(View.VISIBLE);
+//            mTextEmpty.setText("Ще немає коментарів. Додайте перший!");
+//        }
 
         mSentComment.setOnClickListener(new View.OnClickListener() {
             @Override

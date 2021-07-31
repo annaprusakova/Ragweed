@@ -108,6 +108,16 @@ public interface Api {
 
     );
 
+    @FormUrlEncoded
+    @POST("add_location.php")
+    Call<Article> insertArticle(
+            @Field("user_id_article") int user_id_article,
+            @Field("article_name") String article_name,
+            @Field("article_link") String article_link,
+            @Field("article_img") String article_img,
+            @Field("article_text") String article_text
+    );
+
     @GET("get_location_by_user.php")
     Call<List<Location>> getLocationByUser(
             @Query("key") int keyword

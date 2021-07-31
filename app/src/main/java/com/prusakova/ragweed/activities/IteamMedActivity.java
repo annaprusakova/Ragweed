@@ -20,10 +20,11 @@ public class IteamMedActivity extends AppCompatActivity {
     private TextView MedCost;
     private TextView MedActive;
     private LinearLayout toComments;
+    private TextView medText;
 
     public static final String NAME = "IteamMedActivity";
     private int id_med;
-    private String med_name, photo_med, active_substance, cost;
+    private String med_name, photo_med, active_substance, cost,instruction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class IteamMedActivity extends AppCompatActivity {
         MedCost = findViewById(R.id.med_cost);
         MedActive = findViewById(R.id.med_active);
         toComments = findViewById(R.id.to_comments_med);
+        medText = findViewById(R.id.med_text);
 
         Intent intent = getIntent();
         id_med = intent.getIntExtra("id_med", 0);
@@ -44,6 +46,7 @@ public class IteamMedActivity extends AppCompatActivity {
         photo_med = intent.getStringExtra("photo_med");
         cost = intent.getStringExtra("cost");
         active_substance = intent.getStringExtra("active_substance");
+        instruction = intent.getStringExtra("instruction");
 
 
 
@@ -69,8 +72,9 @@ public class IteamMedActivity extends AppCompatActivity {
 
             MedName.setText(med_name);
             Picasso.with(this).load(photo_med).into(MedImg);
-            MedCost.setText(cost);
-            MedActive.setText(active_substance);
+            MedCost.setText("Ціна: " + cost);
+            MedActive.setText("Діюча речовина: " + active_substance);
+            medText.setText(instruction);
 
 
 

@@ -19,22 +19,26 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+
 import com.google.android.material.chip.Chip;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
+
 import com.prusakova.ragweed.model.Tracker;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddTrackerActivity extends AppCompatActivity {
+public class AddTrackerActivity extends AppCompatActivity  {
 
     private DatePickerDialog picker;
     private Chip itchyNose;
@@ -72,6 +76,7 @@ public class AddTrackerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+
             }
         });
 
@@ -93,6 +98,9 @@ public class AddTrackerActivity extends AppCompatActivity {
 
     }
 
+
+
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -108,7 +116,8 @@ public class AddTrackerActivity extends AppCompatActivity {
 
 
     private void setDate() {
-        String myFormat = "dd MMMM yyyy";
+        String myFormat = "dd-MM-yyyy";
+
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dateTracker.setText(sdf.format(myCalendar.getTime()));
     }
@@ -159,7 +168,9 @@ public class AddTrackerActivity extends AppCompatActivity {
         progressDialog.setMessage("Збереження...");
         progressDialog.show();
 
-        String date = dateTracker.getText().toString().trim();
+        String day =  dateTracker.getText().toString().trim();
+
+        Log.e("date",day);
         int itchy_nose = 0;
         if(itchyNose.isChecked()){
             itchy_nose = 1;
@@ -181,7 +192,7 @@ public class AddTrackerActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(Api.class);
 
-        Call<Tracker> call = apiInterface.insertTracker(key,date, itchy_nose, water_eyes,runny_nose,userId,eye_redness);
+        Call<Tracker> call = apiInterface.insertTracker(key,day, itchy_nose, water_eyes,runny_nose,userId,eye_redness);
 
         call.enqueue(new Callback<Tracker>() {
             @Override

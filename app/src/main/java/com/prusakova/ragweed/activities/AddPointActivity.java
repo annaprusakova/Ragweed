@@ -208,7 +208,7 @@ public class AddPointActivity extends AppCompatActivity {
 
 
     private void setDate() {
-        String myFormat = "dd MMMM yyyy"; //In which you need put here
+        String myFormat = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         pickDate.setText(sdf.format(myCalendar.getTime()));
     }

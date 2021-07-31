@@ -4,15 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.prusakova.ragweed.fragments.ArticleFragment;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.SharedPref;
@@ -20,7 +17,6 @@ import com.prusakova.ragweed.fragments.MapOptionFragment;
 import com.prusakova.ragweed.fragments.MedicinesFragment;
 import com.prusakova.ragweed.fragments.SettingFragment;
 import com.prusakova.ragweed.fragments.TrackerFragment;
-import com.prusakova.ragweed.model.Article;
 
 import java.util.List;
 

@@ -50,7 +50,6 @@ public class SettingFragment extends Fragment implements OnBackPressed {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
 
-        //getting logged in user name
         String loggedUsename = SharedPref.getInstance(getActivity()).LoggedInUser();
         textViewUserName.setText(loggedUsename);
         String userPhoto = SharedPref.getInstance(getActivity()).LoggedInUserPhoto();
