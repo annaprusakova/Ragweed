@@ -7,30 +7,32 @@ public class Tracker {
     private int tracker_id;
     @SerializedName("tracker_date")
     private String tracker_date;
-    @SerializedName("itchy_nose")
-    private int itchy_nose;
+    @SerializedName("itchy_eyes")
+    private int itchy_eyes;
     @SerializedName("water_eyes")
     private int water_eyes;
-    @SerializedName("runny_nose")
-    private int runny_nose;
+    @SerializedName("sore_throat")
+    private int sore_throat;
     @SerializedName("user_id")
     private int user_id;
-    @SerializedName("eye_redness")
-    private int eye_redness;
+    @SerializedName("runny_nose")
+    private int runny_nose;
+    @SerializedName("cough")
+    private int cough;
+    @SerializedName("pressure_sinuses")
+    private int pressure_sinuses;
+    @SerializedName("blue_under_eyes")
+    private int blue_under_eyes;
+    @SerializedName("bad_sleep")
+    private int bad_sleep;
+    @SerializedName("allergy_eczema")
+    private int allergy_eczema;
     @SerializedName("degree")
     private int degree;
     @SerializedName("value")
     private String value;
     @SerializedName("message")
     private String massage;
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
 
     public int getTracker_id() {
         return tracker_id;
@@ -48,21 +50,12 @@ public class Tracker {
         this.tracker_date = tracker_date;
     }
 
-
-    public int getItchy_nose() {
-        return itchy_nose;
+    public int getItchy_eyes() {
+        return itchy_eyes;
     }
 
-    public void setItchy_nose(int itchy_nose) {
-        this.itchy_nose = itchy_nose;
-    }
-
-    public int getRunny_nose() {
-        return runny_nose;
-    }
-
-    public void setRunny_nose(int runny_nose) {
-        this.runny_nose = runny_nose;
+    public void setItchy_eyes(int itchy_eyes) {
+        this.itchy_eyes = itchy_eyes;
     }
 
     public int getWater_eyes() {
@@ -73,6 +66,77 @@ public class Tracker {
         this.water_eyes = water_eyes;
     }
 
+    public int getSore_throat() {
+        return sore_throat;
+    }
+
+    public void setSore_throat(int sore_throat) {
+        this.sore_throat = sore_throat;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getRunny_nose() {
+        return runny_nose;
+    }
+
+    public void setRunny_nose(int runny_nose) {
+        this.runny_nose = runny_nose;
+    }
+
+    public int getCough() {
+        return cough;
+    }
+
+    public void setCough(int cough) {
+        this.cough = cough;
+    }
+
+    public int getPressure_sinuses() {
+        return pressure_sinuses;
+    }
+
+    public void setPressure_sinuses(int pressure_sinuses) {
+        this.pressure_sinuses = pressure_sinuses;
+    }
+
+    public int getBlue_under_eyes() {
+        return blue_under_eyes;
+    }
+
+    public void setBlue_under_eyes(int blue_under_eyes) {
+        this.blue_under_eyes = blue_under_eyes;
+    }
+
+    public int getBad_sleep() {
+        return bad_sleep;
+    }
+
+    public void setBad_sleep(int bad_sleep) {
+        this.bad_sleep = bad_sleep;
+    }
+
+    public int getAllergy_eczema() {
+        return allergy_eczema;
+    }
+
+    public void setAllergy_eczema(int allergy_eczema) {
+        this.allergy_eczema = allergy_eczema;
+    }
+
+    public int getDegree() {
+        return degree;
+    }
+
+    public void setDegree(int degree) {
+        this.degree = degree;
+    }
 
     public String getValue() {
         return value;
@@ -88,21 +152,5 @@ public class Tracker {
 
     public void setMassage(String massage) {
         this.massage = massage;
-    }
-
-    public int getEye_redness() {
-        return eye_redness;
-    }
-
-    public void setEye_redness(int eye_redness) {
-        this.eye_redness = eye_redness;
-    }
-
-    public int getDegree() {
-        return degree;
-    }
-
-    public void setDegree(int degree) {
-        this.degree = degree;
     }
 }

@@ -120,13 +120,28 @@
                     android:layout_height="wrap_content" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/itchy_nose"
+                    android:id="@+id/water_eyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="Свербіж в носі"/>
+                    android:text="Сльозяться очі"/>
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/itchy_eyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/colorAccent"
+                    android:checkable="true"
+                    android:text="Зудять очі"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sore_throat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/colorAccent"
+                    android:checkable="true"
+                    android:text="Першіння у горлі"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/runny_nose"
@@ -134,24 +149,47 @@
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="Нежить"/>
+                    android:text="Нежить або закладеність носа"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/water_eyes"
+                    android:id="@+id/cough"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="Сльозотеча"/>
+                    android:text="Кашель або хрипи"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/eye_redness"
+                    android:id="@+id/pressure_sinuses"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="Почервоніння очей"/>
+                    android:text="Тиск в носових пазухах"/>
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/blue_under_eyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/colorAccent"
+                    android:checkable="true"
+                    android:text="Опухла синюшна шкіра під очима"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/bad_sleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/colorAccent"
+                    android:checkable="true"
+                    android:text="Погана якість сну"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/allergy_eczema"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/colorAccent"
+                    android:checkable="true"
+                    android:text="Алергічна екзема (після контакту з пилком амброзії)"/>
 
             </LinearLayout>
 

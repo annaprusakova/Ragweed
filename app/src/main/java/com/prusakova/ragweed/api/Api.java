@@ -75,13 +75,17 @@ public interface Api {
     Call<Tracker> insertTracker(
             @Field("key") String key,
             @Field("tracker_date") String tracker_date,
-            @Field("itchy_nose") int itchy_nose,
+            @Field("itchy_eyes") int itchy_eyes,
+            @Field("sore_throat") int sore_throat,
             @Field("water_eyes") int water_eyes,
             @Field("runny_nose") int runny_nose,
-            @Field("user_id") int user_id,
-            @Field("eye_redness") int eye_redness
+            @Field("cough") int cough,
+            @Field("pressure_sinuses") int pressure_sinuses,
+            @Field("blue_under_eyes") int blue_under_eyes,
+            @Field("bad_sleep") int bad_sleep,
+            @Field("allergy_eczema") int allergy_eczema,
+            @Field("user_id") int user_id
             );
-
 
     @GET("get_tracker.php")
     Call<List<Tracker>> getTracker(
