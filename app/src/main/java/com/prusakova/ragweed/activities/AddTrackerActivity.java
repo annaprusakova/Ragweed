@@ -55,7 +55,7 @@ public class AddTrackerActivity extends AppCompatActivity  {
     private Api apiInterface;
     private int tracker_id;
     private String tracker_date;
-    private Boolean itchy_nose, runny_mose, water_eyes, eye_redness;
+    private Boolean itchy_nose, runny_nose, water_eyes, eye_redness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

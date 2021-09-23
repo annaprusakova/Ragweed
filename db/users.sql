@@ -203,41 +203,18 @@ INSERT INTO `topic_comment` (`topic_comment_id`, `topic_id`, `topic_name`) VALUE
 CREATE TABLE `tracker` (
   `tracker_id` int NOT NULL,
   `tracker_date` date NOT NULL,
-  `itchy_nose` tinyint(1) NOT NULL,
+  `itchy_eyes` tinyint(1) NOT NULL,
+  `sore_throat` tinyint(1) NOT NULL,
   `water_eyes` tinyint(1) NOT NULL,
   `runny_nose` tinyint(1) NOT NULL,
+  `cough` tinyint(1) NOT NULL,
+  `pressure_sinuses` tinyint(1) NOT NULL,
+  `blue_under_eyes` tinyint(1) NOT NULL,
+  `bad_sleep` tinyint(1) NOT NULL,
+  `allergy_eczema` tinyint(1) NOT NULL,
   `user_id` int NOT NULL,
   `eye_redness` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tracker`
---
-
-INSERT INTO `tracker` (`tracker_id`, `tracker_date`, `itchy_nose`, `water_eyes`, `runny_nose`, `user_id`, `eye_redness`) VALUES
-(9, '2020-05-23', 1, 0, 0, 6, 0),
-(11, '2020-05-19', 0, 0, 1, 6, 0),
-(12, '2020-05-20', 0, 0, 0, 6, 0),
-(13, '2012-09-25', 1, 0, 0, 5, 0),
-(14, '2020-05-25', 1, 1, 1, 6, 0),
-(15, '2020-06-18', 0, 1, 1, 10, 0),
-(16, '2020-06-17', 0, 1, 0, 10, 0),
-(17, '2020-05-07', 1, 0, 0, 10, 0),
-(18, '2010-04-20', 1, 0, 1, 10, 0),
-(19, '2020-06-24', 0, 1, 0, 10, 0),
-(20, '2020-06-02', 0, 0, 1, 10, 0),
-(21, '2020-06-10', 0, 0, 1, 10, 0),
-(26, '2020-06-03', 1, 1, 1, 10, 0),
-(27, '2020-06-12', 1, 0, 1, 10, 0),
-(28, '2020-06-04', 1, 1, 1, 10, 1),
-(29, '2020-06-08', 1, 0, 1, 12, 0),
-(34, '2020-06-08', 1, 0, 0, 12, 0),
-(35, '2020-05-15', 0, 0, 0, 12, 1),
-(46, '2020-06-14', 1, 0, 1, 12, 0),
-(47, '2020-06-14', 1, 1, 1, 12, 1),
-(48, '2020-06-14', 1, 1, 1, 12, 1);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `users_table`
