@@ -42,13 +42,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:background="@null"
             android:hint="пошта"
             android:inputType="textEmailAddress"
-            android:background="@null"
             android:padding="17dp"
             android:textColor="#292929"
-            app:errorEnabled="true"
-            android:textColorHint="#797979" />
+            android:textColorHint="#797979"
+            app:errorEnabled="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
             android:textColorHint="#797979"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="#5DA69E"/>
+            app:passwordToggleTint="#5DA69E" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -100,8 +100,8 @@
                 android:src="@drawable/round_arrow_forward_24"
                 app:backgroundTint="@color/colorPrimary"
                 app:elevation="0dp"
-                app:rippleColor="@color/colorPrimaryDark"
                 app:fabCustomSize="80dp"
+                app:rippleColor="@color/colorPrimaryDark"
                 tools:ignore="RelativeOverlap" />
 
             <TextView

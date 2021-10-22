@@ -15,4 +15,5 @@
     <color name="white_40"> #EEFFFA</color>
     <color name="overlay_dark_30">#4D000000</color>
     <color name="overlay_dark_40">#66000000</color>
+    <color name="not_quite_black">#303030</color>
 </resources>

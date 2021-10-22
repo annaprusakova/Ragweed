@@ -133,9 +133,9 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                if (response.body().getIsSuccess() == 1) {
+                if (response.isSuccessful()) {
                     //get username
-                    String user = response.body().getName();
+                    response.body();
                     Toast.makeText(SignUpActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
                 } else {

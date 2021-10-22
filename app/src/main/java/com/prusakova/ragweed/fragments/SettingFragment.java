@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,11 +28,11 @@ import com.squareup.picasso.Picasso;
 
 public class SettingFragment extends Fragment implements OnBackPressed {
 
-    TextView textViewExit;
+    Button textViewExit;
     TextView textViewUserName;
     private ImageView profilePhoto;
-    private TextView toEditProfile;
-    private TextView toEditPassword;
+    private Button toEditProfile;
+    private Button toEditPassword;
     AlertDialog.Builder builder;
     private Toolbar toolbar;
 
@@ -40,7 +41,7 @@ public class SettingFragment extends Fragment implements OnBackPressed {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
        View view =  inflater.inflate(R.layout.fragment_setting, null);
-        textViewExit = (TextView)  view.findViewById(R.id.logout_app);
+        textViewExit = (Button)  view.findViewById(R.id.logout_app);
         toEditProfile = view.findViewById(R.id.edit_profile);
         toEditPassword  = view.findViewById(R.id.edit_password);
         profilePhoto = view.findViewById(R.id.profileCircleImageView);

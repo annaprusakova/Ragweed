@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SettingFragment"
-    android:background="@drawable/background_setting">
+    android:background="@drawable/background_articles">
 
 
     <LinearLayout
@@ -14,17 +14,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_marginTop="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <include layout="@layout/snippet_setting"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp">
+
+            <include layout="@layout/snippet_setting" />
 
         </RelativeLayout>
 
-
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -41,7 +41,7 @@
                 android:id="@+id/profileCircleImageView"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                app:civ_border_width="2dp"
+                app:civ_border_width="3dp"
                 app:civ_border_color="@color/colorPrimaryDark"
                 android:src="@drawable/picture_plant"
                 android:layout_marginTop="15dp"
@@ -49,15 +49,15 @@
 
             <TextView
                 android:id="@+id/usernameTextView"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Anna Prusakova"
-
-                android:textColor="@color/contentTextColor"
-                android:textStyle="bold"
-                android:textSize="25sp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="30dp"
                 android:layout_toRightOf="@id/profileCircleImageView"
-                android:layout_marginTop="35dp"/>
+                android:text="Anna Prusakova"
+                android:textColor="@color/not_quite_black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -71,18 +71,33 @@
             android:layout_marginTop="80dp"
             android:text="Профіль"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/edit_profile"
-            style="@style/viewParent.headerText.settingsTextIcon"
-            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:drawableLeft="@drawable/icon_edit_profile"
-            android:text="Редагувати профіль" />
+            android:padding="5dp"
+            android:textColor="@color/not_quite_black"
+            android:text="Редагувати профіль"
+            android:textSize="15sp"
+            app:cornerRadius="10dp"
+            android:layout_marginTop="10dp"
+            app:iconSize="30dp" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/edit_password"
-            style="@style/viewParent.headerText.settingsTextIcon"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:padding="5dp"
             android:drawableLeft="@drawable/icon_password"
-            android:textSize="18sp"
+            android:textColor="@color/not_quite_black"
+            android:textSize="15sp"
+            app:cornerRadius="10dp"
+            app:iconSize="30dp"
             android:layout_marginTop="10dp"
             android:text="Пароль" />
 
@@ -95,10 +110,18 @@
 
 
 
-        <TextView
-            style="@style/viewParent.headerText.settingsTextIcon"
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/logout_app"
-            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textColor="@color/not_quite_black"
+            android:padding="5dp"
+            android:textSize="15sp"
+            app:cornerRadius="10dp"
+            app:iconSize="30dp"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/icon_exit"
             android:text="Вихід" />
     </LinearLayout>

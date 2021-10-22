@@ -25,8 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Статті"
             android:textStyle="bold"
-
-            android:textColor="@color/quantum_black_100"
+            android:textColor="@color/not_quite_black"
             android:textSize="20sp"
             android:layout_centerVertical="true"
             android:id="@+id/tvNext"

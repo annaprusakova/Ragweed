@@ -7,10 +7,11 @@
     tools:context=".activities.SignUpActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background_image_one_signup"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_image_one_signup" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,17 +31,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom">
+        android:gravity="bottom|center"
+        android:orientation="vertical">
+
         <EditText
             android:id="@+id/edittext_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:background="@null"
             android:backgroundTint="@android:color/transparent"
             android:hint="ім'я"
-            android:background="@null"
             android:inputType="textEmailAddress"
             android:padding="17dp"
             android:textColor="@android:color/white"
@@ -60,9 +62,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:background="@null"
             android:backgroundTint="@android:color/transparent"
             android:hint="пошта"
-            android:background="@null"
             android:inputType="textEmailAddress"
             android:padding="17dp"
             android:textColor="@android:color/white"
@@ -82,15 +84,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
+            android:background="@null"
             android:backgroundTint="@android:color/transparent"
             android:hint="пароль"
             android:inputType="textPassword"
-            android:background="@null"
             android:padding="17dp"
-            app:passwordToggleTint="@color/colorTransparentWhite"
-            app:passwordToggleEnabled="true"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColorHint="@android:color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorTransparentWhite" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -102,8 +104,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/button_signup"
@@ -114,9 +116,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="20dp"
+                android:elevation="0dp"
                 android:src="@drawable/round_arrow_forward_24"
                 app:backgroundTint="@color/colorPrimaryDark"
-                android:elevation="0dp"
                 app:elevation="0dp"
                 app:fabCustomSize="80dp"
                 app:rippleColor="@color/colorAccent"
@@ -128,18 +130,18 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="30dp"
+                android:padding="15dp"
                 android:text="Реєстрація"
                 android:textColor="@android:color/white"
                 android:textSize="30sp"
-                android:padding="15dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp">
 
             <TextView
                 android:id="@+id/textview_signin"

@@ -41,12 +41,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
             android:hint="пошта"
             android:inputType="textEmailAddress"
             android:background="@null"
-            android:padding="10dp"
+            android:padding="9dp"
             android:textColor="#292929"
             app:errorEnabled="true"
             android:textColorHint="#797979" />
@@ -68,7 +68,7 @@
             android:background="@null"
             android:hint="пароль"
             android:inputType="textPassword"
-            android:padding="10dp"
+            android:padding="9dp"
             android:textColor="#292929"
             android:textColorHint="#797979"
             app:errorEnabled="true"
@@ -96,13 +96,13 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:elevation="0dp"
                 android:src="@drawable/round_arrow_forward_24"
                 app:backgroundTint="@color/colorPrimary"
                 app:rippleColor="@color/colorPrimaryDark"
                 app:elevation="0dp"
-                app:fabCustomSize="60dp"
+                app:fabCustomSize="50dp"
                 tools:ignore="RelativeOverlap" />
 
             <TextView
@@ -111,18 +111,18 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="30dp"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:text="Вхід"
                 android:textColor="#191919"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/textview_singup"

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroun_edit_profile"
+    android:background="@drawable/background_articles"
     tools:context=".activities.EditProfileActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorAccent"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,6 +43,8 @@
                 android:id="@+id/profilephoto"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="4dp"
                 android:src="@drawable/picture_plant" />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabChoosePic"
@@ -77,6 +79,7 @@
                     android:layout_marginBottom="10dp"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:textColor="@color/not_quite_black"
                     android:fontFamily="sans-serif-light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -84,20 +87,21 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white_40">
+                    app:boxBackgroundColor="@color/cpb_white">
+
                     <EditText
                         android:id="@+id/username"
-                        android:hint="Ім'я"
-                        android:fontFamily="sans-serif-light"
-                        android:inputType="textPersonName"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Ім'я"
+                        android:inputType="textPersonName" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white_40">
+                    app:boxBackgroundColor="@color/cpb_white">
                     <EditText
                         android:id="@+id/email"
                         android:hint="Пошта"
@@ -121,6 +125,7 @@
                 <TextView
                     android:text="Стать"
                     android:layout_marginLeft="4dp"
+                    android:textColor="@color/not_quite_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

@@ -4,29 +4,29 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/blue_snip_line"
+        android:background="@color/colorPrimary"
         >
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/settingToolBar">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                android:gravity="left">
 
                 <TextView
+                    android:id="@+id/settingSnip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Налаштування"
-                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/quantum_black_100"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/settingSnip"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
             </RelativeLayout>
