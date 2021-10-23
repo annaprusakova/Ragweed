@@ -2,7 +2,6 @@ package com.prusakova.ragweed.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +20,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.AddTrackerActivity;
 import com.prusakova.ragweed.api.Api;
@@ -31,7 +34,6 @@ import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
 import com.prusakova.ragweed.model.Tracker;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -87,6 +89,7 @@ public class TrackerFragment extends Fragment {
         }
         userId = SharedPref.getInstance(getActivity()).LoggedInUserId();
         chart.setNoDataText("Ще не має даних");
+        lineChart.setNoDataText("Ще не має даних");
 
         if (BarChartSwitch.isChecked()) {
             chart.setVisibility(View.VISIBLE);
@@ -100,6 +103,7 @@ public class TrackerFragment extends Fragment {
         }
 
 
+        configureLineChart();
         getData(userId);
 
 
@@ -165,21 +169,26 @@ public class TrackerFragment extends Fragment {
     private void setData(List<Tracker> list) {
 
         ArrayList<BarDataSet> dataSets = new ArrayList<>();
+        ArrayList<LineDataSet> lineDataSetArrayList = new ArrayList<>();
 
 
         ArrayList<BarEntry> allergy = new ArrayList<>();
+        ArrayList<Entry> allergyLine = new ArrayList<>();
         int count = 0;
 
         for (int i = 0; i < list.size(); i++) {
             count = list.get(i).getDegree();
             BarEntry value = new BarEntry(count, i);
             allergy.add(value);
+            allergyLine.add(value);
         }
 
         BarDataSet allergyData = new BarDataSet(allergy, "Степінь аллергії");
+        LineDataSet lineDataSetAllergy = new LineDataSet(allergyLine, "Степінь аллергії");
         allergyData.setColor(Color.rgb(93, 166, 158));
 
         dataSets.add(allergyData);
+        lineDataSetArrayList.add(lineDataSetAllergy);
 
         ArrayList<String> xAxis = new ArrayList<>();
 
@@ -238,14 +247,22 @@ public class TrackerFragment extends Fragment {
         }
 
         com.github.mikephil.charting.charts.BarChart chart = getActivity().findViewById(R.id.chart);
+        com.github.mikephil.charting.charts.LineChart lineChart = getActivity().findViewById(R.id.lineChart);
+
 
         BarData data = new BarData(xAxis, dataSets);
+        LineData lineData = new LineData(xAxis, lineDataSetArrayList);
 
         chart.setData(data);
+        lineChart.setData(lineData);
         chart.getAxisLeft().setEnabled(false);
+        lineChart.getAxisLeft().setEnabled(false);
         chart.getAxisRight().setEnabled(false);
+        lineChart.getAxisRight().setEnabled(false);
         chart.getXAxis().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
         chart.animateXY(2000, 2000);
+        lineChart.animateXY(2000, 2000);
         chart.setDescription("");
         chart.invalidate();
 
@@ -336,6 +353,12 @@ public class TrackerFragment extends Fragment {
         chart.animateXY(2000, 2000);
         chart.setDescription("");
         chart.invalidate();
+    }
+
+    private void configureLineChart() {
+        lineChart.setDescription("Ragweed chart");
+
+        XAxis xAxis = lineChart.getXAxis();
     }
 
 }

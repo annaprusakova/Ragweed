@@ -1,6 +1,6 @@
 <?php 
 
-$conn=mysqli_connect("localhost","root","091040tardis","users");
+$conn=mysqli_connect("localhost","root","091040tardi","ragweed");
 
 $type = $_GET['item_type'];
 

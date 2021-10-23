@@ -1,6 +1,6 @@
 <?php 
 
-$conn=mysqli_connect("localhost","root","091040tardis","users");
+$conn=mysqli_connect("localhost","root","","ragweed");
 
 if (isset($_GET['key'],$_GET['table'])) {
     $table = $_GET["table"];

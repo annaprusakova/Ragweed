@@ -1,5 +1,5 @@
 <?php 
-$conn=mysqli_connect("localhost","root","091040tardis","users");
+$conn=mysqli_connect("localhost","root","","ragweed");
 
 
 $key = $_POST['key'];

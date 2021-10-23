@@ -1,7 +1,7 @@
 <?php
    $dbhost = 'localhost';
    $dbuser = 'root';
-   $dbpass = '091040tardis';
+   $dbpass = '';
    
    $conn = mysql_connect($dbhost, $dbuser, $dbpass);
    
@@ -9,8 +9,8 @@
       die('Could not connect: ' . mysql_error());
    }
 	
-   $table_name = "users";
-   $backup_file  = "/tmp/users.sql";
+   $table_name = "ragweed";
+   $backup_file  = "/tmp/ragweed.sql";
    $sql = "SELECT * INTO OUTFILE '$backup_file' FROM $table_name";
    
    mysql_select_db('test_db');

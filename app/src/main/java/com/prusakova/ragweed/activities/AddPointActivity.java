@@ -78,7 +78,7 @@ public class AddPointActivity extends AppCompatActivity {
         point = findViewById(R.id.point_color);
         descPoint = findViewById(R.id.description);
         locName = findViewById(R.id.loc_name);
-        Places.initialize(getApplicationContext(), getString(R.string.google_api_key));
+        Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         img = findViewById(R.id.img_loc);
 
         locName.setFocusable(false);
