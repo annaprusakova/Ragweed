@@ -18,8 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -27,6 +30,11 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.AddTrackerActivity;
 import com.prusakova.ragweed.api.Api;
@@ -49,7 +57,7 @@ public class TrackerFragment extends Fragment {
 
     private Toolbar toolbar;
     private BarChart chart;
-    private LineChart lineChart;
+    private PieChart pieChart;
     public Api apiInterface;
     private List<Tracker> trackList;
     private Button months;
@@ -71,13 +79,11 @@ public class TrackerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tracker, container, false);
         chart = view.findViewById(R.id.chart);
-        lineChart = view.findViewById(R.id.lineChart);
         months = view.findViewById(R.id.btnMonth);
         years = view.findViewById(R.id.btnYear);
         BarChartSwitch = view.findViewById(R.id.BarChartSwitch);
         LineChartSwitch = view.findViewById(R.id.LineChartSwitch);
-        lineChart.setTouchEnabled(true);
-        lineChart.setPinchZoom(true);
+        pieChart = view.findViewById(R.id.activity_main_piechart);
         apiInterface = ApiClient.getClient().create(Api.class);
 
 
@@ -89,23 +95,15 @@ public class TrackerFragment extends Fragment {
         }
         userId = SharedPref.getInstance(getActivity()).LoggedInUserId();
         chart.setNoDataText("Ще не має даних");
-        lineChart.setNoDataText("Ще не має даних");
 
         if (BarChartSwitch.isChecked()) {
             chart.setVisibility(View.VISIBLE);
         } else {
             chart.setVisibility(View.INVISIBLE);
         }
-        if (LineChartSwitch.isChecked()) {
-            lineChart.setVisibility(View.VISIBLE);
-        } else {
-            lineChart.setVisibility(View.VISIBLE);
-        }
 
-
-        configureLineChart();
         getData(userId);
-
+        setupPieChart();
 
         return view;
     }
@@ -154,6 +152,7 @@ public class TrackerFragment extends Fragment {
                 });
 
                 setData(trackList);
+                loadPieChartData(trackList);
 
             }
 
@@ -169,26 +168,20 @@ public class TrackerFragment extends Fragment {
     private void setData(List<Tracker> list) {
 
         ArrayList<BarDataSet> dataSets = new ArrayList<>();
-        ArrayList<LineDataSet> lineDataSetArrayList = new ArrayList<>();
-
 
         ArrayList<BarEntry> allergy = new ArrayList<>();
-        ArrayList<Entry> allergyLine = new ArrayList<>();
         int count = 0;
 
         for (int i = 0; i < list.size(); i++) {
             count = list.get(i).getDegree();
             BarEntry value = new BarEntry(count, i);
             allergy.add(value);
-            allergyLine.add(value);
         }
 
         BarDataSet allergyData = new BarDataSet(allergy, "Степінь аллергії");
-        LineDataSet lineDataSetAllergy = new LineDataSet(allergyLine, "Степінь аллергії");
         allergyData.setColor(Color.rgb(93, 166, 158));
 
         dataSets.add(allergyData);
-        lineDataSetArrayList.add(lineDataSetAllergy);
 
         ArrayList<String> xAxis = new ArrayList<>();
 
@@ -247,30 +240,12 @@ public class TrackerFragment extends Fragment {
         }
 
         com.github.mikephil.charting.charts.BarChart chart = getActivity().findViewById(R.id.chart);
-        com.github.mikephil.charting.charts.LineChart lineChart = getActivity().findViewById(R.id.lineChart);
 
-
-        BarData data = new BarData(xAxis, dataSets);
-        LineData lineData = new LineData(xAxis, lineDataSetArrayList);
-
-        chart.setData(data);
-        lineChart.setData(lineData);
-        chart.getAxisLeft().setEnabled(false);
-        lineChart.getAxisLeft().setEnabled(false);
-        chart.getAxisRight().setEnabled(false);
-        lineChart.getAxisRight().setEnabled(false);
-        chart.getXAxis().setDrawGridLines(false);
-        lineChart.getXAxis().setDrawGridLines(false);
-        chart.animateXY(2000, 2000);
-        lineChart.animateXY(2000, 2000);
-        chart.setDescription("");
-        chart.invalidate();
 
     }
 
     private void setDataMonth(List<Tracker> list) {
         ArrayList<BarDataSet> dataSets = new ArrayList<>();
-
 
         ArrayList<BarEntry> allergy = new ArrayList<>();
         int count = 0;
@@ -344,21 +319,66 @@ public class TrackerFragment extends Fragment {
 
         com.github.mikephil.charting.charts.BarChart chart = getActivity().findViewById(R.id.chart);
 
-        BarData data = new BarData(xAxis, dataSets);
+        BarData data = new BarData();
 
         chart.setData(data);
         chart.getAxisLeft().setEnabled(false);
         chart.getAxisRight().setEnabled(false);
         chart.getXAxis().setDrawGridLines(false);
         chart.animateXY(2000, 2000);
-        chart.setDescription("");
         chart.invalidate();
     }
 
-    private void configureLineChart() {
-        lineChart.setDescription("Ragweed chart");
+    private void setupPieChart() {
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setUsePercentValues(true);
+        pieChart.setEntryLabelTextSize(12);
+        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setCenterText("Spending by Category");
+        pieChart.setCenterTextSize(24);
+        pieChart.getDescription().setEnabled(false);
 
-        XAxis xAxis = lineChart.getXAxis();
+        Legend l = pieChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setEnabled(true);
+    }
+
+    private void loadPieChartData(List<Tracker> list) {
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        ArrayList<PieDataSet> dataSets = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < list.size(); i++) {
+            count = list.get(i).getDegree();
+            PieEntry value = new PieEntry(count, i);
+            entries.add(value);
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for (int color: ColorTemplate.MATERIAL_COLORS) {
+            colors.add(color);
+        }
+
+        for (int color: ColorTemplate.VORDIPLOM_COLORS) {
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+        data.setDrawValues(true);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(12f);
+        data.setValueTextColor(Color.BLACK);
+
+        pieChart.setData(data);
+        pieChart.invalidate();
+
+//        pieChart.animateY(1400, Easing.EaseInOutQuad);
+
     }
 
 }
