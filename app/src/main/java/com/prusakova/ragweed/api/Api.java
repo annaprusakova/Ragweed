@@ -85,7 +85,8 @@ public interface Api {
             @Field("blue_under_eyes") int blue_under_eyes,
             @Field("bad_sleep") int bad_sleep,
             @Field("allergy_eczema") int allergy_eczema,
-            @Field("user_id") int user_id
+            @Field("user_id") int user_id,
+            @Field("eye_redness") int eye_redness
             );
 
     @GET("get_tracker.php")

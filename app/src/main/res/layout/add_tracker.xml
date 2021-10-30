@@ -25,7 +25,6 @@
             android:id="@+id/layoutName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:cardElevation="2dp"
             app:cardCornerRadius="0dp">
 
@@ -76,7 +75,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-
                         android:layout_marginLeft="10dp">
 
                         <EditText
@@ -99,16 +97,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="2dp"
-            app:cardCornerRadius="0dp">
+            android:background="@color/cpb_white"
+            app:cardCornerRadius="10dp">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="16dp">
-
-
+                android:layout_margin="10dp">
 
                 <TextView
                     android:text="Відмітьте симптоми, які у вас присутні"
@@ -119,78 +116,102 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingVertical="10dp">
+
                 <com.google.android.material.chip.Chip
                     android:id="@+id/water_eyes"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
+                    app:chipStrokeColor="@color/colorPrimary"
                     android:checkable="true"
                     android:text="Сльозяться очі"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/itchy_eyes"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="Зудять очі"/>
+                    app:chipStrokeColor="@color/colorPrimary"
+                    android:text="Зудять очі" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/sore_throat"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
+                    app:chipStrokeColor="@color/colorPrimary"
                     android:text="Першіння у горлі"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/runny_nose"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
+                    app:chipStrokeColor="@color/colorPrimary"
                     android:text="Нежить або закладеність носа"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cough"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
+                    app:chipStrokeColor="@color/colorPrimary"
                     android:text="Кашель або хрипи"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/pressure_sinuses"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
+                    app:chipStrokeColor="@color/colorPrimary"
                     android:text="Тиск в носових пазухах"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/blue_under_eyes"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
+                    app:chipStrokeColor="@color/colorPrimary"
                     android:text="Опухла синюшна шкіра під очима"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/bad_sleep"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
+                    app:chipStrokeColor="@color/colorPrimary"
                     android:text="Погана якість сну"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/eye_redness"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        app:chipStrokeColor="@color/colorPrimary"
+                        android:text="Червоні очі"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/allergy_eczema"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipBackgroundColor="@color/colorAccent"
                     android:checkable="true"
-                    android:text="Алергічна екзема (після контакту з пилком амброзії)"/>
-
+                    app:chipStrokeColor="@color/colorPrimary"
+                    android:text="Алергічна екзема (після контакту з пилком)"/>
+                </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
 
     </androidx.cardview.widget.CardView>

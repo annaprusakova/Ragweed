@@ -12,7 +12,7 @@ import retrofit2.http.Header;
 public class ApiClient {
 
     //base url
-    private static final String BASE_URL = "http://192.168.1.6/ragweed/";
+    private static final String BASE_URL = "https://ragweed.000webhostapp.com/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

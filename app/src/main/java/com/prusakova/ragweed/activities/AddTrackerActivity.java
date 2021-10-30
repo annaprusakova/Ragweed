@@ -36,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddTrackerActivity extends AppCompatActivity  {
+public class AddTrackerActivity extends AppCompatActivity {
 
     private DatePickerDialog picker;
     private Chip itchyEyes;
@@ -48,6 +48,7 @@ public class AddTrackerActivity extends AppCompatActivity  {
     private Chip blueUnderEyes;
     private Chip badSleep;
     private Chip allergyEczema;
+    private Chip eyeRedness;
     private Toolbar toolbar;
     private EditText dateTracker;
     Calendar myCalendar = Calendar.getInstance();
@@ -71,10 +72,11 @@ public class AddTrackerActivity extends AppCompatActivity  {
         blueUnderEyes = findViewById(R.id.blue_under_eyes);
         badSleep = findViewById(R.id.bad_sleep);
         allergyEczema = findViewById(R.id.allergy_eczema);
+        eyeRedness = findViewById(R.id.eye_redness);
         dateTracker = findViewById(R.id.date);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("");
         }
 
@@ -89,24 +91,18 @@ public class AddTrackerActivity extends AppCompatActivity  {
         });
 
 
-        dateTracker.setOnClickListener(new View.OnClickListener(){
+        dateTracker.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
-                 new DatePickerDialog(AddTrackerActivity.this, date,myCalendar
+                new DatePickerDialog(AddTrackerActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
             }
         });
 
-
-
-
-
     }
-
-
 
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -137,22 +133,22 @@ public class AddTrackerActivity extends AppCompatActivity  {
             case R.id.menu_save:
 
 
-                    if (TextUtils.isEmpty(dateTracker.getText().toString())) {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-                        alertDialog.setMessage("Будь ласка, заповніть поля!");
-                        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        alertDialog.show();
-                    } else {
+                if (TextUtils.isEmpty(dateTracker.getText().toString())) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                    alertDialog.setMessage("Будь ласка, заповніть поля!");
+                    alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
+                } else {
 
-                        addData("insert");
+                    addData("insert");
 
 
-                    }
+                }
 
                 return true;
 
@@ -162,7 +158,6 @@ public class AddTrackerActivity extends AppCompatActivity  {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_data_tracker, menu);
@@ -170,15 +165,14 @@ public class AddTrackerActivity extends AppCompatActivity  {
     }
 
 
-    private void addData(final String key){
+    private void addData(final String key) {
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Збереження...");
         progressDialog.show();
 
-        String day =  dateTracker.getText().toString().trim();
+        String day = dateTracker.getText().toString().trim();
 
-        Log.e("date",day);
         int itchy_eyes = 0;
         int sore_throat = 0;
         int water_eyes = 0;
@@ -188,33 +182,36 @@ public class AddTrackerActivity extends AppCompatActivity  {
         int blue_under_eyes = 0;
         int bad_sleep = 0;
         int allergy_eczema = 0;
+        int eye_redness = 0;
 
-        if(itchyEyes.isChecked()){
+        if (itchyEyes.isChecked()) {
             itchy_eyes = 1;
         }
-        if(soreThroat.isChecked()){
+        if (soreThroat.isChecked()) {
             sore_throat = 1;
         }
-        if(waterEyes.isChecked()){
+        if (waterEyes.isChecked()) {
             water_eyes = 1;
         }
-        if(runnyNose.isChecked()){
+        if (runnyNose.isChecked()) {
             runny_nose = 1;
         }
-        if(Cough.isChecked()){
+        if (Cough.isChecked()) {
             cough = 1;
         }
-        if(pressureSinuses.isChecked()){
+        if (pressureSinuses.isChecked()) {
             pressure_sinuses = 1;
         }
-        if(blueUnderEyes.isChecked()){
+        if (blueUnderEyes.isChecked()) {
             blue_under_eyes = 1;
         }
-        if(badSleep.isChecked()){
+        if (badSleep.isChecked()) {
             bad_sleep = 1;
         }
-        if(allergyEczema.isChecked()){
+        if (allergyEczema.isChecked()) {
             allergy_eczema = 1;
+        } if (eyeRedness.isCheckable()) {
+            eye_redness = 1;
         }
 
 
@@ -222,9 +219,9 @@ public class AddTrackerActivity extends AppCompatActivity  {
 
         apiInterface = ApiClient.getClient().create(Api.class);
 
-        Call<Tracker> call = apiInterface.insertTracker(key,day,
-                itchy_eyes, sore_throat, water_eyes,runny_nose, cough, pressure_sinuses,
-                blue_under_eyes, bad_sleep,  allergy_eczema, userId);
+        Call<Tracker> call = apiInterface.insertTracker(key, day,
+                itchy_eyes, sore_throat, water_eyes, runny_nose, cough, pressure_sinuses,
+                blue_under_eyes, bad_sleep, allergy_eczema, userId, eye_redness);
 
         call.enqueue(new Callback<Tracker>() {
             @Override
@@ -237,7 +234,7 @@ public class AddTrackerActivity extends AppCompatActivity  {
                 String value = response.body().getValue();
                 String message = response.body().getMassage();
 
-                if (value.equals("1")){
+                if (value.equals("1")) {
                     finish();
                     overridePendingTransition(0, 0);
                     startActivity(getIntent());
@@ -255,8 +252,6 @@ public class AddTrackerActivity extends AppCompatActivity  {
                 Toast.makeText(AddTrackerActivity.this, t.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
     }
