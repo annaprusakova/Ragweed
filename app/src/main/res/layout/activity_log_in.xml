@@ -34,7 +34,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="Ragweed"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="50sp"
+                    android:textSize="40sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.151"
@@ -42,37 +42,51 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:layout_width="116dp"
-                    android:layout_height="81dp"
+                    android:layout_width="70dp"
+                    android:layout_height="71dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginRight="31dp"
                     android:src="@drawable/picture_plant" />
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputEmail"
+                android:id="@+id/filledTextField"
                 style="@style/parent"
+                app:hintEnabled="false"
+                app:boxStrokeColor="@color/colorAccent"
+                app:boxBackgroundColor="#0000"
                 android:layout_marginTop="@dimen/loginViewsMargin">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edittext_email"
                     style="@style/modifiedEditText"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:textColor="#292929"
+                    android:textColorHint="#797979"
+                    app:errorEnabled="true"
                     android:hint="Пошта"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputPassword"
                 style="@style/parent"
+                app:errorEnabled="true"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="#0000"
+                app:passwordToggleTint="#5DA69E"
+                app:passwordToggleEnabled="true"
                 android:layout_marginTop="@dimen/loginViewsMargin">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edittext_password"
                     style="@style/modifiedEditText"
                     android:hint="Пароль"
+                    android:inputType="textPassword"
                     android:maxLines="1"
-                    android:inputType="textPassword"/>
+                    android:textColor="#292929"
+                    android:textColorHint="#797979" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -83,43 +97,51 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="10dp"/>
 
-            <com.dd.CircularProgressButton
-                android:id="@+id/button_login"
-                style="@style/loginButton"
-                android:text="Вхід"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/loginViewsMargin"
-                app:cpb_cornerRadius="27dp"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/button_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="29dp"
+                    android:layout_marginBottom="10dp"
+                    app:backgroundTint="@color/colorPrimary"
+                    android:src="@drawable/round_arrow_forward_24"
+                    app:fabCustomSize="40dp"
+                    app:rippleColor="@color/colorPrimaryDark"
+                    tools:ignore="RelativeOverlap" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="21dp"
+                    android:padding="15dp"
+                    android:text="Вхід"
+                    android:textColor="#191919"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
             <TextView
+                android:id="@+id/textview_singup"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:textColor="@color/colorAccent"
-                android:textSize="17sp"
+                android:textSize="10sp"
+                android:layout_marginStart="10dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Новий користувач? \nЗареєструйся"
                 android:layout_marginTop="10dp"
                 android:onClick="OpenSignupPage"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/textview_singup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:src="@drawable/round_arrow_forward_24"
-                app:backgroundTint="@color/colorAccent"
-                app:rippleColor="@color/colorPrimaryDark"
-                app:elevation="0dp"
-                app:fabCustomSize="70dp"
-                tools:ignore="RelativeOverlap" />
-            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

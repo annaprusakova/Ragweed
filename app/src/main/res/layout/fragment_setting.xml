@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SettingFragment"
-    android:background="@drawable/background_setting">
+    android:orientation="vertical"
+    tools:context=".fragments.SettingFragment">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_article"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/add_tarcker_top">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp">
+
+            <TextView
+                android:id="@+id/tvNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Налаштування"
+                android:textColor="@color/not_quite_black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <LinearLayout
@@ -14,96 +38,127 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_marginTop="3dp"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/snippet_setting"/>
-
-        </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingBottom="30dp"
-        android:paddingTop="10dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileCircleImageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@color/colorPrimaryDark"
-                android:src="@drawable/picture_plant"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="10dp"/>
-
-            <TextView
-                android:id="@+id/usernameTextView"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Anna Prusakova"
-
-                android:textColor="@color/contentTextColor"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:layout_toRightOf="@id/profileCircleImageView"
-                android:layout_marginTop="35dp"/>
-
-        </RelativeLayout>
-
-
-        <TextView
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textColor="#5D5C5C"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginTop="80dp"
-            android:text="Профіль"/>
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="30dp">
 
-        <TextView
-            android:id="@+id/edit_profile"
-            style="@style/viewParent.headerText.settingsTextIcon"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/icon_edit_profile"
-            android:text="Редагувати профіль" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/edit_password"
-            style="@style/viewParent.headerText.settingsTextIcon"
-            android:drawableLeft="@drawable/icon_password"
-            android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:text="Пароль" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileCircleImageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/picture_plant"
+                    app:civ_border_color="@color/colorPrimaryDark"
+                    app:civ_border_width="3dp" />
+
+                <TextView
+                    android:id="@+id/usernameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@id/profileCircleImageView"
+                    android:text="Anna Prusakova"
+                    android:textColor="@color/not_quite_black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layoutName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/cpb_white"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="0.5dp"
+                app:strokeColor="@color/colorTransparentWhite"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Профіль"
+                        android:textColor="#5D5C5C"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_profile"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/icon_edit_profile"
+                        android:padding="5dp"
+                        android:text="Редагувати профіль"
+                        android:textColor="@color/not_quite_black"
+                        android:textSize="12sp"
+                        app:cornerRadius="10dp"
+                        app:iconSize="30dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/edit_password"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:drawableLeft="@drawable/icon_password"
+                        android:padding="5dp"
+                        android:text="Пароль"
+                        android:textColor="@color/not_quite_black"
+                        android:textSize="12sp"
+                        app:cornerRadius="10dp"
+                        app:iconSize="30dp" />
 
 
-
-        <TextView
-            style="@style/viewParent.headerText.settingsMiniTitle"
-            android:textSize="18sp"
-            android:text="Інше"/>
-
+                    <TextView
+                        style="@style/viewParent.headerText.settingsMiniTitle"
+                        android:text="Інше"
+                        android:textSize="12sp" />
 
 
-        <TextView
-            style="@style/viewParent.headerText.settingsTextIcon"
-            android:id="@+id/logout_app"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/icon_exit"
-            android:text="Вихід" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/logout_app"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/icon_exit"
+                        android:padding="5dp"
+                        android:text="Вихід"
+                        android:textColor="@color/not_quite_black"
+                        android:textSize="12sp"
+                        app:cornerRadius="10dp"
+                        app:iconSize="30dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+
     </LinearLayout>
 
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

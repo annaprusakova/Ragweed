@@ -1,5 +1,5 @@
 <selector
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@android:color/white" android:state_checked="false" android:drawable="@drawable/icon_chart"/>
-    <item android:color="@android:color/white" android:state_checked="true" android:drawable="@drawable/icon_chart_filled" />
+    <item android:color="@android:color/white" android:state_checked="false" android:drawable="@drawable/icon_menu_tracker"/>
+    <item android:color="@android:color/white" android:state_checked="true" android:drawable="@drawable/icon_menu_tracker_filled" />
 </selector>

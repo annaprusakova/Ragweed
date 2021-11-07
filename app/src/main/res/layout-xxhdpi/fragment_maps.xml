@@ -47,7 +47,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Перглянути карту"
-        app:icon="@drawable/icon_map"
+        app:icon="@drawable/icon_menu_map"
         app:iconSize="30dp" />
 
     <com.google.android.material.button.MaterialButton

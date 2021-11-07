@@ -34,7 +34,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="Ragweed"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.151"
@@ -42,19 +42,19 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="71dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="31dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="30dp"
                     android:src="@drawable/picture_plant" />
             </RelativeLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/cpb_white"
                 app:cardCornerRadius="10dp">
 
@@ -152,7 +152,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp">
+                        android:layout_marginTop="10dp">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/button_signup"
@@ -168,7 +168,7 @@
                             app:rippleColor="@color/colorPrimaryDark"
                             android:src="@drawable/round_arrow_forward_24"
                             app:elevation="0dp"
-                            app:fabCustomSize="60dp"
+                            app:fabCustomSize="40dp"
                             tools:ignore="RelativeOverlap" />
 
                         <TextView
@@ -180,7 +180,7 @@
                             android:padding="15dp"
                             android:text="Реєстрація"
                             android:textColor="#191919"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
@@ -191,10 +191,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="3dp"
                         android:text="Вже маєте аккаунт?"
                         android:textAlignment="center"
-                        android:textSize="17sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
                     <ProgressBar
                         android:id="@+id/loading_signup"

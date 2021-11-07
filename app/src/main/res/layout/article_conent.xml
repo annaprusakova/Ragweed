@@ -99,7 +99,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_gravity="center"
                             android:layout_toLeftOf="@+id/article_link"
-                            android:src="@drawable/ic_action_link" />
+                            android:src="@drawable/icon_link" />
 
                         <TextView
                             android:id="@+id/article_link"
@@ -125,11 +125,11 @@
 
                         <ImageView
                             android:id="@+id/com_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="16dp"
+                            android:layout_width="30dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_insert_comment"
+                            android:src="@drawable/icon_comment"
                            />
 
                         <TextView
