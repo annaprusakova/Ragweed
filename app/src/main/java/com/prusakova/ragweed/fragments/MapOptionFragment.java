@@ -16,12 +16,14 @@ import com.prusakova.ragweed.MapsActivity;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.AddPointActivity;
 import com.prusakova.ragweed.activities.LocationViewActivity;
+import com.prusakova.ragweed.activities.MapStatisticActivity;
 
 public class MapOptionFragment extends Fragment {
 
 private Button goToMap;
 private Button addPoint;
 private Button seePoint;
+private Button seeStatistic;
     private Toolbar toolbar;
 
     @Nullable
@@ -32,6 +34,7 @@ private Button seePoint;
         goToMap = view.findViewById(R.id.watch_map);
         addPoint = view.findViewById(R.id.add_point);
         seePoint = view.findViewById(R.id.watch_point);
+        seeStatistic = view.findViewById(R.id.watch_statistic);
         toolbar = view.findViewById(R.id.toolbar_map);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
@@ -59,6 +62,14 @@ private Button seePoint;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), LocationViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        seeStatistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MapStatisticActivity.class);
                 startActivity(intent);
             }
         });

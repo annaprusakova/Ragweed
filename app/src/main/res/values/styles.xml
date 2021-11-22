@@ -30,7 +30,7 @@
     </style>
 
     <style name="SwitchTheme" parent="settingsText">
-        <item name="android:colorControlActivated">#2E5902</item>
+        <item name="android:colorControlActivated">#A2BF63</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

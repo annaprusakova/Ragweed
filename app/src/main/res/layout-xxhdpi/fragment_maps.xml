@@ -62,6 +62,16 @@
         android:text="Додати мітку"
         app:icon="@drawable/ic_action_add" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/watch_statistic"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Переглянути статистику"
+            app:icon="@drawable/icon_menu_tracker" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/watch_point"
         style="?attr/materialButtonOutlinedStyle"

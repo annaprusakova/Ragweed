@@ -21,7 +21,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCOE_hHqjTqgDXKB7DLiJVx8U7_w6r0MZAAIzaSyCOE_hHqjTqgDXKB7DLiJVx8U7_w6r0MZA" />
+            android:value="AIzaSyDlCAA3i30mPbTN8tGYwa8m-Nwhhim3j0Q" />
 
         <activity
             android:name=".MapsActivity"
@@ -34,6 +34,7 @@
         <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.LocationViewActivity" />
         <activity android:name=".activities.AddPointActivity" />
+        <activity android:name=".activities.MapStatisticActivity"/>
         <activity android:name=".activities.IteamMedActivity" />
         <activity android:name=".activities.AddTrackerActivity" />
         <activity android:name=".activities.ArticleActivity" />
