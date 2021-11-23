@@ -11,30 +11,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.activities.AddTrackerActivity;
 import com.prusakova.ragweed.api.Api;
@@ -44,9 +38,15 @@ import com.prusakova.ragweed.model.Tracker;
 
 import androidx.fragment.app.Fragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 
 import retrofit2.Call;
@@ -56,17 +56,16 @@ import retrofit2.Response;
 public class TrackerFragment extends Fragment {
 
     private Toolbar toolbar;
-    private BarChart chart;
-    private PieChart pieChart;
+    private BarChart barChartYear;
+    private BarChart barChartMonth;
     public Api apiInterface;
     private List<Tracker> trackList;
     private Button months;
     private Button years;
-    private Switch BarChartSwitch, LineChartSwitch;
-    final String Your_Fragment_TAG = "TrackerFragment";
-
-
+    private static final String[] MONTHS = {"", "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
+            "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"};
     int userId = 0;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,12 +77,10 @@ public class TrackerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tracker, container, false);
-        chart = view.findViewById(R.id.chart);
+        barChartYear = view.findViewById(R.id.barchartYear);
+        barChartMonth = view.findViewById(R.id.barchartMonth);
         months = view.findViewById(R.id.btnMonth);
         years = view.findViewById(R.id.btnYear);
-        BarChartSwitch = view.findViewById(R.id.BarChartSwitch);
-        LineChartSwitch = view.findViewById(R.id.LineChartSwitch);
-        pieChart = view.findViewById(R.id.activity_main_piechart);
         apiInterface = ApiClient.getClient().create(Api.class);
 
 
@@ -94,16 +91,10 @@ public class TrackerFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Трекер");
         }
         userId = SharedPref.getInstance(getActivity()).LoggedInUserId();
-        chart.setNoDataText("Ще не має даних");
-
-        if (BarChartSwitch.isChecked()) {
-            chart.setVisibility(View.VISIBLE);
-        } else {
-            chart.setVisibility(View.INVISIBLE);
-        }
+        barChartYear.setNoDataText("Ще не має даних");
+        barChartMonth.setNoDataText("Ще не має даних");
 
         getData(userId);
-        setupPieChart();
 
         return view;
     }
@@ -139,7 +130,13 @@ public class TrackerFragment extends Fragment {
                 months.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        setDataMonth(trackList);
+                        try {
+                            setDataByMonth(trackList);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        barChartYear.setVisibility(View.INVISIBLE);
+                        barChartMonth.setVisibility(View.VISIBLE);
 
                     }
                 });
@@ -147,15 +144,13 @@ public class TrackerFragment extends Fragment {
                 years.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        setData(trackList);
+                        setDataByYear(trackList);
+                        barChartYear.setVisibility(View.VISIBLE);
+                        barChartMonth.setVisibility(View.INVISIBLE);
                     }
                 });
-
-                setData(trackList);
-                loadPieChartData(trackList);
-
+                setDataByYear(trackList);
             }
-
 
             @Override
             public void onFailure(Call<List<Tracker>> call, Throwable t) {
@@ -165,16 +160,28 @@ public class TrackerFragment extends Fragment {
     }
 
 
-    private void setData(List<Tracker> list) {
-
-        ArrayList<BarDataSet> dataSets = new ArrayList<>();
-
+    private void setDataByYear(List<Tracker> list) {
+        cleanChart();
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         ArrayList<BarEntry> allergy = new ArrayList<>();
-        int count = 0;
+        ArrayList<String> monthsList = new ArrayList<>();
 
-        for (int i = 0; i < list.size(); i++) {
-            count = list.get(i).getDegree();
-            BarEntry value = new BarEntry(count, i);
+        for (int i = 0; i < list.size(); i++){
+            String month = list.get(i).getTracker_date().substring(3,5);
+            if(!monthsList.contains(month)) {
+                monthsList.add(month);
+            }
+        }
+
+        for (int i = 0; i < monthsList.size(); i++) {
+            String month = monthsList.get(i);
+            int count = 0;
+            for (int j = 0; j < list.size(); j++) {
+                if (list.get(j).getTracker_date().substring(3,5).equals(month)) {
+                    count += list.get(j).getDegree();
+                }
+            }
+            BarEntry value = new BarEntry(Integer.parseInt(month), count);
             allergy.add(value);
         }
 
@@ -183,202 +190,85 @@ public class TrackerFragment extends Fragment {
 
         dataSets.add(allergyData);
 
-        ArrayList<String> xAxis = new ArrayList<>();
+        BarData data = new BarData(dataSets);
+        barChartYear.setData(data);
 
-        ArrayList<String> dateForYears = new ArrayList<>();
-
-
-        for (int i = 0; i < list.size(); i++) {
-            String d = list.get(i).getTracker_date();
-            String month = "Січень";
-            switch (d.substring(3, 5)) {
-                case "01":
-                    month = "Січень";
-                    break;
-                case "02":
-                    month = "Лютий";
-                    break;
-                case "03":
-                    month = "Березень";
-                    break;
-                case "04":
-                    month = "Квітень";
-                    break;
-                case "05":
-                    month = "Травень";
-                    break;
-                case "06":
-                    month = "Червень";
-                    break;
-                case "07":
-                    month = "Липень";
-                    break;
-                case "08":
-                    month = "Серпень";
-                    break;
-                case "09":
-                    month = "Вересень";
-                    break;
-                case "10":
-                    month = "Жовтень";
-                    break;
-                case "11":
-                    month = "Листопад";
-                    break;
-                case "12":
-                    month = "Грудень";
-                    break;
+        XAxis xl = barChartYear.getXAxis();
+        xl.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return MONTHS[(int) value];
             }
 
-            dateForYears.add(month + " " + d.substring(6));
-        }
+        });
 
-
-        for (String months : dateForYears) {
-            Log.d("CHART_RESPONSE", "month: " + months.toString());
-            xAxis.add(months);
-        }
-
-        com.github.mikephil.charting.charts.BarChart chart = getActivity().findViewById(R.id.chart);
-
-
+        barChartYear.getAxisLeft().setEnabled(false);
+        barChartYear.getXAxis().setDrawGridLines(false);
+        YAxis axisLeft = barChartYear.getAxisLeft();
+        axisLeft.setGranularity(10f);
+        xl.setGranularityEnabled(true);
+        axisLeft.setAxisMinimum(0);
+        barChartYear.animateXY(2000, 2000);
+        barChartYear.getDescription().setEnabled(false);
     }
 
-    private void setDataMonth(List<Tracker> list) {
-        ArrayList<BarDataSet> dataSets = new ArrayList<>();
-
+    private void setDataByMonth(List<Tracker> list) throws ParseException {
+        cleanChart();
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         ArrayList<BarEntry> allergy = new ArrayList<>();
-        int count = 0;
+        ArrayList<String> dateList = new ArrayList<>();
+        final ArrayList<String> labels = new ArrayList<>();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MM", Locale.getDefault());
+
         for (int i = 0; i < list.size(); i++) {
-            count = list.get(i).getDegree();
-            BarEntry value = new BarEntry(count, i);
-            allergy.add(value);
+            String date = list.get(i).getTracker_date().substring(0,5);
+            if(!dateList.contains(date)) {
+                dateList.add(date);
+            }
         }
 
-        BarDataSet allergyData = new BarDataSet(allergy, "Степінь аллергії");
-        allergyData.setColor(Color.rgb(93, 166, 158));
+        for (int i = 0; i < dateList.size(); i++) {
+            String dateString = dateList.get(i).substring(0,5);
+            Date date = new SimpleDateFormat("dd.MM").parse(dateString);
+            int dayDegree = list.get(i).getDegree();
+            BarEntry value = new BarEntry(i, dayDegree);
+            allergy.add(value);
+            labels.add(simpleDateFormat.format(date));
+        }
 
-        dataSets.add(allergyData);
+        BarDataSet allergyDay = new BarDataSet(allergy, "Степінь аллергії");
+        allergyDay.setColor(Color.rgb(93, 166, 158));
 
-        ArrayList<String> xAxis = new ArrayList<>();
+        dataSets.add(allergyDay);
 
-        ArrayList<String> dateForYears = new ArrayList<>();
+        BarData dayData = new BarData(dataSets);
+        XAxis xAxis = barChartMonth.getXAxis();
 
-
-        for (int i = 0; i < list.size(); i++) {
-
-            String d = list.get(i).getTracker_date();
-            String month = "Січень";
-            switch (d.substring(3, 5)) {
-                case "01":
-                    month = "Січеня";
-                    break;
-                case "02":
-                    month = "Лютого";
-                    break;
-                case "03":
-                    month = "Березня";
-                    break;
-                case "04":
-                    month = "Квітня";
-                    break;
-                case "05":
-                    month = "Травня";
-                    break;
-                case "06":
-                    month = "Червня";
-                    break;
-                case "07":
-                    month = "Липня";
-                    break;
-                case "08":
-                    month = "Серпня";
-                    break;
-                case "09":
-                    month = "Вересня";
-                    break;
-                case "10":
-                    month = "Жовтня";
-                    break;
-                case "11":
-                    month = "Листопада";
-                    break;
-                case "12":
-                    month = "Грудня";
-                    break;
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                int intValue = (int) value;
+                String result = (labels.size() > intValue && intValue >= 0) ? labels.get(intValue) : "";
+                return result.replace(" ", ".");
             }
 
-            dateForYears.add(d.substring(0, 2) + " " + month);
-        }
-
-
-        for (String months : dateForYears) {
-            Log.d("CHART_RESPONSE", "month: " + months.toString());
-            xAxis.add(months);
-        }
-
-        com.github.mikephil.charting.charts.BarChart chart = getActivity().findViewById(R.id.chart);
-
-        BarData data = new BarData();
-
-        chart.setData(data);
-        chart.getAxisLeft().setEnabled(false);
-        chart.getAxisRight().setEnabled(false);
-        chart.getXAxis().setDrawGridLines(false);
-        chart.animateXY(2000, 2000);
-        chart.invalidate();
+        });
+        barChartMonth.setData(dayData);
+        xAxis.setDrawGridLines(false);
+        YAxis axisLeft = barChartMonth.getAxisLeft();
+        axisLeft.setEnabled(false);
+        axisLeft.setGranularity(10f);
+        xAxis.setGranularityEnabled(true);
+        axisLeft.setAxisMinimum(0);
+        barChartMonth.animateXY(2000, 2000);
+        barChartMonth.getDescription().setEnabled(false);
+        barChartMonth.invalidate();
     }
 
-    private void setupPieChart() {
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setUsePercentValues(true);
-        pieChart.setEntryLabelTextSize(12);
-        pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.setCenterText("Spending by Category");
-        pieChart.setCenterTextSize(24);
-        pieChart.getDescription().setEnabled(false);
-
-        Legend l = pieChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setEnabled(true);
+    private void cleanChart() {
+        barChartMonth.invalidate();
+        barChartYear.invalidate();
+        barChartYear.clear();
+        barChartMonth.clear();
     }
-
-    private void loadPieChartData(List<Tracker> list) {
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        ArrayList<PieDataSet> dataSets = new ArrayList<>();
-        int count = 0;
-        for (int i = 0; i < list.size(); i++) {
-            count = list.get(i).getDegree();
-            PieEntry value = new PieEntry(count, i);
-            entries.add(value);
-        }
-
-        ArrayList<Integer> colors = new ArrayList<>();
-        for (int color: ColorTemplate.MATERIAL_COLORS) {
-            colors.add(color);
-        }
-
-        for (int color: ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color);
-        }
-
-        PieDataSet dataSet = new PieDataSet(entries, "");
-        dataSet.setColors(colors);
-
-        PieData data = new PieData(dataSet);
-        data.setDrawValues(true);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(12f);
-        data.setValueTextColor(Color.BLACK);
-
-        pieChart.setData(data);
-        pieChart.invalidate();
-
-//        pieChart.animateY(1400, Easing.EaseInOutQuad);
-
-    }
-
 }

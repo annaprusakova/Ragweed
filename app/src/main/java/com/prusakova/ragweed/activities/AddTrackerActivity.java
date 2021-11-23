@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,11 +21,13 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.textfield.TextInputLayout;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
 
+import com.prusakova.ragweed.fragments.TrackerFragment;
 import com.prusakova.ragweed.model.Tracker;
 
 
@@ -51,6 +55,7 @@ public class AddTrackerActivity extends AppCompatActivity {
     private Chip eyeRedness;
     private Toolbar toolbar;
     private EditText dateTracker;
+    private TextInputLayout textDate;
     Calendar myCalendar = Calendar.getInstance();
 
     private Api apiInterface;
@@ -74,6 +79,7 @@ public class AddTrackerActivity extends AppCompatActivity {
         allergyEczema = findViewById(R.id.allergy_eczema);
         eyeRedness = findViewById(R.id.eye_redness);
         dateTracker = findViewById(R.id.date);
+        textDate = findViewById(R.id.textDate);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -81,12 +87,12 @@ public class AddTrackerActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationIcon(R.drawable.ic_chevron_left);
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        dateTracker.setShowSoftInputOnFocus(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-
             }
         });
 
@@ -94,7 +100,6 @@ public class AddTrackerActivity extends AppCompatActivity {
         dateTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AddTrackerActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -131,9 +136,11 @@ public class AddTrackerActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.menu_save:
+                boolean check = itchyEyes.isChecked() || soreThroat.isChecked() || waterEyes.isChecked() ||  runnyNose.isChecked()
+                        || Cough.isChecked() || pressureSinuses.isChecked() || blueUnderEyes.isChecked() ||
+                        badSleep.isChecked() || allergyEczema.isChecked() || eyeRedness.isChecked();
 
-
-                if (TextUtils.isEmpty(dateTracker.getText().toString())) {
+                if (TextUtils.isEmpty(dateTracker.getText().toString()) || !check) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                     alertDialog.setMessage("Будь ласка, заповніть поля!");
                     alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
