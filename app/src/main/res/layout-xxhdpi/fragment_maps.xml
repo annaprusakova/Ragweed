@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Переглянути вже додаді мітки"
+        android:text="Переглянути мої додаді мітки"
         app:icon="@drawable/ic_toolbar_edit" />
 
 </LinearLayout>

@@ -59,19 +59,19 @@ public class SharedPref {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_PHOTO, photo);
-        editor.commit();
+        editor.apply();
     }
     public void storeUserEmail(String email) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_EMAIL, email);
-        editor.commit();
+        editor.apply();
     }
     public void storeUserPassword(String password) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_PASSWORD, password);
-        editor.commit();
+        editor.apply();
     }
 
     //check if user is logged in

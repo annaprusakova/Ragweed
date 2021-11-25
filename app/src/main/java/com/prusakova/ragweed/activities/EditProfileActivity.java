@@ -211,7 +211,9 @@ public class EditProfileActivity extends AppCompatActivity {
         Picasso.with(EditProfileActivity.this)
                 .load(photo)
                 .into(Picture);
-        switch (gender){
+        SharedPref.getInstance(EditProfileActivity.this).storeUserPhoto(photo);
+        Log.d("photo up", "up:" + SharedPref.getInstance(EditProfileActivity.this).LoggedInUserPhoto());
+        switch (gender) {
             case GENDER_MALE:
                Gender.setSelection(1);
                 break;
