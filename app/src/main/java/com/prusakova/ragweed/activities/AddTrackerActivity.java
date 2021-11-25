@@ -22,11 +22,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputLayout;
+import com.prusakova.ragweed.BottomMenu;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.Api;
 import com.prusakova.ragweed.api.ApiClient;
 import com.prusakova.ragweed.api.SharedPref;
 
+import com.prusakova.ragweed.fragments.SettingFragment;
 import com.prusakova.ragweed.fragments.TrackerFragment;
 import com.prusakova.ragweed.model.Tracker;
 

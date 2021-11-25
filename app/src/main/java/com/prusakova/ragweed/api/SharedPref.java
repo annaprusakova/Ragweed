@@ -107,7 +107,7 @@ public class SharedPref {
 
     }
 
-    public String  LoggedInUserPasword() {
+    public String  LoggedInUserPassword() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(USER_PASSWORD,null);
 

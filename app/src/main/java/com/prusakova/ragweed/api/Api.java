@@ -153,7 +153,8 @@ public interface Api {
             @Field("comment_date") String comment_date,
             @Field("comment_text") String comment_text,
             @Field("comment_user_id") int user_comment_id,
-            @Field("comment_topic_id") int comment_topic_id);
+            @Field("comment_topic_id") int comment_topic_id,
+            @Field ("topic_name") String topic_name);
 
 
 }

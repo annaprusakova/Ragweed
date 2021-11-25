@@ -28,8 +28,7 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".activities.AddArticleActivity"/>
         <activity android:name=".activities.EditPasswordActivity" />
-        <activity android:name=".activities.CommentsActivity"
-            android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+        <activity android:name=".activities.CommentsActivity"/>
         <activity android:name=".activities.AboutLocationActivity" />
         <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.LocationViewActivity" />

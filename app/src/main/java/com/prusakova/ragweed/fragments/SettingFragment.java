@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,11 +42,11 @@ public class SettingFragment extends Fragment implements OnBackPressed {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
        View view =  inflater.inflate(R.layout.fragment_setting, null);
-        textViewExit = (Button)  view.findViewById(R.id.logout_app);
+        textViewExit =  view.findViewById(R.id.logout_app);
         toEditProfile = view.findViewById(R.id.edit_profile);
         toEditPassword  = view.findViewById(R.id.edit_password);
         profilePhoto = view.findViewById(R.id.profileCircleImageView);
-        textViewUserName = (TextView) view.findViewById(R.id.usernameTextView);
+        textViewUserName =  view.findViewById(R.id.usernameTextView);
         builder = new AlertDialog.Builder(view.getContext());
         toolbar = view.findViewById(R.id.settingToolBar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -54,6 +55,7 @@ public class SettingFragment extends Fragment implements OnBackPressed {
         String loggedUsename = SharedPref.getInstance(getActivity()).LoggedInUser();
         textViewUserName.setText(loggedUsename);
         String userPhoto = SharedPref.getInstance(getActivity()).LoggedInUserPhoto();
+        Log.d("photo", "p " + userPhoto);
         Picasso.with(getActivity())
                 .load(userPhoto)
                 .into(profilePhoto);

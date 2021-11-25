@@ -2,6 +2,7 @@ package com.prusakova.ragweed.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.prusakova.ragweed.CommentAdapter;
 import com.prusakova.ragweed.R;
 import com.prusakova.ragweed.api.Api;
@@ -48,7 +51,7 @@ public class CommentsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView back;
     private TextView mTextEmpty;
-    private TextView mComment;
+    private TextInputEditText mComment;
     private ImageView mSentComment;
     int article_id, id_med;
     private  String topicA;
@@ -74,6 +77,9 @@ public class CommentsActivity extends AppCompatActivity {
         mSentComment = findViewById(R.id.postComment);
         toolbar = findViewById(R.id.commentToolBar);
         this.setSupportActionBar(toolbar);
+        if(this.getSupportActionBar() != null) {
+            this.getSupportActionBar().setTitle("");
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,15 +96,14 @@ public class CommentsActivity extends AppCompatActivity {
         String topic = null;
         int id = 0;
         if(!topicA.isEmpty() && topicA.equals("ArticleActivity.NAME")){
-            fetchComments("article",article_id);
+            fetchComments("article", article_id);
             Log.e("ac", "true");
         } else if(!topicA.isEmpty() && topicA.equals("IteamMedActivity.NAME")){
             fetchComments("medicine",id_med);
         }
 
-
-
-//        if(layoutManager.getItemCount() == 0){
+//
+//        if(commentAdapter.getItemCount() == 0){
 //            mTextEmpty.setVisibility(View.VISIBLE);
 //            mTextEmpty.setText("Ще немає коментарів. Додайте перший!");
 //        }
@@ -145,11 +150,20 @@ public class CommentsActivity extends AppCompatActivity {
         int userId = SharedPref.getInstance(CommentsActivity.this).LoggedInUserId();
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String text = mComment.getText().toString();
+        int id = 0;
+        String topic = "";
+        if(topicA.equals("ArticleActivity.NAME")) {
+           id = article_id;
+           topic = "article";
+        } else {
+            id = id_med;
+            topic = "medicine";
+        }
 
 
         apiInterface = ApiClient.getClient().create(Api.class);
 
-        Call<Comment> call = apiInterface.addComment(key,currentDate,text,userId,article_id);
+        Call<Comment> call = apiInterface.addComment(key,currentDate,text,userId,id, topic);
 
         call.enqueue(new Callback<Comment>() {
             @Override

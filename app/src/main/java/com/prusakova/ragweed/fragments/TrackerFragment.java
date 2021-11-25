@@ -126,12 +126,14 @@ public class TrackerFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Tracker>> call, Response<List<Tracker>> response) {
                 trackList = response.body();
+                barChartYear.notifyDataSetChanged();
 
                 months.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
                             setDataByMonth(trackList);
+                            barChartMonth.notifyDataSetChanged();
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -147,6 +149,7 @@ public class TrackerFragment extends Fragment {
                         setDataByYear(trackList);
                         barChartYear.setVisibility(View.VISIBLE);
                         barChartMonth.setVisibility(View.INVISIBLE);
+                        barChartYear.notifyDataSetChanged();
                     }
                 });
                 setDataByYear(trackList);

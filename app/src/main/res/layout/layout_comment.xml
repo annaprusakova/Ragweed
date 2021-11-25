@@ -64,9 +64,6 @@
                 android:text="3 d"
                 android:textSize="14sp" />
 
-
-
-
         </RelativeLayout>
 
     </RelativeLayout>
